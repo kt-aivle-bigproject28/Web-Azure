@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+  <style>
+    html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%; /* 전체 높이 */
+
+            flex-direction: column; /* 세로 방향 정렬 */
+        }
+        body {
+
+            flex-direction: column; /* 세로 정렬 */
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #002855;
+            border-bottom: 1px solid #ddd;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-container a {
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 16px;
+        }
+
+        .logo {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            font-weight: bold;
+            color: #002855;
+        }
+        .logo img {
+            height: 100px; /* 로고 높이를 설정 */
+            object-fit: contain; /* 비율 유지 */
+        }
+
+        .profile-container {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* 프로필과 버튼 사이 간격 */
+            position: relative;
+        }
+
+        .header-profile-img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%; /* 원형 이미지 */
+            object-fit: cover; /* 이미지 비율 유지 */
+            border: 2px solid #002855; /* 테두리 */
+        }
+
+        .logout-btn, .header-profile-img{
+            position: relative;
+            right: 30px;
+        }
+
+
+
+        .logout-btn {
+            background-color: #002855;
+            color: #fff;
+            border: none;
+            padding: 8px 12px; /* 버튼 크기 조정 */
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 14px;
+            text-decoration: none;
+        }
+    main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: calc(100vh - 140px);
+        height: auto;
+        padding: 20px;
+        margin-top: 80px;
+    }
+    .post-detail {
+        background-color: #fff;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        width: 90%;
+        max-width: 600px;
+        margin-top: 30px;
+    }
+    .post-title {
+        font-size: 32px;
+        color: #002855;
+        margin-bottom: 20px;
+    }
+    .post-info {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 20px;
+    }
+    .post-content {
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+    .post-actions {
+        display: flex;
+        justify-content: flex-end;
+    }
+    .edit-btn, .delete-btn {
+        background-color: #002855;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+        margin-left: 10px; /* 버튼 간격 조정 */
+    }
+    .delete-btn {
+        background-color: #f44336; /* 삭제 버튼 색상 */
+    }
+
+    .delete-btn:hover {
+            background-color: #ff645a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+
+    .search-btn {
+        background-color: #002855;
+        color: white;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+        margin-top: 20px;
+        margin-bottom: 30px;
+        transition: background-color 0.3s ease, transform 0.2s;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .search-btn:hover {
+        background-color: #003b7b;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .search-btn:active {
+        transform: translateY(1px);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .comments-section {
+        margin-top: 30px;
+        border-top: 1px solid #ddd;
+        padding-top: 20px;
+    }
+
+    .comment {
+        background-color: #f9f9f9;
+        border: 1px solid #e0e0e0;
+        border-radius: 4px;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    .comment-info {
+        font-size: 12px;
+        color: #666;
+        margin-bottom: 5px;
+    }
+
+    .comment-actions {
+        text-align: right;
+        margin-top: 5px;
+    }
+
+
+
+    .comment-form-group {
+        display: flex;
+        align-items: stretch; /* 입력창과 버튼 높이를 동일하게 */
+        gap: 10px; /* 입력창과 버튼 사이 간격 */
+    }
+
+    .comment-form textarea {
+        flex: 1; /* 가로로 남은 공간을 모두 사용 */
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        resize: none; /* 크기 조정 비활성화 */
+        font-size: 14px; /* 텍스트 크기 */
+        height: 50px; /* 입력창 높이 */
+        box-sizing: border-box; /* 패딩 포함 높이 계산 */
+        line-height: 1.2; /* 텍스트 줄 높이 설정 */
+    }
+
+    .submit-comment-btn {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 0 20px; /* 텍스트 좌우 간격 */
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px; /* 텍스트 크기 */
+        height: 50px; /* 버튼 높이를 입력창과 동일하게 설정 */
+        box-sizing: border-box; /* 패딩 포함 높이 계산 */
+        line-height: 1.2; /* 텍스트 줄 높이 설정 */
+        display: flex; /* 버튼 내부 텍스트 정렬 */
+        align-items: center;
+        justify-content: center;
+    }
+
+    .submit-comment-btn:hover {
+        background-color: #45a049;
+    }
+
+
+
+
+
+    .delete-comment-btn {
+        background-color: #f44336;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    .comment-form textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    .submit-comment-btn {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    footer {
+
+            background-color: #002855;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #ddd;
+        }
+
+        .footer-links a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #ffffff;
+        }
+    .hamburger{
+        display: none;
+        font-size: 24px;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+    @media (max-width: 768px) {
+        .hamburger {
+            display: block; /* 햄버거 메뉴 표시 */
+            color: #ffffff;
+        }
+
+        .nav-container {
+            display: none; /* 기본적으로 숨김 */
+        }
+
+        .nav-container.responsive {
+            display: flex; /* 햄버거 클릭 시 표시 */
+            flex-direction: column; /* 세로 정렬 */
+            align-items: flex-start;
+            position: absolute;
+            top: 60px;
+            left: 0;
+            width: 15%;
+            background-color: #002855;
+            padding: 10px 20px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <button class="hamburger" onclick="toggleNav()">☰</button>
+  <nav class="nav-container">
+    <a href="/home">Home</a>
+    <a href="/play">PlayModel</a>
+    <a href="/board">Board</a>
+    <a href="/log">Log</a>
+  </nav>
+  <div class="logo">
+    <a href="/home">
+      <img src="/image/logo.jpg" alt="Fiction2Toon 로고" style="height: 50px;">
+    </a>
+  </div>
+  <div class="profile-container">
+    <img src="/image/profile.jpg" alt="Profile" class="header-profile-img">
+    <a href="/logout" class="logout-btn">Logout</a>
+  </div>
+
+</header>
+
+<main>
+  <div class="post-detail">
+    <h1 class="post-title" th:text="${log.title}">게시글 제목</h1>
+    <div class="post-info">
+      작성자: <span th:text="${log.userUid}">작성자 ID</span> |
+      작성일: <span th:text="${log.createdTime}">작성일</span> |
+      <div class="form-group">
+        <div style="text-align: center; margin-top: 30px;">
+          <!-- 이미지가 있는 경우 반복문으로 출력 -->
+          <div th:if="${imagePaths != null && !imagePaths.isEmpty()}"
+               style="display: flex; flex-direction: column; align-items: center;">
+            <div th:each="imagePath : ${imagePaths}" style="width: 150px;">
+              <img th:src="${imagePath}" alt="log Image" style="width: 100%; height: auto;">
+            </div>
+          </div>
+
+          <!-- 이미지가 없는 경우 메시지 출력 -->
+          <p th:if="${imagePaths == null || imagePaths.isEmpty()}" style="color: #888;">첨부된 이미지가 없습니다.</p>
+        </div>
+      </div>
+      <div class="post-actions" th:if="${user == log.userUid}">
+        <form th:action="@{/log/{id}/delete(id=${log.id})}" method="post" onsubmit="return confirm('정말로 이 게시글을 삭제하시겠습니까?');">
+          <input type="hidden" name="_method" value="DELETE"/>
+          <button type="submit" class="delete-btn">삭제</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <button onclick="window.location.href='/log'" class="search-btn">목록으로 돌아가기</button>
+</main>
+
+<footer>
+  <div class="footer-links">
+    <a href="/home">Home</a>
+    <a href="/about">About</a>
+    <a href="/contact">Contact</a>
+  </div>
+  <p style="color: #ffffff;">&copy; 2025 hooncompany</p>
+</footer>
+
+<script>
+  function logout() {
+        alert('로그아웃되었습니다.');
+        window.location.href = 'login.html';
+    }
+
+    function toggleNav() {
+        const nav = document.querySelector('.nav-container');
+        nav.classList.toggle('responsive');
+    }
+</script>
+</body>
+</html>

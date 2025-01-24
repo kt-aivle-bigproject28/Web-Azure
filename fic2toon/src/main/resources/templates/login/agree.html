@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiction2Toon - Agree</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%; /* 화면 전체 높이를 유지 */
+            display: flex;
+            flex-direction: column; /* 세로 정렬 */
+        }
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+        }
+
+        header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #002855;
+            border-bottom: 1px solid #ddd;
+        }
+
+        header .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #002855;
+        }
+
+        main {
+            flex-grow: 1; /* 남은 공간을 채워 footer를 아래로 밀어냄 */
+            display: flex;
+            flex: 1; /* 남은 공간을 채우기 */
+            flex-direction: column;
+            justify-content: center; /* 세로 가운데 정렬 */
+            align-items: center; /* 가로 가운데 정렬 */
+            padding: 40px;
+        }
+
+        .terms-container {
+            text-align: left;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            height: 25vh; /* 높이를 화면의 25%로 고정 */
+            overflow-y: auto; /* 스크롤 가능 */
+            margin-bottom: 20px; /* 박스 간 간격 */
+        }
+
+
+        .terms-container h2 {
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .terms-content {
+            font-size: 14px;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        /* 공통 스타일 */
+        .checkbox-wrapper {
+          display: flex;
+          flex-direction: column; /* 수직 배치 */
+          align-items: center; /* 수평 가운데 정렬 */
+          gap: 10px; /* 요소 간 간격 */
+          margin: 20px auto;
+          font-size: 16px;
+          width: 400px; /* 컨테이너 크기 */
+          max-width: 100%; /* 작은 화면에 맞게 조정 */
+        }
+
+        .checkbox-wrapper .label {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          cursor: pointer;
+          font-size: 16px;
+          width: 100%; /* 텍스트와 SVG가 컨테이너 너비에 맞게 */
+        }
+
+        .checkbox-wrapper .label span {
+          flex-grow: 1;
+          text-align: left;
+        }
+
+        .checkbox-wrapper .check {
+          position: absolute;
+          opacity: 0;
+        }
+
+        .checkbox-wrapper .label svg {
+          width: 35px;
+          height: 35px;
+        }
+
+        .checkbox-wrapper .path1 {
+          stroke-dasharray: 400;
+          stroke-dashoffset: 400;
+          transition: 0.5s stroke-dashoffset;
+          opacity: 0;
+        }
+
+        .checkbox-wrapper .check:checked + .label svg g path {
+          stroke-dashoffset: 0;
+          opacity: 1;
+        }
+
+        .checkbox-wrapper .next-btn {
+          background-color: #002855;
+          color: #fff;
+          padding: 10px 0; /* 세로 패딩 */
+          border-radius: 4px;
+          font-size: 16px;
+          cursor: pointer;
+          text-align: center;
+          width: 100%; /* 컨테이너 크기에 맞춤 */
+          transition: background-color 0.3s ease;
+          margin-top: 10px; /* 위와의 간격 */
+        }
+
+        .checkbox-wrapper .next-btn:hover {
+          background-color: #003c7d;
+        }
+
+
+
+        .next-btn {
+            background-color: #002855;
+            color: #fff;
+            padding: 10px 20px; /* 버튼 패딩 */
+            border-radius: 4px; /* 모서리 둥글게 */
+            font-size: 16px; /* 폰트 크기 */
+            cursor: pointer; /* 커서 포인터 */
+        }
+
+
+        footer {
+            position: ;
+            background-color: #002855;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #ddd;
+            width: 100%;
+        }
+
+        .footer-links a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="logo">
+        <a href="/home">
+            <img src="/image/logo.jpg" alt="Fiction2Toon 로고" style="height: 50px;">
+        </a>
+    </div>
+</header>
+
+<main>
+    <form th:action="@{/agree}" method="post"> <!-- POST 요청을 위한 폼 -->
+        <div class="terms-container">
+            <h2>개인정보 이용약관</h2>
+            <div class="terms-content">
+                <p><strong>목적:</strong> 이용자 식별 및 본인여부 확인</p>
+                <p><strong>항목:</strong> 이름, 회원ID(이메일 주소), 비밀번호, 전화번호, 회사, 직책</p>
+                <p><strong>보유기간:</strong> 계약기간 종료 후 30일까지</p>
+                <p><strong>목적:</strong> 유료결제, 계약이행 및 정산자료 관리, 민원 등 고객고충처리, 인재 채용 관리</p>
+                <p><strong>기타:</strong> 사용자란 본 약관에 동의하고 서비스를 설치 및 사용하는 개인, 기업 및 기관 등 모든 사용자를 통칭하며, 사용자가 본 서비스를 이용하기 위해서는 본 이용약관에 동의해야 합니다.</p>
+                <p>-------------------------------------------------------------------------------------------------------</p>
+                <p>적용 일자: 2025년 1월 21일</p>
+            </div>
+        </div>
+
+        <div class="checkbox-wrapper">
+            <input type="checkbox" id="agree-personal" class="check" required>
+            <label for="agree-personal" class="label">
+                <svg width="45" height="45" viewBox="0 0 95 95">
+                    <rect x="30" y="20" width="50" height="50" stroke="black" fill="none"></rect>
+                    <g transform="translate(0,-952.36222)">
+                        <path d="m 56,963 c -102,122 6,9 7,9 17,-5 -66,69 -38,52 122,-77 -7,14 18,4 29,-11 45,-43 23,-4" stroke="black" stroke-width="3" fill="none" class="path1"></path>
+                    </g>
+                </svg>
+                <span>위 내용을 읽었으며 이용약관에 동의합니다.</span>
+            </label>
+        </div>
+
+        <div class="terms-container">
+            <h2>서비스 이용약관</h2>
+            <div class="terms-content">
+                <p><strong>목적:</strong> 사용자가 제공한 텍스트 파일을 기반으로 요약된 콘텐츠를 제작하고, 이를 광고형 웹툰으로 제공하기 위함.</p>
+                <p><strong>항목:</strong> 이름, 회원 ID(이메일 주소), 비밀번호, 전화번호, 업로드된 텍스트 파일 내용, 요청한 웹툰 형식 정보.</p>
+                <p><strong>보유기간:</strong> 계약 종료 후 30일까지 보유.</p>
+                <p><strong>이용 제한:</strong> 저작권 또는 지적재산권을 침해할 수 있는 자료의 업로드 금지하며 서비스의 불법적 사용 및 약관 위반 시 이용 제한.</p>
+                <p><strong>기타:</strong>
+                    사용자는 서비스 이용 시 본 약관에 동의해야 하며, 텍스트 파일의 모든 저작권 및 이용권에 대해 적법한 권리를 보유하고 있어야 합니다.<br>
+                    그리고 본 서비스는 광고형 웹툰 제작 이외의 용도로 제공된 자료를 사용하지 않으며, 개인정보는 관련 법률에 따라 안전하게 처리됩니다.</p>
+                <p>-------------------------------------------------------------------------------------------------------</p>
+                <p>적용 일자: 2025년 1월 21일</p>
+            </div>
+        </div>
+
+
+        <div class="checkbox-wrapper">
+            <input type="checkbox" id="agree-checkbox" class="check" required>
+            <label for="agree-checkbox" class="label">
+                <svg width="45" height="45" viewBox="0 0 95 95">
+                    <rect x="30" y="20" width="50" height="50" stroke="black" fill="none"></rect>
+                    <g transform="translate(0,-952.36222)">
+                        <path d="m 56,963 c -102,122 6,9 7,9 17,-5 -66,69 -38,52 122,-77 -7,14 18,4 29,-11 45,-43 23,-4" stroke="black" stroke-width="3" fill="none" class="path1"></path>
+                    </g>
+                </svg>
+                <span>위 내용을 읽었으며 이용약관에 동의합니다.</span>
+            </label>
+            <button type="submit" class="next-btn">다음</button>
+        </div>
+
+    </form>
+</main>
+
+<footer>
+    <div class="footer-links">
+        <a th:href="@{/login}">Home</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+    </div>
+    <p style="color: #ffffff;">&copy; 2025 hooncompany</p>
+</footer>
+
+</body>
+</html>

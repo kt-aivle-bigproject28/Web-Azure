@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fiction2Toon - Contact</title>
+  <style>
+    html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%; /* 전체 화면 높이를 채우기 위해 설정 */
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column; /* 플렉스 컨테이너로 설정 */
+        }
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            width: 100%;
+
+  height: 100%;
+  --color: #E1E1E1;
+  background-color: #F3F3F3;
+  background-image: linear-gradient(0deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%,transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%,transparent),
+      linear-gradient(90deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%,transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%,transparent);
+  background-size: 55px 55px;
+}
+
+        header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #002855;
+            border-bottom: 1px solid #ddd;
+
+        }
+
+    header .logo {
+        font-size: 24px;
+        font-weight: bold;
+        color: #002855;
+    }
+
+    main {
+        flex: 1; /* 메인 컨텐츠를 확장해 푸터를 아래로 밀기 */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        text-align: center;
+    }
+
+    main h1 {
+        font-size: 32px;
+        color: #002855;
+        margin-bottom: 20px;
+    }
+
+    main p {
+        font-size: 18px;
+        line-height: 1.8;
+        color: #4A63A4;
+        margin-bottom: 40px;
+    }
+
+    .contact-info {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 30px; /* 아이콘 사이 간격 */
+        margin-top: 30px;
+    }
+
+    .contact-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        font-size: 16px;
+        color: #333;
+    }
+
+    .contact-item svg {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 10px;
+        color: #002855;
+    }
+
+    .contact-item a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    footer {
+            position: ;
+            background-color: #002855;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #ddd;
+        }
+
+        .footer-links a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #ffffff;
+        }
+  </style>
+</head>
+<body>
+<header>
+  <div class="logo">
+    <a href="/home">
+      <img src="/image/logo.jpg" alt="Fiction2Toon 로고" style="height: 50px;">
+    </a>
+  </div>
+</header>
+
+<main>
+  <h1>저희 <strong>Fiction2Toon</strong>은...</h1>
+  <p>
+    저희는 최첨단 인공지능 기술을 활용하여 웹툰 제작과 광고 제작을 결합한 창의적인 솔루션을 제공합니다.<br>
+    열정을 가진 크리에이터와 함께 성장하며, 더 많은 파트너와 새로운 기회를 만들어 나가고자 합니다.<br>
+    항상 열려 있는 문을 통해, 함께 미래를 그려 나갈 여러분을 기다립니다.
+  </p>
+
+
+  <div class="contact-info">
+    <!-- 이메일 -->
+    <div class="contact-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-at-fill" viewBox="0 0 16 16">
+        <path d="M2 2A2 2 0 0 0 .05 3.555L8 8.414l7.95-4.859A2 2 0 0 0 14 2zm-2 9.8V4.698l5.803 3.546zm6.761-2.97-6.57 4.026A2 2 0 0 0 2 14h6.256A4.5 4.5 0 0 1 8 12.5a4.49 4.49 0 0 1 1.606-3.446l-.367-.225L8 9.586zM16 9.671V4.697l-5.803 3.546.338.208A4.5 4.5 0 0 1 12.5 8c1.414 0 2.675.652 3.5 1.671"/>
+        <path d="M15.834 12.244c0 1.168-.577 2.025-1.587 2.025-.503 0-1.002-.228-1.12-.648h-.043c-.118.416-.543.643-1.015.643-.77 0-1.259-.542-1.259-1.434v-.529c0-.844.481-1.4 1.26-1.4.585 0 .87.333.953.63h.03v-.568h.905v2.19c0 .272.18.42.411.42.315 0 .639-.415.639-1.39v-.118c0-1.277-.95-2.326-2.484-2.326h-.04c-1.582 0-2.64 1.067-2.64 2.724v.157c0 1.867 1.237 2.654 2.57 2.654h.045c.507 0 .935-.07 1.18-.18v.731c-.219.1-.643.175-1.237.175h-.044C10.438 16 9 14.82 9 12.646v-.214C9 10.36 10.421 9 12.485 9h.035c2.12 0 3.314 1.43 3.314 3.034zm-4.04.21v.227c0 .586.227.8.581.8.31 0 .564-.17.564-.743v-.367c0-.516-.275-.708-.572-.708-.346 0-.573.245-.573.791"/>
+      </svg>
+      <a href="mailto:tkfkds998811@gmail.com">tkfkds998811@gmail.com</a>
+    </div>
+
+
+
+    <!-- 전화번호 -->
+    <div class="contact-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone-outbound-fill" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877zM11 .5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V1.707l-4.146 4.147a.5.5 0 0 1-.708-.708L14.293 1H11.5a.5.5 0 0 1-.5-.5"/>
+      </svg>
+      <a href="tel:051-123-4567">051-123-4567</a>
+    </div>
+    <!-- 주소 -->
+    <div class="contact-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-map" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M15.817.113A.5.5 0 0 1 16 .5v14a.5.5 0 0 1-.402.49l-5 1a.5.5 0 0 1-.196 0L5.5 15.01l-4.902.98A.5.5 0 0 1 0 15.5v-14a.5.5 0 0 1 .402-.49l5-1a.5.5 0 0 1 .196 0L10.5.99l4.902-.98a.5.5 0 0 1 .415.103M10 1.91l-4-.8v12.98l4 .8zm1 12.98 4-.8V1.11l-4 .8zm-6-.8V1.11l-4 .8v12.98z"/>
+      </svg>
+      부산 동구 초량중로 29 (3층)
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-links">
+    <a href="/home">Home</a>
+    <a href="/about">About</a>
+    <a href="/contact">Contact</a>
+  </div>
+  <p style="color: #ffffff;">&copy; 2025 hooncompany</p>
+</footer>
+</body>
+</html>

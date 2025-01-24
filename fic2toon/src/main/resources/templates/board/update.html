@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 수정</title>
+    <style>
+        html, body {
+           margin: 0;
+           padding: 0;
+           font-family: Arial, sans-serif;
+           background-color: #f9f9f9;
+       }
+
+       header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #002855;
+            border-bottom: 1px solid #ddd;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-container a {
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 16px;
+        }
+
+        .logo {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            font-weight: bold;
+            color: #002855;
+        }
+        .logo img {
+            height: 100px; /* 로고 높이를 설정 */
+            object-fit: contain; /* 비율 유지 */
+        }
+
+        .profile-container {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* 프로필과 버튼 사이 간격 */
+            position: relative;
+        }
+
+        .header-profile-img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%; /* 원형 이미지 */
+            object-fit: cover; /* 이미지 비율 유지 */
+            border: 2px solid #002855; /* 테두리 */
+        }
+
+        .logout-btn, .header-profile-img{
+            position: relative;
+            right: 30px;
+        }
+
+
+
+        .logout-btn {
+            background-color: #002855;
+            color: #fff;
+            border: none;
+            padding: 8px 12px; /* 버튼 크기 조정 */
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+       main {
+           margin-top: 80px;
+           padding: 20px;
+           display: flex;
+           flex-direction: column;
+           align-items: center;
+       }
+
+       .form-container {
+           width: 100%;
+           max-width: 800px;
+           background: #fff;
+           padding: 20px;
+           border: 1px solid #ddd;
+           border-radius: 8px;
+           box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+       }
+
+       .form-group {
+           margin-bottom: 20px;
+       }
+
+       .form-group label {
+           display: block;
+           font-size: 14px;
+           color: #333;
+           margin-bottom: 5px;
+       }
+
+<!--        .form-group input[type="text"], -->
+<!--        .form-group textarea {-->
+<!--            width: 100%;-->
+<!--            padding: 10px;-->
+<!--            font-size: 14px;-->
+<!--            border: 1px solid #ccc;-->
+<!--            border-radius: 4px;-->
+<!--        }-->
+       .form-group input[type="text"],
+       textarea {
+           display: block;
+           width: 100%;
+           padding: 10px;
+           font-size: 14px;
+           font-family: Arial, sans-serif;
+           border: 1px solid #002855; /* 테두리 색상 동일 */
+           border-radius: 4px; /* 둥근 테두리 동일 */
+           background-color: #ffffff; /* 동일한 배경색 */
+           color: #000000; /* 동일한 글자색 */
+           box-sizing: border-box; /* 패딩 포함 크기 계산 */
+           transition: border-color 0.2s ease, box-shadow 0.2s ease; /* 부드러운 포커스 효과 */
+           outline: none; /* 기본 외곽선 제거 */
+       }
+
+       .form-group {
+           display: flex;
+           flex-direction: column;
+           gap: 10px; /* 항목 간 간격 */
+           margin-bottom: 20px;
+           padding: 0 20px; /* 양쪽 여백 추가 */
+       }
+
+       .checkbox-container {
+           display: flex;
+           gap: 15px;
+           align-items: center;
+       }
+
+       .checkbox-container label {
+           display: flex;
+           align-items: center;
+           gap: 5px;
+           font-size: 14px;
+           color: #002855;
+       }
+
+       .form-buttons {
+           display: flex;
+           justify-content: flex-end;
+           gap: 10px;
+       }
+
+       .form-buttons button {
+           background-color: #002855;
+           color: white;
+           padding: 10px 20px;
+           border: none;
+           border-radius: 4px;
+           cursor: pointer;
+       }
+
+       .form-buttons button:hover {
+           background-color: #004080;
+       }
+
+       .form-buttons .reset-btn {
+           background-color: #bbb;
+       }
+
+       .form-buttons .reset-btn:hover {
+           background-color: #999;
+       }
+
+       footer {
+            position: ;
+            background-color: #002855;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #ddd;
+        }
+
+        .footer-links a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #ffffff;
+        }
+
+       .hamburger {
+           display: none;
+           font-size: 24px;
+           background: none;
+           border: none;
+           cursor: pointer;
+       }
+
+       @media (max-width: 768px) {
+        .hamburger {
+            display: block; /* 햄버거 메뉴 표시 */
+            color: #ffffff;
+        }
+
+        .nav-container {
+            display: none; /* 기본적으로 숨김 */
+        }
+
+        .nav-container.responsive {
+            display: flex; /* 햄버거 클릭 시 표시 */
+            flex-direction: column; /* 세로 정렬 */
+            align-items: flex-start;
+            position: absolute;
+            top: 60px;
+            left: 0;
+            width: 15%;
+            background-color: #002855;
+            padding: 10px 20px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+    }
+
+       .file-upload-section {
+           margin-top: 20px;
+           padding: 20px;
+           background-color: #f0f0f0;
+           border-radius: 4px;
+       }
+
+       .file-upload-section h3 {
+           margin-top: 0;
+           color: #002855;
+       }
+
+       .upload-btn {
+           background-color: #4CAF50;
+           color: white;
+           padding: 10px 15px;
+           border: none;
+           border-radius: 4px;
+           cursor: pointer;
+           margin-top: 10px;
+       }
+
+       .upload-btn:hover {
+           background-color: #45a049;
+       }
+       .file-upload-label {
+           display: flex; /* 아이콘과 텍스트를 가로로 정렬 */
+           align-items: center; /* 세로 정렬 */
+           gap: 10px; /* 아이콘과 텍스트 사이 간격 */
+           font-size: 14px; /* 텍스트 크기 */
+           color: #333; /* 텍스트 색상 */
+           cursor: pointer; /* 클릭 가능 표시 */
+       }
+
+       .file-upload-label:hover {
+           color: #002855; /* 호버 시 텍스트 색상 변경 */
+       }
+
+       .file-upload-label svg {
+           transition: transform 0.2s ease; /* 아이콘 애니메이션 */
+       }
+
+       .file-upload-label:hover svg {
+           transform: scale(1.1); /* 호버 시 아이콘 확대 */
+       }
+
+       .row-container {
+           display: flex; /* 가로 정렬 */
+           align-items: center; /* 수직 가운데 정렬 */
+           gap: 20px; /* 항목 간격 */
+       }
+
+       .checkbox-container {
+           flex: 1; /* 카테고리 선택칸의 가로 영역 */
+           display: flex; /* 내부 항목 가로 배치 */
+           gap: 10px; /* 카테고리 옵션 간격 */
+       }
+
+       .row-container input[type="text"] {
+           flex: 2; /* 제목 입력 필드의 가로 영역 */
+           padding: 10px; /* 입력 필드 내부 여백 */
+           border: 1px solid #002855;
+           border-radius: 4px;
+           font-size: 14px; /* 글자 크기 */
+       }
+
+       textarea {
+           outline: none;
+           width: 100%;
+           height: 150px;
+           padding: 10px;
+           font-size: 14px;
+           border: 1px solid #002855; /* 기본 테두리 색상 */
+           border-radius: 4px;
+           resize: none;
+           box-sizing: border-box;
+           transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* 강조 효과 추가 */
+       }
+
+       textarea:focus {
+           border-color: #002855; /* 포커스 시 테두리 색상 */
+           box-shadow: 0 0 5px rgba(76, 139, 245, 0.5); /* 파란색 빛남 */
+       }
+
+       input[type="text"]:focus {
+           border-color: #002855;
+           box-shadow: 0 0 5px rgba(76, 139, 245, 0.5);
+           outline: none;
+       }
+
+
+
+
+
+.radio-button-container {
+ display: flex;
+ align-items: center;
+ gap: 24px;
+}
+
+.radio-button {
+ display: inline-block;
+ position: relative;
+ cursor: pointer;
+}
+
+.radio-button__input {
+ position: absolute;
+ opacity: 0;
+ width: 0;
+ height: 0;
+}
+
+.radio-button__label {
+ display: inline-block;
+ padding-left: 30px;
+ margin-bottom: 10px;
+ position: relative;
+ font-size: 15px;
+ color: #002855;
+ font-weight: 600;
+ cursor: pointer;
+ text-transform: uppercase;
+ transition: all 0.3s ease;
+}
+
+.radio-button__custom {
+ position: absolute;
+ top: 0;
+ left: 0;
+ width: 15px;
+ height: 15px;
+ border-radius: 50%;
+ border: 2px solid #002855;
+ transition: all 0.3s ease;
+}
+
+.radio-button__input:checked + .radio-button__label .radio-button__custom {
+ background-color: #002855;
+ border-color: transparent;
+ transform: scale(0.8);
+ box-shadow: 0 0 20px #4c8bf5;
+}
+
+.radio-button__input:checked + .radio-button__label {
+ color: #002855;
+}
+
+.radio-button__label:hover .radio-button__custom {
+ transform: scale(1.2);
+ border-color: #4c8bf5;
+ box-shadow: 0 0 20px #4c8bf580;
+}
+    </style>
+</head>
+<body>
+<header>
+    <button class="hamburger" onclick="toggleNav()">☰</button>
+    <nav class="nav-container">
+        <a href="/home">Home</a>
+        <a href="/play">PlayModel</a>
+        <a href="/board">Board</a>
+        <a href="/log">Log</a>
+    </nav>
+    <div class="logo">
+        <a href="/home">
+            <img src="/image/logo.jpg" alt="Fiction2Toon 로고" style="height: 50px;">
+        </a>
+    </div>
+    <div class="profile-container">
+        <img src="/image/profile.jpg" alt="Profile" class="header-profile-img">
+        <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+
+</header>
+
+<main>
+    <div class="form-container">
+        <form th:action="@{/board/update/{id}(id=${board.id})}" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <div class="row-container">
+                    <div class="radio-button-container">
+                        <div class="radio-button">
+                            <input type="radio" class="radio-button__input" id="radio1" name="boardType" value="0" required onclick="checkCategory(this)">
+                            <label class="radio-button__label" for="radio1">
+                                <span class="radio-button__custom"></span>
+                                공지사항
+                            </label>
+                        </div>
+                        <div class="radio-button">
+                            <input type="radio" class="radio-button__input" id="radio2" name="boardType" value="1" required onclick="checkCategory(this)">
+                            <label class="radio-button__label" for="radio2">
+                                <span class="radio-button__custom"></span>
+                                QnA
+                            </label>
+                        </div>
+                        <div class="radio-button">
+                            <input type="radio" class="radio-button__input" id="radio3" name="boardType" value="2" required onclick="checkCategory(this)">
+                            <label class="radio-button__label" for="radio3">
+                                <span class="radio-button__custom"></span>
+                                후기
+                            </label>
+                        </div>
+                    </div>
+                    <input type="text" id="title" name="title" placeholder="제목을 입력하세요." required>
+                </div>
+            </div>
+
+
+
+
+            <div class="form-group">
+                <textarea  id="content" name="content" placeholder="내용을 입력하세요." required></textarea> <!-- 내용 입력 -->
+            </div>
+
+            <div class="form-group">
+                <label for="file" class="file-upload-label">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-image" viewBox="0 0 16 16">
+                        <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
+                        <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1z"/>
+                    </svg>
+                    이미지 업로드시 사진 클릭
+                </label>
+                <!-- 숨겨진 파일 입력 -->
+                <input type="file" id="file" name="file" accept="image/*" onchange="uploadFile(event)" style="display: none;">
+
+
+                <!-- 미리보기 섹션 -->
+                <div id="preview">
+
+                    <p>이미지가 여기에 미리보기로 표시됩니다.</p>
+                </div>
+
+                <!-- 업로드된 파일 경로를 숨겨진 필드로 저장 -->
+                <input type="hidden" id="uploadedFilePath" name="fileName">
+            </div>
+
+
+            <div class="form-buttons">
+                <button type="reset" class="reset-btn">초기화</button> <!-- 초기화 버튼 -->
+                <button type="submit" class="submit-btn">게시글 수정</button> <!-- 제출 버튼 -->
+            </div>
+        </form>
+    </div>
+
+</main>
+
+<footer>
+    <div class="footer-links">
+        <a href="/home">Home</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+    </div>
+
+    <p style="color: #ffffff;">&copy; 2025 hooncompany</p>
+
+</footer>
+
+<script>
+    async function uploadFile(event) {
+        const file = event.target.files[0];
+        const preview = document.getElementById('preview');
+        preview.innerHTML = ""; // 기존 미리보기 초기화
+
+        // 이미지 파일인지 확인
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+
+            // 파일 읽기가 완료되었을 때 실행될 콜백
+            reader.onload = function(e) {
+                const img = document.createElement('img');
+                img.src = e.target.result; // base64 이미지 데이터
+                img.alt = "미리보기 이미지";
+                img.style.maxWidth = "100%"; // 이미지 크기 제한
+                img.style.border = "1px solid #ddd";
+                img.style.borderRadius = "4px";
+                preview.appendChild(img); // 미리보기 div에 추가
+            };
+
+            reader.readAsDataURL(file); // 파일을 읽어 base64로 변환
+        } else {
+            preview.innerHTML = "<p>이미지 파일만 업로드 가능합니다.</p>";
+        }
+
+        const formData = new FormData();
+        formData.append("file", file);
+
+        try {
+            const response = await fetch("/upload", {
+                method: "POST",
+                body: formData,
+            });
+
+            const fileName = await response.text(); // 서버에서 반환된 파일 경로
+            if (fileName !== "File upload failed") {
+                console.log("Uploaded File Path:", fileName); // 반환된 경로 확인
+                // 서버에서 받은 파일 경로를 숨겨진 필드에 저장
+                document.getElementById('uploadedFilePath').value = fileName;
+            } else {
+                console.error("File upload failed.");
+            }
+        } catch (error) {
+            console.error("Error uploading file:", error);
+        }
+        }
+    function toggleNav() {
+        const nav = document.querySelector('.nav-container');
+        nav.classList.toggle('responsive');
+    }
+
+    function logout() {
+        window.location.href = "/login";
+    }
+</script>
+</body>
+</html>

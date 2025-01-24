@@ -1,0 +1,77 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.4.1'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.bigproject'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17) // Java 17 설정
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral() // 의존성 리포지토리
+}
+
+ext {
+	set('springCloudVersion', "2024.0.0")
+}
+
+dependencies {
+
+	// Spring Boot 기본 Starters
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // JPA
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf' // Thymeleaf
+	implementation 'org.springframework.boot:spring-boot-starter-web' // Web MVC
+
+	// SQLite Database Driver
+	implementation 'org.xerial:sqlite-jdbc'
+
+	// Hibernate Dialects (SQLite 지원)
+	implementation 'org.hibernate.orm:hibernate-community-dialects'
+
+	// Lombok (코드 간소화용)
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	// 개발용 Hot-Reload
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	// 런타임 DB (테스트용 H2)
+	runtimeOnly 'com.h2database:h2'
+
+	// Spring Validation & Security
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
+	// Spring Cloud OpenFeign (REST 클라이언트)
+	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+
+	// 테스트 관련
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	implementation 'com.microsoft.sqlserver:mssql-jdbc:12.8.1.jre11'
+
+	implementation 'com.azure.spring:spring-cloud-azure-starter-storage-file-share:4.5.0'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+
+tasks.named('test') {
+	useJUnitPlatform() // JUnit 5 플랫폼 사용
+}

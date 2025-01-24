@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiction2Toon - Find Password</title>
+    <style>
+        /* 공통 스타일 */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+        }
+
+        header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #f4f4f4;
+            border-bottom: 1px solid #ddd;
+        }
+
+        header .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #002855;
+        }
+
+        header .signup-btn {
+            position: absolute;
+            background-color: #002855;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            right: 20px;
+        }
+
+        header .signup-btn a {
+            text-decoration: none;
+            color: white;
+        }
+
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: calc(100vh - 140px);
+        }
+
+        .findpw-container {
+            text-align: center;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        .findpw-container h1 {
+            font-size: 32px;
+            color: #002855;
+            margin-bottom: 20px;
+        }
+
+        .findpw-container input {
+            margin-bottom: 20px;
+            width: 83%;
+            padding: 10px 40px 10px 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .findpw-container button {
+            background-color: #002855;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        footer {
+            background-color: #f4f4f4;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #ddd;
+        }
+
+        .footer-links a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="logo"><img src="/image/logo.jpg" alt="Fiction2Toon 로고" style="height: 50px;"></div>
+    <button class="signup-btn">
+        <a href="/agree">SignUp</a>
+    </button>
+</header>
+
+<main>
+    <div class="findpw-container">
+        <h1>비밀번호 찾기</h1>
+        <form id="findpw-form" th:onSubmit="return false;" th:id="'findpw-form'" method="post" th:action="@{/findpw}">
+            <input type="text" id="name" name="name" placeholder="NAME" required>
+            <input type="text" id="uid" name="uid" placeholder="UID" required> <!-- ID를 UID로 변경 -->
+            <input type="text" id="phone" name="phone" placeholder="PH" required> <!-- PH를 phone으로 변경 -->
+            <button type="button" onclick="submitForm()">확인</button> <!-- 버튼 클릭 시 submitForm 호출 -->
+        </form>
+    </div>
+</main>
+
+<footer>
+    <div class="footer-links">
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+    </div>
+    <p>&copy; 2025 hooncompany</p>
+</footer>
+
+<script>
+    async function submitForm() {
+        const name = document.getElementById('name').value; // 이름
+        const uid = document.getElementById('uid').value; // UID
+        const phone = document.getElementById('phone').value; // 전화번호
+
+        try {
+            const response = await fetch('/findpw', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, uid, phone }), // JSON 형식으로 데이터 전송
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                alert('비밀번호가 이메일로 전송되었습니다.'); // 성공 메시지
+                window.location.href = '/login'; // 로그인 페이지로 이동
+            } else {
+                alert(result.message || '비밀번호 찾기 중 오류가 발생했습니다.');
+            }
+        } catch (error) {
+            alert('비밀번호 찾기 중 서버 오류가 발생했습니다.');
+        }
+    }
+</script>
+</body>
+</html>

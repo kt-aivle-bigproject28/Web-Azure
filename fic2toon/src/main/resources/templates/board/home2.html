@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiction2Toon - Main</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%; /* 전체 높이 */
+            display: flex;
+            flex-direction: column; /* 세로 방향 정렬 */
+        }
+        body {
+            margin: 0;
+
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, #ffffff, #f2f2f2); /* 밝은 톤의 부드러운 배경 */
+            color: #333; /* 텍스트 기본 색상 */
+        }
+
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #002855;
+            border-bottom: 1px solid #ddd;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-container a {
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 16px;
+        }
+
+        .logo {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            font-weight: bold;
+            color: #002855;
+        }
+        .logo img {
+            height: 100px; /* 로고 높이를 설정 */
+            object-fit: contain; /* 비율 유지 */
+        }
+
+        .profile-container {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* 프로필과 버튼 사이 간격 */
+            position: relative;
+        }
+
+        .header-profile-img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%; /* 원형 이미지 */
+            object-fit: cover; /* 이미지 비율 유지 */
+            border: 2px solid #002855; /* 테두리 */
+        }
+
+        .logout-btn, .header-profile-img{
+            position: relative;
+            right: 30px;
+        }
+
+
+
+        .logout-btn {
+            background-color: #002855;
+            color: #fff;
+            border: none;
+            padding: 8px 12px; /* 버튼 크기 조정 */
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        main {
+            flex: 1;
+            margin-top: 80px;
+            min-height: calc(100vh - 80px - 40px);
+
+            overflow: visible;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: row; /* 가로 방향 배치 */
+            align-items: center; /* 세로 중앙 정렬 */
+            justify-content: space-between; /* 양쪽 정렬 */
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 20px; /* 텍스트와 이미지 간 간격 */
+        }
+
+        .text-section {
+            flex: 1; /* 텍스트 영역 크기 조정 */
+            text-align: left; /* 텍스트 왼쪽 정렬 */
+        }
+
+        .text-section h1, .text-section h2 {
+            font-size: 24px;
+            color: #002855;
+            margin-bottom: 10px;
+        }
+
+        .text-section p {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #002855;
+        }
+
+        .image-section {
+            flex: 1; /* 이미지 영역 크기 조정 */
+        }
+
+        .image-section img {
+            width: 100%; /* 부모 요소에 맞게 너비 설정 */
+            max-width: 600px; /* 최대 너비 제한 */
+            height: auto; /* 가로세로 비율 유지 */
+            border-radius: 8px;
+        }
+
+        .team-section {
+            text-align: center;
+            padding: 50px 20px;
+            background-color: #f9f9f9;
+        }
+
+        .team-section h2 {
+            font-size: 32px;
+            color: #002855;
+            margin-bottom: 40px;
+        }
+
+        .team-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px; /* 팀원들 간 간격 */
+            flex-wrap: wrap; /* 화면 크기에 따라 줄바꿈 */
+        }
+
+        .team-member {
+            text-align: center;
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            max-width: 100%;
+        }
+
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%; /* 원형 이미지 */
+            object-fit: cover; /* 이미지 비율 유지 */
+            margin-bottom: 5px;
+            border: 4px solid #002855; /* 테두리 추가 */
+        }
+
+        .team-member h3 {
+            font-size: 30px;
+            color: #002855;
+            margin-bottom: 10px;
+        }
+
+        .team-member p {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #555;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+        .email {
+            font-size: 14px;
+            margin-top: 15px;
+            color: #002855;
+            word-break: break-word; /* 긴 이메일 줄바꿈 */
+        }
+
+        .email i {
+            margin-right: 5px;
+            color: #002855;
+        }
+
+        footer {
+            position: ;
+            flex-shrink: 0;
+            background-color: #f4f4f4;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #ddd;
+        }
+
+        .footer-links a {
+            margin: 0px;
+            text-decoration: none;
+            color: #555;
+        }
+        .hamburger{
+            display: none;
+            font-size: 24px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .video-frame {
+            width: 100%;
+            max-width: 560px; /* 동영상 최대 너비 */
+            height: 315px; /* 고정 높이 */
+            margin: 20px auto; /* 중앙 정렬 */
+            display: block; /* 블록 레벨 요소로 설정 */
+            border: none; /* 테두리 제거 */
+        }
+    @media (max-width: 768px) {
+        .hamburger {
+            display: block; /* 햄버거 메뉴 표시 */
+            color: #002855;
+        }
+
+        .nav-container {
+            display: none; /* 기본적으로 숨김 */
+        }
+
+        .nav-container.responsive {
+            display: flex; /* 햄버거 클릭 시 표시 */
+            flex-direction: column; /* 세로 정렬 */
+            align-items: flex-start;
+            position: absolute;
+            top: 60px;
+            left: 0;
+            width: 100%;
+            background-color: #f4f4f4;
+            padding: 10px 20px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+    }
+
+    </style>
+</head>
+<body>
+<header>
+    <button class="hamburger" onclick="toggleNav()">☰</button>
+    <nav class="nav-container">
+        <a href="/home">Home</a>
+        <a href="/play">PlayModel</a>
+        <a href="/board">Board</a>
+        <a href="/log">Log</a>
+    </nav>
+    <div class="logo"><img src="/image/logo.jpg" alt="Fiction2Toon 로고" style="height: 50px;"></div>
+    <div class="profile-container">
+        <img src="/image/profile.jpg" alt="Profile" class="header-profile-img">
+        <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+
+</header>
+
+<main>
+    <!-- 첫 번째 섹션 -->
+    <div class="content">
+        <div class="text-section">
+            <h1>저희 <strong>Fiction2Toon</strong>을 사용하려면 아래로...</h1>
+            <p>Fiction2Toon은 사용자 친화적인 인터페이스를 제공합니다. 간단하고 편리하게 이용하세요!</p>
+        </div>
+        <div class="image-section">
+            <img src="/image/hoonpaint.jpg" alt="HoonPaint 이미지">
+        </div>
+    </div>
+
+
+
+    <div class="content">
+        <h1>사용방법 동영상</h1>
+        <iframe class="video-frame"
+                src="https://www.youtube.com/embed/WAvA4iV7Te4"
+                width="560"
+                height="315"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+        </iframe>
+    </div>
+
+
+
+
+    <!-- 두 번째 섹션 -->
+    <div class="content">
+        <div class="text-section">
+            <h2>줄거리를 텍스트 또는 파일로 입력하세요</h2>
+            <p>hwp, txt, pdf 형식으로 올리거나 줄거리를 적어주세요요</p>
+        </div>
+        <div class="image-section">
+            <img src="/image/hyun.png" alt="model 사용법법">
+        </div>
+    </div>
+
+    <!-- 세세 번째 섹션 -->
+    <div class="content">
+        <div class="text-section">
+            <h2>줄거리가 요약 됐어요!</h2>
+            <p>줄거리가 마음에 들면 다음 버튼을 눌러주세요.</p>
+            <p>혹시 마음에 안들면 초기화 버튼을 눌러주세요.</p>
+        </div>
+        <div class="image-section">
+            <img src="/image/hyun.png" alt="model 사용법법">
+        </div>
+    </div>
+    <!-- 네 번째 섹션 -->
+    <div class="content">
+        <div class="text-section">
+            <h2>이제 웹툰을 만들 거예요!</h2>
+            <p>웹툰에 어울리는 그림을 선택해주세요.</p>
+            <p>그러면 열심히 만들어서 결과가 나와요.</p>
+        </div>
+        <div class="image-section">
+            <img src="/image/hyun.png" alt="model 사용법법">
+        </div>
+    </div>
+
+    <section class="team-section">
+        <h2>Fiction2Toon을 만든 사람들</h2>
+        <div class="team-container">
+            <!-- 팀원 1 -->
+            <div class="team-member">
+                <img src="/image/hoon.jpg" alt="Hoon 사진" class="profile-img">
+                <h3>hoon</h3>
+                <p>Front-End <br> Back-End
+                    <br>Data <br> AI Engineer
+                    <br>DB <br> Server</p>
+                <p class="email">
+                    <i class="fa fa-envelope"></i> tkfkds998811@gmail.com
+                </p>
+            </div>
+            <!-- 팀원 2 -->
+            <div class="team-member">
+                <img src="/image/hyun.png" alt="Hyun 사진" class="profile-img">
+                <h3>hyun</h3>
+                <p>Front-End <br> Back-End
+                    <br>Data <br> AI Engineer
+                    <br>DB <br> Server</p>
+                <p class="email">
+                    <i class="fa fa-envelope"></i> pearl5322@gmail.com
+                </p>
+            </div>
+            <!-- 팀원 3 -->
+            <div class="team-member">
+                <img src="/image/hoon.jpg" alt="HJae 사진" class="profile-img">
+                <h3>HJae</h3>
+                <p>Front-End <br> Back-End
+                    <br>Data <br> AI Engineer
+                    <br>DB <br> Server</p>
+                <p class="email">
+                    <i class="fa fa-envelope"></i> a066235@aivle.kt.co.kr
+                </p>
+            </div>
+            <!-- 팀원 4 -->
+            <div class="team-member">
+                <img src="/image/hoon.jpg" alt="Hoon 사진" class="profile-img">
+                <h3>hoon</h3>
+                <p>Front-End <br> Back-End
+                    <br>Data <br> AI Engineer
+                    <br>DB <br> Server</p>
+                <p class="email">
+                    <i class="fa fa-envelope"></i> tkfkds998811@gmail.com
+                </p>
+            </div>
+            <!-- 팀원 5 -->
+            <div class="team-member">
+                <img src="/image/hoon.jpg" alt="Hoon 사진" class="profile-img">
+                <h3>hoon</h3>
+                <p>Front-End <br> Back-End
+                    <br>Data <br> AI Engineer
+                    <br>DB <br> Server</p>
+                <p class="email">
+                    <i class="fa fa-envelope"></i> tkfkds998811@gmail.com
+                </p>
+            </div>
+            <!-- 팀원 6 -->
+            <div class="team-member">
+                <img src="/image/hoon.jpg" alt="Hoon 사진" class="profile-img">
+                <h3>hoon</h3>
+                <p>Front-End <br> Back-End
+                    <br>Data <br> AI Engineer
+                    <br>DB <br> Server</p>
+                <p class="email">
+                    <i class="fa fa-envelope"></i> tkfkds998811@gmail.com
+                </p>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="footer-links">
+        <a href="/home">Home</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+    </div>
+    <p>&copy; 2025 hooncompany</p>
+</footer>
+
+<script>
+    function logout() {
+        alert('로그아웃되었습니다.');
+        window.location.href = 'login.html';
+    }
+
+    function toggleNav() {
+        const nav = document.querySelector('.nav-container');
+        nav.classList.toggle('responsive');
+    }
+</script>
+</body>
+</html>

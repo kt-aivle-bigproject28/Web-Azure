@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>웹툰 사이트</title>
+  <style>
+    /* 기본 설정 */
+body {
+  margin: 0;
+  font-family: 'Noto Sans KR', sans-serif;
+  background: linear-gradient(to bottom, #ffffff, #f2f2f2); /* 밝은 톤의 부드러운 배경 */
+  color: #333; /* 텍스트 기본 색상 */
+}
+
+/* 헤더 스타일 */
+header {
+  background-color: #002855; /* 포인트 남색 */
+  color: white;
+  padding: 15px 20px;
+  font-size: 24px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 살짝의 그림자 효과 */
+}
+
+/* 네비게이션 메뉴 */
+nav {
+  background-color: #003f77; /* 남색 계열의 네비게이션 */
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+}
+
+nav a {
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  margin: 0 15px;
+  padding: 8px 12px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+nav a:hover {
+  background-color: #00509e; /* 밝은 남색으로 hover 효과 */
+}
+
+/* 메인 컨텐츠 */
+main {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 20px auto;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 부드러운 박스 그림자 */
+}
+
+/* 웹툰 리스트 섹션 */
+.webtoon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.webtoon-item {
+  background: #f9f9f9;
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.webtoon-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border-color: #002855; /* 남색 포인트 추가 */
+}
+
+.webtoon-item img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+.webtoon-item .title {
+  padding: 10px;
+  font-size: 16px;
+  color: #002855; /* 제목에 남색 강조 */
+  font-weight: bold;
+  text-align: center;
+}
+
+/* 푸터 */
+footer {
+  background-color: #002855; /* 푸터 배경에 남색 */
+  color: #fff;
+  text-align: center;
+  padding: 15px 0;
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  nav a {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+
+  .webtoon-item img {
+    height: 150px;
+  }
+}
+
+  </style>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>내 웹툰 사이트</header>
+<nav>
+  <a href="#new">신작 웹툰</a>
+  <a href="#best">인기 웹툰</a>
+  <a href="#genre">장르별</a>
+</nav>
+<main>
+  <section class="webtoon-grid">
+    <div class="webtoon-item">
+      <img src="webtoon1.jpg" alt="웹툰 1">
+      <div class="title">웹툰 제목 1</div>
+    </div>
+    <div class="webtoon-item">
+      <img src="webtoon2.jpg" alt="웹툰 2">
+      <div class="title">웹툰 제목 2</div>
+    </div>
+    <div class="webtoon-item">
+      <img src="webtoon3.jpg" alt="웹툰 3">
+      <div class="title">웹툰 제목 3</div>
+    </div>
+  </section>
+</main>
+<footer>© 2025 내 웹툰 사이트 - All Rights Reserved</footer>
+</body>
+</html>
