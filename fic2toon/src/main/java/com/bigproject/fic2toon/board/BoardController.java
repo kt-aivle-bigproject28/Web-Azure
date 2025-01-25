@@ -1,21 +1,19 @@
 package com.bigproject.fic2toon.board;
 
-import com.azure.storage.file.share.ShareFileClient;
-import com.azure.storage.file.share.ShareServiceClient;
+import com.azure.storage.blob.BlobClient;
+import com.azure.storage.blob.BlobContainerClient;
+import com.azure.storage.blob.BlobServiceClient;
+import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
-import org.springframework.core.io.WritableResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.io.OutputStream;
 
 @Controller
 @RequiredArgsConstructor
@@ -23,33 +21,39 @@ import java.io.OutputStream;
 public class BoardController {
 
     private final BoardService boardService;
-    private ResourceLoader resourceLoader;
-    private ShareServiceClient shareServiceClient;
+    private final BlobServiceClient blobServiceClient;
 
-    @Value("${spring.cloud.azure.storage.fileshare.share-name}")
-    private String shareName;
+    @Value("${spring.cloud.azure.storage.blob.container-name}")
+    private String containerName;
+
+    @PostConstruct
+    public void initializeBlobContainer() {
+        BlobContainerClient containerClient = blobServiceClient.getBlobContainerClient(containerName);
+        if (!containerClient.exists()) {
+            containerClient.create();
+            System.out.println("Blob container '" + containerName + "' created successfully.");
+        } else {
+            System.out.println("Blob container '" + containerName + "' already exists.");
+        }
+    }
 
     @GetMapping
     public String getBoardList(HttpSession session, Model model) {
-        String loginUserId = (String) session.getAttribute("loginUser"); // 로그인한 사용자 ID를 가져옴
-
+        String loginUserId = (String) session.getAttribute("loginUser");
         if (loginUserId == null) {
-            return "redirect:/login"; // 로그인하지 않은 경우 로그인 페이지로 리다이렉트
+            return "redirect:/login";
         }
-
-        model.addAttribute("user", loginUserId); // 사용자 타입 추가
-        model.addAttribute("boardList", boardService.getBoardList()); // 게시판 목록 추가
-        return "board/board"; // 게시판 뷰 반환
+        model.addAttribute("user", loginUserId);
+        model.addAttribute("boardList", boardService.getBoardList());
+        return "board/board";
     }
 
     @GetMapping("/{id}")
     public String getBoardDetail(@PathVariable Long id, HttpSession session, Model model) {
-        String loginUserId = (String) session.getAttribute("loginUser"); // 로그인한 사용자 ID를 가져옴
-
+        String loginUserId = (String) session.getAttribute("loginUser");
         if (loginUserId == null) {
-            return "redirect:/login"; // 로그인하지 않은 경우 로그인 페이지로 리다이렉트
+            return "redirect:/login";
         }
-
         model.addAttribute("user", loginUserId);
         model.addAttribute("board", boardService.getBoardById(id));
         return "board/detail";
@@ -57,13 +61,11 @@ public class BoardController {
 
     @GetMapping("/form")
     public String createForm(HttpSession session, Model model) {
-        String loginUserId = (String) session.getAttribute("loginUser"); // 로그인한 사용자 ID를 가져옴
-
+        String loginUserId = (String) session.getAttribute("loginUser");
         if (loginUserId == null) {
-            return "redirect:/login"; // 로그인하지 않은 경우 로그인 페이지로 리다이렉트
+            return "redirect:/login";
         }
-
-        model.addAttribute("user", loginUserId); // 사용자 타입 추가
+        model.addAttribute("user", loginUserId);
         model.addAttribute("board", new BoardDto());
         return "board/form";
     }
@@ -74,117 +76,101 @@ public class BoardController {
                            HttpSession session,
                            Model model) {
         String loginUserId = (String) session.getAttribute("loginUser");
-
         if (loginUserId == null) {
             return "redirect:/login";
         }
-
         model.addAttribute("user", loginUserId);
         boardDto.setUserUid(loginUserId);
 
         if (!file.isEmpty()) {
             try {
                 String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-                String directoryName = "data";
+                BlobClient blobClient = blobServiceClient.getBlobContainerClient(containerName)
+                        .getBlobClient(fileName);
 
-                ShareFileClient fileClient = shareServiceClient.getShareClient(shareName)
-                        .getDirectoryClient(directoryName)
-                        .getFileClient(fileName);
-
-                fileClient.create(file.getSize());
-                fileClient.upload(file.getInputStream(), file.getSize());
-
-                // 파일 URL 설정
-                String fileUrl = fileClient.getFileUrl();
+                blobClient.upload(file.getInputStream(), file.getSize(), true);
+                String fileUrl = blobClient.getBlobUrl();
                 boardDto.setImage(fileUrl);
-
                 System.out.println("File saved: " + fileUrl);
-
             } catch (IOException e) {
                 e.printStackTrace();
                 model.addAttribute("error", "파일 업로드에 실패했습니다: " + e.getMessage());
                 return "board/form";
             }
         }
-
         boardService.createBoard(boardDto);
-
         return "redirect:/board";
     }
-
 
     @PostMapping("/update/{id}")
     public String updateForm(@PathVariable Long id,
                              @ModelAttribute BoardDto boardDto,
-                             @RequestParam MultipartFile file,
+                             @RequestParam(value = "file", required = false) MultipartFile file,
                              HttpSession session,
                              Model model) {
         String loginUserId = (String) session.getAttribute("loginUser");
-
         if (loginUserId == null) {
             return "redirect:/login";
         }
-
         model.addAttribute("user", loginUserId);
 
-        if (!file.isEmpty()) {
+        if (file != null && !file.isEmpty()) {
             try {
                 String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-                String filePath = "data/" + fileName;
-                Resource resource = resourceLoader.getResource("azure-file://file-28/" + filePath);
+                BlobClient blobClient = blobServiceClient.getBlobContainerClient(containerName)
+                        .getBlobClient(fileName);
 
-                try (OutputStream os = ((WritableResource) resource).getOutputStream()) {
-                    os.write(file.getBytes());
-                }
-
-                boardDto.setImage(filePath);
-
-                System.out.println("File saved: " + boardDto.getImage());
-
+                blobClient.upload(file.getInputStream(), file.getSize(), true);
+                String fileUrl = blobClient.getBlobUrl();
+                boardDto.setImage(fileUrl);
+                System.out.println("File updated: " + fileUrl);
             } catch (IOException e) {
                 e.printStackTrace();
-                model.addAttribute("error", "파일 업로드에 실패했습니다.");
+                model.addAttribute("error", "파일 업로드에 실패했습니다: " + e.getMessage());
                 return "board/form";
             }
         }
-
         boardService.updateBoard(id, boardDto);
         return "redirect:/board";
     }
 
     @DeleteMapping("/{id}/delete")
     public String deleteForm(@PathVariable Long id, HttpSession session, Model model) {
-        String loginUserId = (String) session.getAttribute("loginUser"); // 로그인한 사용자 ID를 가져옴
-
-        if (loginUserId == null) {
-            return "redirect:/login"; // 로그인하지 않은 경우 로그인 페이지로 리다이렉트
-        }
-
-        model.addAttribute("user", loginUserId);
-
-        BoardDto board = boardService.getBoardById(id);
-
-        // 권한 확인: 관리자 또는 작성자만 삭제 가능
-
-        boardService.deleteBoard(id);
-
-        // 삭제 후 게시글 목록으로 리다이렉트
-        return "redirect:/board";
-    }
-
-
-    @GetMapping("/{id}/edit")
-    public String editForm(@PathVariable Long id, HttpSession session, Model model) {
-        String loginUserId = (String) session.getAttribute("loginUser"); // 로그인한 사용자 ID를 가져옴
-
+        String loginUserId = (String) session.getAttribute("loginUser");
         if (loginUserId == null) {
             return "redirect:/login";
         }
-
         model.addAttribute("user", loginUserId);
 
         BoardDto board = boardService.getBoardById(id);
 
+        if (board.getImage() != null && !board.getImage().isEmpty()) {
+            try {
+                String blobName = board.getImage().substring(board.getImage().lastIndexOf('/') + 1);
+                BlobClient blobClient = blobServiceClient.getBlobContainerClient(containerName)
+                        .getBlobClient(blobName);
+
+                blobClient.delete();
+                System.out.println("File deleted: " + blobName);
+            } catch (Exception e) {
+                e.printStackTrace();
+                // 파일 삭제 실패 처리
+            }
+        }
+
+        boardService.deleteBoard(id);
+        return "redirect:/board";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String editForm(@PathVariable Long id, HttpSession session, Model model) {
+        String loginUserId = (String) session.getAttribute("loginUser");
+        if (loginUserId == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("user", loginUserId);
+
+        BoardDto board = boardService.getBoardById(id);
         if (!loginUserId.equals(board.getUserUid())) {
             model.addAttribute("error", "수정 권한이 없습니다.");
             return "board/board";
