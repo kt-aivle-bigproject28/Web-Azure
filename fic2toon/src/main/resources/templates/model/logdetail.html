@@ -343,7 +343,7 @@
         <div style="text-align: center; margin-top: 30px;">
           <!-- 디렉토리 내의 모든 이미지를 동적으로 표시 -->
           <div style="display: flex; flex-direction: column; align-items: center;">
-            <div th:each="i : ${#numbers.sequence(0, 19)}" style="width: 150px;">
+            <div th:each="i : ${#numbers.sequence(0, 99)}" style="width: 150px;">
               <img th:src="${log.path + '/scene_' + i + '.png'}"
                    th:onerror="'this.style.display=\'none\''"
                    alt="Webtoon Image"
