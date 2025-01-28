@@ -362,9 +362,13 @@
         </div>
     </div>
         <!-- 이미지 미리보기 -->
-        <div class="image-container" th:each="imagePath : ${imagePaths}">
-            <img th:src="@{/uploads/{imageName}(imageName=${imagePath})}" alt="변환된 웹툰 이미지">
+        <div class="image-container">
+            <div th:each="imagePath : ${imagePaths}">
+                <img th:src="${imagePath}" alt="변환된 웹툰 이미지">
+            </div>
         </div>
+
+
 
         <!-- 완료 버튼 -->
         <div style="text-align: right;">
