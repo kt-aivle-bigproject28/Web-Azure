@@ -21,7 +21,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 10px 20px;
+            padding: 5px 20px;
             background-color: #002855;
             border-bottom: 1px solid #ddd;
         }
@@ -38,6 +38,11 @@
             align-items: center;
             justify-content: flex-start; /* 내용이 상단부터 정렬되도록 설정 */
             padding: 20px 0; /* 상단과 하단 여백 추가 */
+            background-image: url('/image/backg1.png'); /* 배경 이미지 적용 */
+            background-size: cover; /* 화면 전체 채우기 */
+            background-position: center; /* 중앙 정렬 */
+            background-repeat: no-repeat; /* 반복 없음 */
+            background-attachment: fixed; /* 스크롤해도 고정 */
         }
         .signup-container {
             text-align: center;
@@ -46,6 +51,8 @@
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             width: 400px;
+            margin-bottom: 40px;
+            margin-top: 40px;
         }
         .signup-container h1 {
             font-size: 32px;
@@ -283,7 +290,7 @@ label {
             <p id="password-match-message" class="warning-message"></p>
 
             <div class="group">
-                <input type="text" name="phone" class="input" required>
+                <input type="text" id="phone" name="phone" class="input" maxlength="11" required>
                 <span class="highlight"></span>
                 <span class="bar"></span>
                 <label>휴대폰 번호</label>
@@ -322,6 +329,22 @@ label {
 </body>
 </html>
 <script>
+
+
+
+    document.getElementById('phone').addEventListener('input', function (event) {
+        const input = event.target;
+        const maxLength = 11;
+
+        // 숫자가 아닌 값 제거
+        input.value = input.value.replace(/[^0-9]/g, '');
+
+        // 최대 길이 초과 시 잘라냄
+        if (input.value.length > maxLength) {
+            input.value = input.value.slice(0, maxLength);
+        }
+    });
+
     document.getElementById('check-uid-btn').addEventListener('click', function () {
         const uid = document.getElementById('uid').value;
 
