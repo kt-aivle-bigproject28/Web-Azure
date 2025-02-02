@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
-@FeignClient(name = "fastApiClient", url = "${webtoon.api.host}")
+@FeignClient(name = "fastapi", url = "${webtoon.api.host}")
 public interface FastApiClient {
     @PostMapping(value = "/text_to_webtoon", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    String textToWebtoon(@RequestPart("text") MultipartFile text);
+    String textToWebtoon(@RequestPart("file") MultipartFile file);
 }

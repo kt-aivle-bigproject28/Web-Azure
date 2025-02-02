@@ -24,7 +24,7 @@
             align-items: center;
             padding: 10px 20px;
             background-color: #002855;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #002855;
             position: fixed;
             width: 100%;
             top: 0;
@@ -39,7 +39,7 @@
         .nav-container a {
             text-decoration: none;
             color: #ffffff;
-            font-size: 16px;
+            font-size: 20px;
         }
 
         .logo {
@@ -63,11 +63,10 @@
         }
 
         .header-profile-img {
-            width: 30px;
-            height: 30px;
+            height: 50px; /* 로고 높이를 설정 */
+            object-fit: contain; /* 비율 유지 */
             border-radius: 50%; /* 원형 이미지 */
-            object-fit: cover; /* 이미지 비율 유지 */
-            border: 2px solid #002855; /* 테두리 */
+            border: 2px solid #ffffff; /* 테두리 */
         }
 
         .logout-btn, .header-profile-img{
@@ -84,7 +83,7 @@
             padding: 8px 12px; /* 버튼 크기 조정 */
             cursor: pointer;
             border-radius: 4px;
-            font-size: 14px;
+            font-size: 20px;
             text-decoration: none;
         }
 
@@ -387,7 +386,7 @@
 </header>
 
 <main>
-    <form th:action="@{/play/text_to_webtoon}" method="post" enctype="multipart/form-data">
+    <form th:action="@{/play}" method="post" enctype="multipart/form-data">
         <div class="drop-zone" id="dropZone">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
@@ -397,7 +396,7 @@
                 <line x1="15" y1="15" x2="12" y2="12"></line>
             </svg>
             <span class="drop-zone__prompt">텍스트 파일을 여기에 드래그하거나 클릭하여 업로드</span>
-            <input type="file" name="text" class="drop-zone__input" accept=".txt, .pdf">
+            <input type="file" name="file" class="drop-zone__input" accept=".txt, .pdf">
             <div id="file-name-display" style="margin-top: 10px; font-size: 14px; color: #002855;"></div> <!-- 파일명 표시 -->
         </div>
         <p id="error-message" style="color: red; display: none;">.txt 파일만 업로드 가능합니다.</p>
@@ -407,39 +406,7 @@
         </div>
     </form>
 
-    <!-- 결과 표시 영역 -->
-    <div id="result" th:if="${imagePaths != null && !imagePaths.isEmpty()}">
-        <p th:if="${error}" th:text="${error}" class="error"></p>
-        <div class="result-images">
-            <div th:each="imagePath : ${imagePaths}" class="image-container">
-                <img th:src="@{/uploads/log/1/{imageName}(imageName=${imagePath})}"
-                     alt="변환된 웹툰 이미지">
-            </div>
-        </div>
-        <div class="download-container">
-            <button class="download-button">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
-                    <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
-                    <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"/>
-                </svg>
-                다운
-            </button>
 
-            <form th:action="@{/play/savelog}" method="post" enctype="multipart/form-data">
-                <div th:each="imagePath : ${imagePaths}">
-                    <input type="hidden" name="imageUrls" th:value="${imagePath}">
-                </div>
-                <button class="save-button">
-                <svg xmlns="http://www.w3.org/2000/svg" type="submit" width="20" height="20" fill="currentColor" class="bi bi-file-earmark-richtext" viewBox="0 0 16 16">
-                    <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5z"/>
-                    <path d="M4.5 12.5A.5.5 0 0 1 5 12h3a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5m0-2A.5.5 0 0 1 5 10h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5m1.639-3.708 1.33.886 1.854-1.855a.25.25 0 0 1 .289-.047l1.888.974V8.5a.5.5 0 0 1-.5.5H5a.5.5 0 0 1-.5-.5V8s1.54-1.274 1.639-1.208M6.25 6a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5"/>
-                </svg>
-                저장
-            </button>
-            </form>
-
-        </div>
-    </div>
 </main>
 
 <footer>

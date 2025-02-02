@@ -12,12 +12,13 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh; /* 화면 전체 높이를 채우기 */
+
         }
         header {
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 10px 20px;
+            padding: 5px 20px;
             background-color: #002855;
             border-bottom: 1px solid #ddd;
         }
@@ -33,15 +34,21 @@
             justify-content: center; /* 세로 가운데 정렬 */
             align-items: center; /* 가로 가운데 정렬 */
             padding: 20px;
+            background-image: url('/image/backg1.png'); /* 배경 이미지 적용 */
+            background-size: cover; /* 화면 전체 채우기 */
+            background-position: center; /* 중앙 정렬 */
+            background-repeat: no-repeat; /* 반복 없음 */
+            background-attachment: fixed; /* 스크롤해도 고정 */
         }
         .login-container {
             text-align: center;
-            background-color: #fff;
+            background-color: transparent;
             padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+<!--            border-radius: 8px;-->
+<!--            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);-->
             width: 100%;
-            max-width: 400px; /* 최대 너비 설정 */
+
+            min-width: 500px;
         }
         .login-container h1 {
             font-size: 32px;
