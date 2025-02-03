@@ -54,9 +54,6 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 
-	// Spring Cloud OpenFeign (REST 클라이언트)
-	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
-
 	// 테스트 관련
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'

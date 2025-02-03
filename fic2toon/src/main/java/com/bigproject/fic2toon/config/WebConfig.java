@@ -1,4 +1,4 @@
-package com.bigproject.fic2toon;
+package com.bigproject.fic2toon.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;

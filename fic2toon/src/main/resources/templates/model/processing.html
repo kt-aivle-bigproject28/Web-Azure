@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>웹툰 생성 진행 상황</title>
+    <style>
+        .progress-container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+        }
+        .progress-bar {
+            height: 30px;
+            background-color: #4CAF50;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+        #image-preview {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .json-content {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-top: 10px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+<h1>웹툰 생성 진행 중...</h1>
+<div class="progress-container">
+    <div class="progress-bar" style="width: 0%"></div>
+</div>
+<div id="status-message">초기화 중...</div>
+<div id="json-preview"></div>
+<div id="image-preview"></div>
+
+<script>
+    // FastAPI WebSocket 서버의 보안 프로토콜(wss://)과 주소를 사용합니다.
+    const socket = new WebSocket('wss://182.230.143.218:2235/ws/text_to_webtoon');
+    let totalChunks = 0;
+    let jsonProgress = 0;
+    let imageProgress = 0;
+
+    /**
+     * base64 문자열을 Uint8Array로 변환하는 함수.
+     * @param {string} base64 - 파일 데이터가 담긴 base64 문자열
+     * @returns {Uint8Array}
+     */
+    function base64ToUint8Array(base64) {
+        const binaryString = window.atob(base64);
+        const len = binaryString.length;
+        const bytes = new Uint8Array(len);
+        for (let i = 0; i < len; i++) {
+            bytes[i] = binaryString.charCodeAt(i);
+        }
+        return bytes;
+    }
+
+    // WebSocket 이벤트 핸들러
+    socket.onopen = function() {
+        console.log('WebSocket 연결 성공');
+        // playmodel.html에서 저장한 파일 데이터(Base64 문자열)를 sessionStorage에서 가져옴.
+        const fileDataBase64 = sessionStorage.getItem('fileData');
+        if (!fileDataBase64) {
+            console.error('업로드할 파일 데이터가 없습니다.');
+            document.getElementById('status-message').textContent = '업로드할 파일이 없습니다.';
+            return;
+        }
+        // Base64 문자열을 Uint8Array로 변환하여 전송
+        const fileBuffer = base64ToUint8Array(fileDataBase64);
+        socket.send(fileBuffer);
+        console.log('파일 전송 완료 (byte length):', fileBuffer.length);
+    };
+
+    socket.onmessage = function(event) {
+        const data = JSON.parse(event.data);
+        console.log('Received:', data);
+
+        if (data.total_chunks) {
+            totalChunks = data.total_chunks;
+            document.getElementById('status-message').textContent =
+                `총 ${totalChunks}개의 장면을 생성 중입니다...`;
+        }
+
+        if (data.json_url) {
+            updateProgress('json', data.processed_chunks, totalChunks);
+            displayJson(data.json_url);
+        }
+        if (data.image_url) {
+            updateProgress('image', data.processed_chunks, totalChunks);
+            displayImage(data.image_url);
+        }
+        if (data.status === "completed") {
+            // 서버에서 최종 scene_urls 목록을 전달할 경우
+            if (data.scene_urls) {
+                sessionStorage.setItem('sceneUrls', JSON.stringify(data.scene_urls));
+            }
+            finishProcessing();
+        }
+        if (data.error) {
+            showError(data.error);
+        }
+    };
+
+    socket.onerror = function(event) {
+        console.error('WebSocket 오류:', event);
+        showError('WebSocket 연결 오류가 발생했습니다.');
+    };
+
+    socket.onclose = function(event) {
+        console.log('WebSocket 연결 종료:', event);
+    };
+
+    // JSON과 이미지 처리 진행률을 각각 50%씩 배분
+    function updateProgress(type, current, total) {
+        if (type === 'json') {
+            jsonProgress = (current / total) * 50;
+        } else if (type === 'image') {
+            imageProgress = 50 + (current / total) * 50;
+        }
+        const totalProgress = jsonProgress + imageProgress;
+        document.querySelector('.progress-bar').style.width = `${totalProgress}%`;
+        document.getElementById('status-message').textContent =
+            `진행률: ${Math.round(totalProgress)}% (${type === 'json' ? 'JSON' : '이미지'} 처리 중: ${current}/${total})`;
+    }
+
+    // fetch를 통해 JSON 데이터를 불러와 미리보기 영역에 추가
+    function displayJson(url) {
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const jsonContainer = document.createElement('div');
+                jsonContainer.className = 'json-content';
+                jsonContainer.textContent = JSON.stringify(data, null, 2);
+                document.getElementById('json-preview').appendChild(jsonContainer);
+            })
+            .catch(error => console.error('JSON 로딩 오류:', error));
+    }
+
+    // 이미지 URL을 사용하여 이미지 엘리먼트를 생성해 미리보기 영역에 추가
+    function displayImage(url) {
+        const container = document.getElementById('image-preview');
+        const img = document.createElement('img');
+        img.src = url;
+        img.style.width = '100%';
+        container.appendChild(img);
+    }
+
+    function finishProcessing() {
+        document.getElementById('status-message').textContent =
+            '모든 생성이 완료되었습니다! 잠시 후 저장 페이지로 이동합니다...';
+        setTimeout(() => {
+            window.location.href = '/play/savelog';
+        }, 3000);
+    }
+
+    function showError(message) {
+        document.getElementById('status-message').textContent = '오류 발생: ' + message;
+    }
+</script>
+</body>
+</html>
