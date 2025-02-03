@@ -8,24 +8,14 @@
         html, body {
             margin: 0;
             padding: 0;
-            height: 100%; /* 전체 높이 */
+            height: 100%;
             display: flex;
-            flex-direction: column; /* 세로 방향 정렬 */
+            flex-direction: column;
         }
-
         body {
             font-family: Arial, sans-serif;
             background-color: #f9f9f9;
-            margin: 0;
-            padding: 0;
         }
-
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-        }
-
         header {
             display: flex;
             justify-content: space-between;
@@ -38,18 +28,15 @@
             top: 0;
             z-index: 1000;
         }
-
         .nav-container {
             display: flex;
             gap: 20px;
         }
-
         .nav-container a {
             text-decoration: none;
             color: #ffffff;
             font-size: 20px;
         }
-
         .logo {
             position: absolute;
             left: 50%;
@@ -59,76 +46,63 @@
             color: #002855;
         }
         .logo img {
-            height: 100px; /* 로고 높이를 설정 */
-            object-fit: contain; /* 비율 유지 */
+            height: 100px;
+            object-fit: contain;
         }
-
         .profile-container {
             display: flex;
             align-items: center;
-            gap: 10px; /* 프로필과 버튼 사이 간격 */
+            gap: 10px;
             position: relative;
         }
-
         .header-profile-img {
-            height: 50px; /* 로고 높이를 설정 */
-            object-fit: contain; /* 비율 유지 */
-            border-radius: 50%; /* 원형 이미지 */
-            border: 2px solid #ffffff; /* 테두리 */
+            height: 50px;
+            object-fit: contain;
+            border-radius: 50%;
+            border: 2px solid #ffffff;
         }
-
-        .logout-btn, .header-profile-img{
+        .logout-btn, .header-profile-img {
             position: relative;
             right: 30px;
         }
-
-
-
         .logout-btn {
             background-color: #002855;
             color: #fff;
             border: none;
-            padding: 8px 12px; /* 버튼 크기 조정 */
+            padding: 8px 12px;
             cursor: pointer;
             border-radius: 4px;
             font-size: 20px;
             text-decoration: none;
         }
-
         main {
             flex: 1;
             margin-top: 80px;
             padding: 20px;
-
-            overflow: visible;
-            background-image: url('/image/backg1.png'); /* 배경 이미지 적용 */
-    background-size: cover; /* 화면 전체 채우기 */
-    background-position: center; /* 중앙 정렬 */
-    background-repeat: no-repeat; /* 반복 없음 */
-    background-attachment: fixed; /* 스크롤해도 고정 */
+            background-image: url('/image/backg1.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
         }
-
         .container {
             max-width: 600px;
             margin: 20px auto;
             background: white;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-
         .toggle-container {
             display: flex;
             align-items: center;
             margin-bottom: 20px;
         }
-
         .toggle-container label {
             margin-left: 10px;
             font-size: 16px;
             color: #333;
         }
-
         .title-container input {
             width: 100%;
             padding: 10px;
@@ -137,21 +111,33 @@
             border: 1px solid #ddd;
             border-radius: 5px;
         }
-
         .image-container {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px; /* 요소 간 간격 */
-            justify-content: center; /* 가로축 중앙 정렬 */
-            align-items: center; /* 세로축 중앙 정렬 */
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
         }
-
         .image-container img {
-
+            width: 100%;
+            max-width: 180px;
             object-fit: cover;
             border-radius: 8px;
         }
-
+        .image-count {
+            margin-left: 40px;
+            font-size: 15px;
+            color: #002855;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .pu {
+            font-size: 15px;
+            color: #002855;
+            font-weight: bold;
+            margin-bottom: 20px;
+            margin-left: 10px;
+        }
         .submit-btn {
             background-color: #002855;
             color: white;
@@ -163,86 +149,76 @@
             text-align: center;
             width: 100px;
         }
-
         .submit-btn:hover {
             background-color: #001f3d;
         }
-
         /* 스위치 체크박스 스타일 */
-.switch {
-  --input-focus: #002855;
-  --bg-color: #fff;
-  --bg-color-alt: #666;
-  --main-color: #002855;
-  --input-out-of-focus: #ccc;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  width: 70px;
-  height: 36px;
-  transform: translateX(calc(50% - 10px));
-  marin-left: 10px;
-}
-
-.toggle {
-  opacity: 0;
-}
-
-.slider {
-  box-sizing: border-box;
-  border-radius: 100px;
-  border: 2px solid var(--main-color);
-  box-shadow: 4px 4px var(--main-color);
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: var(--input-out-of-focus);
-  transition: 0.3s;
-}
-
-.slider:before {
-  content: "off";
-  box-sizing: border-box;
-  height: 30px;
-  width: 30px;
-  position: absolute;
-  left: 2px;
-  bottom: 1px;
-  border: 2px solid var(--main-color);
-  border-radius: 100px;
-  background-color: var(--bg-color);
-  color: var(--main-color);
-  font-size: 14px;
-  font-weight: 600;
-  text-align: center;
-  line-height: 25px;
-  transition: 0.3s;
-}
-
-.toggle:checked + .slider {
-  background-color: var(--input-focus);
-  transform: translateX(-32px);
-}
-
-.toggle:checked + .slider:before {
-  content: "on";
-  transform: translateX(32px);
-}
-
+        .switch {
+            --input-focus: #002855;
+            --bg-color: #fff;
+            --bg-color-alt: #666;
+            --main-color: #002855;
+            --input-out-of-focus: #ccc;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            width: 70px;
+            height: 36px;
+            transform: translateX(calc(50% - 10px));
+            margin-left: 10px;
+        }
+        .toggle {
+            opacity: 0;
+        }
+        .slider {
+            box-sizing: border-box;
+            border-radius: 100px;
+            border: 2px solid var(--main-color);
+            box-shadow: 4px 4px var(--main-color);
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--input-out-of-focus);
+            transition: 0.3s;
+        }
+        .slider:before {
+            content: "off";
+            box-sizing: border-box;
+            height: 30px;
+            width: 30px;
+            position: absolute;
+            left: 2px;
+            bottom: 1px;
+            border: 2px solid var(--main-color);
+            border-radius: 100px;
+            background-color: var(--bg-color);
+            color: var(--main-color);
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            line-height: 25px;
+            transition: 0.3s;
+        }
+        .toggle:checked + .slider {
+            background-color: var(--input-focus);
+            transform: translateX(-32px);
+        }
+        .toggle:checked + .slider:before {
+            content: "on";
+            transform: translateX(32px);
+        }
         footer {
-            position: ;
             background-color: #002855;
             padding: 20px;
             text-align: center;
             border-top: 1px solid #ddd;
         }
-
         .footer-links a {
             margin: 0 10px;
             text-decoration: none;
@@ -256,64 +232,41 @@
             cursor: pointer;
         }
         .row-container {
-            display: flex; /* 가로 배치 */
-            align-items: center; /* 세로 중앙 정렬 */
-            gap: 20px; /* 요소 간 간격 */
-            margin-bottom: 20px; /* 아래 간격 */
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
         }
-
         .title-container input {
-            flex: 1; /* 입력창이 가능한 공간 차지 */
+            flex: 1;
             padding: 10px;
             font-size: 16px;
             border: 1px solid #002855;
             border-radius: 4px;
             margin-left: 20px;
         }
-
-        .image-count {
-            margin-left: 40px;
-            font-size: 15px;
-            color: #002855; /* 텍스트 색상 */
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-        .pu {
-            font-size: 15px;
-            color: #002855; /* 텍스트 색상 */
-            font-weight: bold;
-            margin-bottom: 20px;
-            margin-left: 10px;
-            }
-
         @media (max-width: 768px) {
-        .hamburger {
-            display: block; /* 햄버거 메뉴 표시 */
-            color: #ffffff;
+            .hamburger {
+                display: block;
+                color: #ffffff;
+            }
+            .nav-container {
+                display: none;
+            }
+            .nav-container.responsive {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 15%;
+                background-color: #002855;
+                padding: 10px 20px;
+                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+                z-index: 1000;
+            }
         }
-
-        .nav-container {
-            display: none; /* 기본적으로 숨김 */
-        }
-
-        .nav-container.responsive {
-            display: flex; /* 햄버거 클릭 시 표시 */
-            flex-direction: column; /* 세로 정렬 */
-            align-items: flex-start;
-            position: absolute;
-            top: 60px;
-            left: 0;
-            width: 15%;
-            background-color: #002855;
-            padding: 10px 20px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-        }
-    }
-    }
-
-
-
     </style>
 </head>
 <body>
@@ -334,81 +287,88 @@
         <img src="/image/profile.jpg" alt="Profile" class="header-profile-img">
         <a href="/logout" class="logout-btn">Logout</a>
     </div>
-
 </header>
 <main>
-<div class="container">
-    <form th:action="@{/play/saveLog}" method="post">
-    <div class="row-container">
-        <label class="pu">공개여부</label>
-        <!-- 공개 여부 (스위치 체크박스) -->
-        <div class="toggle-container">
-            <!-- 기본값 0 설정 -->
-            <input type="hidden" name="isPublic" value="1">
-
-            <!-- 새 스위치 구조 -->
-            <label class="switch">
-                <input type="checkbox" class="toggle" name="isPublic" id="public" value="0">
-                <span class="slider"></span>
-
-            </label>
-        </div>
-
-
-
-        <!-- 제목 입력 -->
-        <div class="title-container">
-            <input type="text" id="title" name="title" placeholder="제목을 입력하세요." required> <!-- 제목 입력 -->
-        </div>
-        <!-- 이미지 개수 표시 -->
-        <div class="image-count" th:if="${imagePaths != null}">
-            <span th:text="'이미지 개수: ' + ${imagePaths.size()}"></span>
-        </div>
-    </div>
-        <!-- 이미지 미리보기 -->
-        <div class="image-container">
-            <div th:each="imagePath : ${imagePaths}">
-                <img th:src="${imagePath}" alt="변환된 웹툰 이미지">
+    <div class="container">
+        <form th:action="@{/play/savelog}" method="post">
+            <div class="row-container">
+                <label class="pu">공개여부</label>
+                <!-- 공개 여부 스위치 -->
+                <div class="toggle-container">
+                    <!-- 기본값 0 설정 -->
+                    <input type="hidden" name="isPublic" value="1">
+                    <label class="switch">
+                        <input type="checkbox" class="toggle" name="isPublic" id="public" value="0">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <!-- 제목 입력 -->
+                <div class="title-container">
+                    <input type="text" id="title" name="title" placeholder="제목을 입력하세요." required>
+                </div>
+                <!-- 이미지 개수 표시 (아래 스크립트에서 update) -->
+                <div class="image-count">
+                    <span id="imageCount">이미지 개수: 0</span>
+                </div>
             </div>
-        </div>
-
-        <!-- 완료 버튼 -->
-        <div style="text-align: right;">
-            <button type="submit" class="submit-btn">완료</button>
-        </div>
-
-        <input type="hidden" id="imagePaths" name="imagePaths">
-    </form>
-</div>
+            <!-- 이미지 미리보기 영역 (동적으로 채움) -->
+            <div class="image-container" id="imageContainer"></div>
+            <!-- 완료 버튼 -->
+            <div style="text-align: right;">
+                <button type="submit" class="submit-btn">완료</button>
+            </div>
+            <!-- hidden input에 scene_urls(JSON 문자열)를 저장 -->
+            <input type="hidden" id="imagePaths" name="imagePaths">
+        </form>
+    </div>
 </main>
-    <footer>
-        <div class="footer-links">
-            <a href="/home">Home</a>
-            <a href="/about">About</a>
-            <a href="/contact">Contact</a>
-        </div>
-        <p style="color: #ffffff;">&copy; 2025 hooncompany</p>
-    </footer>
-
+<footer>
+    <div class="footer-links">
+        <a href="/home">Home</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+    </div>
+    <p style="color: #ffffff;">&copy; 2025 hooncompany</p>
+</footer>
 <script>
+    // 네비게이션 토글
+    function toggleNav() {
+        const nav = document.querySelector('.nav-container');
+        nav.classList.toggle('responsive');
+    }
+    // 폼 제출 시 isPublic hidden 필드 처리 (체크된 경우 제거)
     document.querySelector('form').addEventListener('submit', function(event) {
         const checkbox = document.getElementById('public');
         if (checkbox.checked) {
-            // 체크박스가 선택된 경우 숨겨진 필드 제거
             const hiddenInput = this.querySelector('input[type="hidden"][name="isPublic"]');
             if (hiddenInput) {
                 hiddenInput.parentNode.removeChild(hiddenInput);
             }
         }
     });
-    function toggleNav() {
-            const nav = document.querySelector('.nav-container');
-            nav.classList.toggle('responsive');
+    // DOMContentLoaded 이벤트에서 sessionStorage에 저장된 sceneUrls를 가져와서 form에 채워 넣음.
+    window.addEventListener('DOMContentLoaded', function() {
+        // sessionStorage에 저장된 sceneUrls (processing 단계에서 저장됨)
+        const sceneUrlsString = sessionStorage.getItem('sceneUrls');
+        if (sceneUrlsString) {
+            const sceneUrls = JSON.parse(sceneUrlsString);
+            // hidden input에 JSON 문자열 형태로 설정
+            document.getElementById('imagePaths').value = sceneUrlsString;
+            // 이미지 개수 업데이트
+            document.getElementById('imageCount').textContent = '이미지 개수: ' + sceneUrls.length;
+            // 미리보기 이미지 채우기
+            const container = document.getElementById('imageContainer');
+            sceneUrls.forEach(function(url) {
+                const img = document.createElement('img');
+                img.src = url;
+                container.appendChild(img);
+            });
         }
-
-        function logout() {
-            window.location.href = "/login";
-        }
+    });
+    // logout 함수 (필요 시)
+    function logout() {
+        window.location.href = "/login";
+    }
 </script>
 </body>
 </html>

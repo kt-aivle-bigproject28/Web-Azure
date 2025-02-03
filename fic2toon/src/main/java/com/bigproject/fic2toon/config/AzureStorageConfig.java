@@ -1,4 +1,4 @@
-package com.bigproject.fic2toon;
+package com.bigproject.fic2toon.config;
 
 import com.azure.storage.blob.BlobServiceClient;
 import com.azure.storage.blob.BlobServiceClientBuilder;
