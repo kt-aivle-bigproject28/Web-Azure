@@ -171,39 +171,6 @@
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
-    .comments-section {
-        margin-top: 30px;
-        border-top: 1px solid #ddd;
-        padding-top: 20px;
-    }
-
-    .comment {
-        background-color: #f9f9f9;
-        border: 1px solid #e0e0e0;
-        border-radius: 4px;
-        padding: 10px;
-        margin-bottom: 10px;
-    }
-
-    .comment-info {
-        font-size: 12px;
-        color: #666;
-        margin-bottom: 5px;
-    }
-
-    .comment-actions {
-        text-align: right;
-        margin-top: 5px;
-    }
-
-
-
-    .comment-form-group {
-        display: flex;
-        align-items: stretch; /* 입력창과 버튼 높이를 동일하게 */
-        gap: 10px; /* 입력창과 버튼 사이 간격 */
-    }
-
     .comment-form textarea {
         flex: 1; /* 가로로 남은 공간을 모두 사용 */
         padding: 10px;
@@ -214,39 +181,6 @@
         height: 50px; /* 입력창 높이 */
         box-sizing: border-box; /* 패딩 포함 높이 계산 */
         line-height: 1.2; /* 텍스트 줄 높이 설정 */
-    }
-
-    .submit-comment-btn {
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        padding: 0 20px; /* 텍스트 좌우 간격 */
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 14px; /* 텍스트 크기 */
-        height: 50px; /* 버튼 높이를 입력창과 동일하게 설정 */
-        box-sizing: border-box; /* 패딩 포함 높이 계산 */
-        line-height: 1.2; /* 텍스트 줄 높이 설정 */
-        display: flex; /* 버튼 내부 텍스트 정렬 */
-        align-items: center;
-        justify-content: center;
-    }
-
-    .submit-comment-btn:hover {
-        background-color: #45a049;
-    }
-
-
-
-
-
-    .delete-comment-btn {
-        background-color: #f44336;
-        color: white;
-        border: none;
-        padding: 5px 10px;
-        border-radius: 3px;
-        cursor: pointer;
     }
 
     .comment-form textarea {
@@ -343,7 +277,7 @@
           <!-- 이미지가 있는 경우 반복문으로 출력 -->
           <div th:if="${imagePaths != null && !imagePaths.isEmpty()}"
                style="display: flex; flex-direction: column; align-items: center;">
-            <div th:each="imagePath : ${imagePaths}" style="width: 150px;">
+            <div th:each="imagePath : ${imagePaths}">
               <img th:src="${imagePath}" alt="log Image" style="width: 100%; height: auto;">
             </div>
           </div>

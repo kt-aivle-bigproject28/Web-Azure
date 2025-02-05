@@ -3,6 +3,7 @@ package com.bigproject.fic2toon.play;
 import com.azure.storage.blob.BlobClient;
 import com.azure.storage.blob.BlobContainerClient;
 import com.azure.storage.blob.BlobServiceClient;
+import com.azure.storage.blob.models.BlobItem;
 import com.bigproject.fic2toon.user.User;
 import com.bigproject.fic2toon.user.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -52,19 +53,36 @@ public class LogController {
         if (loginUserId == null) {
             return "redirect:/login";
         }
-
         model.addAttribute("user", loginUserId);
         LogDto logDto = logService.getLogById(id);
         model.addAttribute("log", logDto);
 
         try {
             BlobContainerClient containerClient = blobServiceClient.getBlobContainerClient(containerName);
+            // DB에서 가져온 전체 URL (예: "https://aivlestorage.blob.core.windows.net/blob-28/27dfff0a95604194bd810574fdf89a99/final_outputs")
+            String fullPath = logDto.getPath();
+            // 마지막에 슬래시가 없으면 추가
+            if (!fullPath.endsWith("/")) {
+                fullPath += "/";
+            }
+            // 컨테이너 내부 경로 추출 (예: "27dfff0a95604194bd810574fdf89a99/final_outputs/")
+            String basePath = extractBlobPath(fullPath);
 
-            // Blob 스토리지에서 해당 로그의 이미지들을 가져옴
-            List<String> imagePaths = containerClient.listBlobs().stream()
-                    .filter(blob -> blob.getName().startsWith("log/" + id + "/"))
-                    .filter(blob -> blob.getName().matches(".*\\.(jpg|jpeg|png|gif)$"))
-                    .map(blob -> containerClient.getBlobClient(blob.getName()).getBlobUrl())
+            // basePath를 prefix로 사용하는 blob 목록을 가져옵니다.
+            List<BlobItem> blobItems = new ArrayList<>();
+            for (BlobItem blobItem : containerClient.listBlobsByHierarchy(basePath)) {
+                blobItems.add(blobItem);
+            }
+            // 파일 이름으로부터 숫자 값을 추출하여 정렬 (scene_1, scene_2, … scene_36 순)
+            blobItems.sort((b1, b2) -> {
+                int n1 = extractSceneNumber(b1.getName());
+                int n2 = extractSceneNumber(b2.getName());
+                return Integer.compare(n1, n2);
+            });
+
+            List<String> imagePaths = blobItems.stream()
+                    .filter(blobItem -> blobItem.getName().matches("(?i).*\\.(jpg|jpeg|png|gif)$"))
+                    .map(blobItem -> containerClient.getBlobClient(blobItem.getName()).getBlobUrl())
                     .collect(Collectors.toList());
 
             model.addAttribute("imagePaths", imagePaths);
@@ -74,6 +92,39 @@ public class LogController {
         }
 
         return "model/logdetail";
+    }
+
+    /**
+     * DB에 저장된 전체 URL에서 컨테이너 내부 경로를 추출합니다.
+     * 예: fullPath가 "https://aivlestorage.blob.core.windows.net/blob-28/27dfff0a95604194bd810574fdf89a99/final_outputs/"일 경우,
+     *      반환값은 "27dfff0a95604194bd810574fdf89a99/final_outputs/"가 됩니다.
+     */
+    private String extractBlobPath(String fullPath) {
+        String containerUrl = "https://aivlestorage.blob.core.windows.net/" + containerName + "/";
+        if (fullPath.startsWith(containerUrl)) {
+            return fullPath.substring(containerUrl.length());
+        }
+        throw new IllegalArgumentException("Invalid Blob URL: " + fullPath);
+    }
+
+    /**
+     * Blob 이름에서 "scene_" 뒤의 숫자를 정수형으로 추출합니다.
+     * 예: "27dfff0a95604194bd810574fdf89a99/final_outputs/scene_10.png" → 10
+     */
+    private int extractSceneNumber(String blobName) {
+        int index = blobName.lastIndexOf("scene_");
+        if (index != -1) {
+            index += "scene_".length();
+            int dotIndex = blobName.indexOf(".", index);
+            if (dotIndex != -1) {
+                try {
+                    return Integer.parseInt(blobName.substring(index, dotIndex));
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return 0;
     }
 
     @DeleteMapping("/{id}/delete")
