@@ -199,11 +199,11 @@
 </header>
 
 <main>
-    <h1 style="color: #002855;">웹툰 생성 진행 중...</h1>
+    <h1 style="color: #002855; text-align: center;">웹툰 생성 진행 중...</h1>
     <div class="progress-container">
         <div class="progress-bar" style="width: 0%"></div>
     </div>
-    <div id="status-message">초기화 중...</div>
+    <div id="status-message" style="color: #002855; text-align: center;">초기화 중...</div>
     <div class="content-container">
         <div id="json-preview"></div>
         <div id="image-preview"></div>
@@ -222,7 +222,7 @@
 
 <script>
     // FastAPI WebSocket 서버의 wss:// URL 사용
-    const socket = new WebSocket('wss://5341-182-230-143-218.ngrok-free.app/ws/text_to_webtoon');
+    const socket = new WebSocket('wss://fastapi-28-d9cacgcxh0dnhgg0.koreasouth-01.azurewebsites.net/ws/text_to_webtoon');
     let totalChunks = 0;
     let jsonProgress = 0;
     let imageProgress = 0;
