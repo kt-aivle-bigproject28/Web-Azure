@@ -17,11 +17,12 @@
             font-family: Arial, sans-serif;
             background-color: #f9f9f9;
         }
+
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 20px;
+            padding: 5px 15px;
             background-color: #002855;
             border-bottom: 1px solid #002855;
             position: fixed;
@@ -29,15 +30,18 @@
             top: 0;
             z-index: 1000;
         }
+
         .nav-container {
             display: flex;
             gap: 20px;
         }
+
         .nav-container a {
             text-decoration: none;
             color: #ffffff;
             font-size: 20px;
         }
+
         .logo {
             position: absolute;
             left: 50%;
@@ -50,22 +54,28 @@
             height: 100px; /* 로고 높이를 설정 */
             object-fit: contain; /* 비율 유지 */
         }
+
         .profile-container {
             display: flex;
             align-items: center;
             gap: 10px; /* 프로필과 버튼 사이 간격 */
             position: relative;
         }
+
         .header-profile-img {
-            height: 50px; /* 로고 높이를 설정 */
+            height: 40px; /* 로고 높이를 설정 */
             object-fit: contain; /* 비율 유지 */
             border-radius: 50%; /* 원형 이미지 */
             border: 2px solid #ffffff; /* 테두리 */
         }
-        .logout-btn, .header-profile-img {
+
+        .logout-btn, .header-profile-img{
             position: relative;
             right: 30px;
         }
+
+
+
         .logout-btn {
             background-color: #002855;
             color: #fff;
@@ -76,11 +86,18 @@
             font-size: 20px;
             text-decoration: none;
         }
+
         main {
             flex: 1;
             margin-top: 80px;
             padding: 20px;
+            background-image: url('/image/backg1.png'); /* 배경 이미지 적용 */
+            background-size: cover; /* 화면 전체 채우기 */
+            background-position: center; /* 중앙 정렬 */
+            background-repeat: no-repeat; /* 반복 없음 */
+            background-attachment: fixed; /* 스크롤해도 고정 */
         }
+
         /* 드래그 앤 드롭 영역 스타일 */
         .drop-zone {
             display: flex;
@@ -102,23 +119,28 @@
             margin: 20px auto;
             position: relative;
         }
+
         .drop-zone svg {
             width: 300px;
             height: 300px;
             color: #002855;
             margin-bottom: 10px; /* 텍스트와 간격 추가 */
         }
+
         .drop-zone__prompt {
             margin-top: 10px; /* 텍스트와 그림 사이 간격 */
             font-size: 16px;
             color: #002855;
         }
+
         .drop-zone--over {
             border-style: solid;
         }
+
         .drop-zone__input {
             display: none;
         }
+
         .convert-btn {
             display: block;
             width: 200px;
@@ -133,18 +155,22 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
+
         .convert-btn:hover {
             background-color: #004080;
         }
+
         .convert-btn:active {
             background-color: #001830;
         }
+
         .buttons {
             display: flex;
             justify-content: center; /* 버튼을 가운데 정렬 */
             gap: 500px; /* 버튼 사이 간격 설정 */
             margin-top: 20px;
         }
+
         .button {
             background-color: #002855;
             color: white;
@@ -155,20 +181,25 @@
             cursor: pointer;
             text-decoration: none;
         }
+
         .button:hover {
             background-color: #001f3d;
         }
+
         footer {
+            position: ;
             background-color: #002855;
-            padding: 20px;
+            padding: 10px;
             text-align: center;
             border-top: 1px solid #ddd;
         }
+
         .footer-links a {
             margin: 0 10px;
             text-decoration: none;
             color: #ffffff;
         }
+
         .hamburger {
             display: none;
             font-size: 24px;
@@ -176,28 +207,156 @@
             border: none;
             cursor: pointer;
         }
+
         @media (max-width: 768px) {
-            .hamburger {
-                display: block; /* 햄버거 메뉴 표시 */
-                color: #ffffff;
-            }
-            .nav-container {
-                display: none; /* 기본적으로 숨김 */
-            }
-            .nav-container.responsive {
-                display: flex; /* 햄버거 클릭 시 표시 */
-                flex-direction: column; /* 세로 정렬 */
-                align-items: flex-start;
-                position: absolute;
-                top: 60px;
-                left: 0;
-                width: 15%;
-                background-color: #002855;
-                padding: 10px 20px;
-                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-                z-index: 1000;
-            }
+        .hamburger {
+            display: block; /* 햄버거 메뉴 표시 */
+            color: #ffffff;
         }
+
+        .nav-container {
+            display: none; /* 기본적으로 숨김 */
+        }
+
+        .nav-container.responsive {
+            display: flex; /* 햄버거 클릭 시 표시 */
+            flex-direction: column; /* 세로 정렬 */
+            align-items: flex-start;
+            position: absolute;
+            top: 60px;
+            left: 0;
+            width: 15%;
+            background-color: #002855;
+            padding: 10px 20px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        }
+
+        #result {
+            width: 80%;
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        #result p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #002855;
+            word-break: break-word;
+            white-space: pre-wrap;
+        }
+
+        #result .error {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        #result .success {
+            color: #002855;
+        }
+
+        .result-images {
+            display: flex;
+            flex-direction: column; /* 세로 방향으로 정렬 */
+            align-items: center; /* 중앙 정렬 */
+        }
+
+        .result-images img {
+            max-width: 200px;
+            max-height: 300px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-container {
+            margin: 10px 0; /* 이미지 간의 간격 조정 */
+        }
+
+        .image-container img {
+            max-width: 100%; /* 이미지의 최대 너비를 부모 컨테이너에 맞춤 */
+            height: auto; /* 비율을 유지하면서 높이를 자동으로 조정 */
+        }
+
+        .download-container {
+            display: flex; /* 아이콘과 버튼을 옆으로 배치 */
+            align-items: center; /* 수직 정렬 */
+            justify-content: center; /* 중앙 정렬 */
+            gap: 10px; /* 아이콘과 버튼 사이 간격 */
+            margin-top: 10px; /* 이미지와의 간격 */
+        }
+
+        .download-container svg {
+            cursor: pointer; /* 아이콘 클릭 가능하도록 설정 */
+        }
+
+        .download-container .button {
+            margin: 0; /* 기본 여백 제거 */
+        }
+
+
+
+        .download-button {
+            display: flex; /* 아이콘과 텍스트를 나란히 배치 */
+            align-items: center; /* 아이콘과 텍스트를 수직 중앙 정렬 */
+            gap: 8px; /* 아이콘과 텍스트 간격 */
+            background-color: #002855; /* 버튼 배경색 */
+            color: #fff; /* 텍스트 색상 */
+            border: none; /* 기본 테두리 제거 */
+            border-radius: 5px; /* 모서리 둥글게 */
+            padding: 10px 20px; /* 버튼 내부 여백 */
+            font-size: 16px; /* 텍스트 크기 */
+            cursor: pointer; /* 클릭 가능하게 설정 */
+            transition: background-color 0.3s ease; /* 호버 시 부드러운 색상 전환 */
+            }
+
+        .download-button:hover {
+            background-color: #001f3d; /* 호버 시 배경색 */
+            }
+
+        .download-button:active {
+             background-color: #001030; /* 클릭 시 배경색 */
+            }
+
+        .download-button svg {
+            flex-shrink: 0; /* 아이콘 크기 유지 */
+            }
+
+        .save-button {
+            display: flex; /* 아이콘과 텍스트를 나란히 배치 */
+            align-items: center; /* 아이콘과 텍스트 수직 중앙 정렬 */
+            gap: 8px; /* 아이콘과 텍스트 사이 간격 */
+            background-color: #002855; /* 버튼 배경색 */
+            color: #fff; /* 텍스트 색상 */
+            border: none; /* 기본 테두리 제거 */
+            border-radius: 5px; /* 모서리 둥글게 */
+            padding: 10px 20px; /* 버튼 내부 여백 */
+            font-size: 16px; /* 텍스트 크기 */
+            cursor: pointer; /* 클릭 가능하게 설정 */
+            transition: background-color 0.3s ease; /* 호버 시 부드러운 색상 전환 */
+        }
+
+        .save-button:hover {
+            background-color: #001f3d; /* 호버 시 배경색 */
+        }
+
+        .save-button:active {
+            background-color: #001030; /* 클릭 시 배경색 */
+        }
+
+        .save-button svg {
+            flex-shrink: 0; /* 아이콘 크기 유지 */
+        }
+
         #file-name-display {
             font-size: 14px;
             color: #002855;

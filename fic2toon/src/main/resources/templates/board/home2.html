@@ -3,147 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fiction2Toon - Main</title>
+    <title>책 화면 + 네비게이션 바 조정</title>
+
+    <!-- ✅ jQuery 1.9.1 (turn.js와 완벽 호환) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <!-- ✅ turn.js (최신 안정 버전) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/3/turn.min.js"></script>
+
     <style>
-        html, body {
+        /* ✅ 전체 페이지 스타일 */
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            overflow-y: auto; /* ✅ 스크롤 가능 */
+            background-color: #f4f4f4;
             margin: 0;
             padding: 0;
-            height: 100%; /* 전체 높이 */
-            overflow: hidden; /* 스크롤바 숨김 */
-
-            scroll-behavior: smooth; /* 부드러운 스크롤 */
         }
 
+        /* ✅ 네비게이션 바 스타일 */
         body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          height: 100vh;
+          overflow: hidden; /* 🔥 스크롤바 제거 */
+          background-color: #f4f4f4;
+          margin: 0;
+          padding: 0;
         }
 
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            background-color: #002855;
-            border-bottom: 1px solid #ddd;
-            position: fixed;
+        /* ✅ 네비게이션 바 스타일 */
+        .navbar {
             width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .nav-container {
+            height: 60px;
+            background: white; /* 🔥 배경을 흰색으로 변경 */
+            color: black; /* 🔥 글자 색상을 검은색으로 변경 */
             display: flex;
-            gap: 20px;
+            justify-content: flex-start;
+            align-items: center;
+            padding-left: 20px;
+            gap: 30px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            border-bottom: 5px solid #333; /* 🔥 아래 테두리에 어두운 회색 추가 */
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.15); /* 🔥 더 부드러운 그림자 효과 */
         }
 
-        .nav-container a {
-            text-decoration: none;
-            color: #ffffff;
-            font-size: 16px;
-        }
-
+        /* ✅ 로고 스타일 */
         .logo {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 24px;
+            font-size: 22px;
             font-weight: bold;
-            color: #002855;
-        }
-        .logo img {
-            height: 100px; /* 로고 높이를 설정 */
-            object-fit: contain; /* 비율 유지 */
+            color: #333; /* 🔥 어두운 색으로 조정 */
+            text-transform: uppercase;
+            flex-shrink: 0;
         }
 
-        .profile-container {
+        /* ✅ 네비게이션 메뉴 스타일 */
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            flex-grow: 1;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: black; /* 🔥 글자 색상을 검은색으로 변경 */
+            font-size: 18px;
+            font-weight: bold;
+            transition: 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .nav-links a:hover {
+            color: #333; /* 🔥 마우스 호버 시 어두운 회색 */
+            transform: scale(1.1);
+        }
+        /* ✅ 책 영역 스타일 */
+        #container {
             display: flex;
             align-items: center;
-            gap: 10px; /* 프로필과 버튼 사이 간격 */
             position: relative;
+            margin-top: 80px; /* 네비게이션 바 아래 여백 추가 */
         }
 
-        .header-profile-img {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%; /* 원형 이미지 */
-            object-fit: cover; /* 이미지 비율 유지 */
-            border: 2px solid #002855; /* 테두리 */
+        #flipbook {
+            width: 800px;
+            height: 600px;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+            pointer-events: none; /* ✅ 마우스 이벤트 차단 */
         }
 
-        .logout-btn, .header-profile-img{
+        .page {
             position: relative;
-            right: 30px;
+            width: 100%;
+            height: 100%;
+            background: white;
+            border: 1px solid #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-
-
-        .logout-btn {
-            background-color: #002855;
-            color: #fff;
+        /* 📌 스타일리시한 화살표 버튼 */
+        .arrow-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 40px;
             border: none;
-            padding: 8px 12px; /* 버튼 크기 조정 */
+            padding: 15px;
             cursor: pointer;
-            border-radius: 4px;
-            font-size: 14px;
-            text-decoration: none;
+            background: none;
+            color: #333;
+            transition: all 0.2s ease-in-out;
+            font-weight: bold;
         }
 
-        main {
-            flex: 1;
-            margin-top: 80px;
-            padding: 20px;
-
-            overflow-y: auto;
+        /* 📌 화살표 버튼 hover & active 효과 */
+        .arrow-btn:hover {
+            color: #ff5f5f;
+            transform: translateY(-50%) scale(1.2);
         }
 
-        .container {
-    height: 100%;
-    scroll-snap-type: y mandatory; /* 수직 방향 스냅 스크롤 */
-    overflow-y: scroll; /* 수직 스크롤 활성화 */
-    scroll-behavior: smooth; /* 부드러운 스크롤 */
-    /* overflow: visible; */
-}
+        .arrow-btn:active {
+            transform: translateY(-50%) scale(1.1);
+        }
 
-.content {
+        /* 📌 버튼 위치 */
+        #prev-btn {
+            left: -60px; /* 책 바로 왼쪽 */
+        }
 
-    scroll-snap-align: start; /* 섹션 시작 부분에서 스냅 */
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* 가운데 정렬 */
-    align-items: center;
-
-    box-sizing: border-box;
-
-    min-height: 90vh; /* 최소 높이 설정 */
-    max-height: 90vh; /* 최대 높이 제한 */
-    overflow: hidden; /* 섹션 내 불필요한 스크롤 제거 */
-}
-.lastcontent {
-
-    scroll-snap-align: start; /* 섹션 시작 부분에서 스냅 */
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* 가운데 정렬 */
-    align-items: center;
-
-    box-sizing: border-box;
-
-    min-height: 90vh; /* 최소 높이 설정 */
-    max-height: 90vh; /* 최대 높이 제한 */
-    overflow: hidden; /* 섹션 내 불필요한 스크롤 제거 */
-    margin-bottom: 80px;
-}
-.content:nth-child(odd) {
-    background-color: #f9f9f9;
-}
-
-.content:nth-child(even) {
-    background-color: #f3f3f3;
-    color: #002855;
-}
-
+        #next-btn {
+            right: -60px; /* 책 바로 오른쪽 */
+        }
         .ti {
     display: flex; /* 가로 정렬 */
     flex-direction: row; /* 요소를 가로로 배치 */
@@ -151,497 +150,132 @@
     gap: 20px; /* 텍스트와 이미지 사이 간격 */
     width: 100%; /* 섹션 내부 너비 */
     justify-content: center; /* 부모 안에서 가운데 정렬 */
+    opacity: 0; /* 처음에는 보이지 않도록 */
+    transform: translateY(50px); /* 아래에서 올라오도록 */
+    transition: opacity 1.1s ease-out, transform 1.1s ease-out;
 }
-
 .text-section {
     flex: 1; /* 텍스트가 이미지와 같은 비율로 배치 */
     text-align: center; /* 텍스트 정렬 */
 }
 
-.image-section {
-    flex: 1; /* 이미지가 텍스트와 같은 비율로 배치 */
-}
+        /* ✅ 반응형 (작은 화면에서 메뉴 줄어들지 않도록 처리) */
+        @media screen and (max-width: 768px) {
+            .navbar {
+                flex-direction: row;
+                flex-wrap: nowrap;
+                height: auto;
+                padding: 10px;
+            }
 
-.image-section img {
-    max-height: 70vh; /* 이미지를 섹션 높이의 70%로 제한 */
-    width: auto; /* 가로세로 비율 유지 */
-    height: auto; /* 비율을 유지하면서 크기를 조정 */
-    display: block; /* 이미지가 부모 요소를 넘어가지 않도록 설정 */
-    margin: 0 auto; /* 이미지를 가운데 정렬 */
-    border-radius: 8px; /* 둥근 모서리 */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
-}
-
-        .team-section {
-    text-align: center;
-    padding: 50px 20px; /* 내부 여백 설정 */
-    background-color: #f9f9f9;
-    min-height: 100vh; /* 화면 전체 높이를 최소 높이로 설정 */
-    box-sizing: border-box; /* 패딩 포함 */
-    justify-content: center; /* 부모 안에서 가운데 정렬 */
-}
-
-        .team-section h2 {
-            font-size: 32px;
-            color: #002855;
-            margin-bottom: 40px;
+            .nav-links {
+                gap: 15px; /* 작은 화면에서 간격 조정 */
+            }
         }
-
-        .team-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-}
-
-.team-member {
-    background-color: #fff;
-    border-radius: 12px;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-}
-
-.team-member:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.profile-img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 15px;
-    border: 4px solid #002855;
-}
-
-.view-more {
-    margin-top: 15px;
-    background-color: #002855;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.view-more:hover {
-    background-color: #0056b3;
-}
-
-.team-member h3 {
-    font-size: 24px; /* 이름 글꼴 크기 */
-    color: #002855;
-    margin-bottom: 10px;
-}
-
-.team-member p {
-    font-size: 16px;
-    color: #555;
-}
-
-.email {
-    font-size: 14px;
-    color: #002855;
-    word-break: break-word; /* 긴 이메일 줄바꿈 */
-}
-
-        .email i {
-            margin-right: 5px;
-            color: #002855;
-        }
-
-<!--        footer {-->
-<!--            position: ;-->
-<!--            background-color: #002855;-->
-<!--            padding: 20px;-->
-<!--            text-align: center;-->
-<!--            border-top: 1px solid #ddd;-->
-<!--        }-->
-
-<!--        .footer-links a {-->
-<!--            margin: 0 10px;-->
-<!--            text-decoration: none;-->
-<!--            color: #ffffff;-->
-<!--        }-->
-        .hamburger{
-            display: none;
-            font-size: 24px;
-            background: #002855;
-            color: #ffffff;
-            border: none;
-            cursor: pointer;
-        }
-
-        .video-frame {
-    width: 100%; /* 가로 크기: 부모 요소에 맞춤 */
-    max-width: 800px; /* 최대 가로 크기 */
-    aspect-ratio: 16 / 9; /* 비율 유지 (16:9) */
-    margin: 20px auto; /* 중앙 정렬 */
-    display: block; /* 블록 요소 */
-    border: none; /* 테두리 제거 */
-}
-
-.toggle-cont {
-  width: 100px;
-  height: 50px;
-  border-radius: 9999px;
-  position: fixed;
-  top: 80px;
-  left: 25px;
-  z-index: 1000;
-}
-
-.toggle-cont .toggle-input {
-  display: none;
-}
-
-.toggle-cont .toggle-label {
-  cursor: pointer;
-  position: relative;
-  display: inline-block;
-  padding: 6px;
-  width: 100%;
-  height: 100%;
-  background: none;
-  border: 4px solid #002855;
-  border-radius: 9999px;
-  box-sizing: content-box;
-  box-shadow: 0px 0px 16px -8px #fefefe;
-}
-
-.toggle-cont .toggle-label .cont-label-play {
-  position: relative;
-  width: 50px;
-  aspect-ratio: 1 / 1;
-  background: #5e5e5e;
-  border-radius: 9999px;
-  transition: all 0.5s cubic-bezier(1, 0, 0, 1);
-}
-
-.toggle-cont .toggle-input:checked + .toggle-label .cont-label-play {
-  background: #f43f5e;
-  transform: translateX(50px);
-}
-
-.toggle-cont .toggle-label .label-play {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: inline-block;
-  width: 24px;
-  aspect-ratio: 1 / 1;
-  background: #fefefe;
-  border-radius: 4px;
-  clip-path: polygon(25% 0, 75% 50%, 25% 100%, 25% 51%);
-  transition: all 0.5s cubic-bezier(1, 0, 0, 1);
-}
-
-.toggle-cont .toggle-input:checked + .toggle-label .label-play {
-  width: 20px;
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-}
-.to-top-btn {
-  position: fixed;
-  z-index: 1000;
-  background-color: #002855;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  font-size: 18px;
-  cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  bottom: 20px; /* 화면 하단에서 20px 떨어진 위치 */
-  right: 45px; /* 화면 오른쪽에서 20px 떨어진 위치 */
-  display: block;
-}
-
-
-
-
-
-    @media (max-width: 768px) {
-        .hamburger {
-            display: block; /* 햄버거 메뉴 표시 */
-            color: #ffffff;
-        }
-
-        .nav-container {
-            display: none; /* 기본적으로 숨김 */
-        }
-
-        .nav-container.responsive {
-            display: flex; /* 햄버거 클릭 시 표시 */
-            flex-direction: column; /* 세로 정렬 */
-            align-items: flex-start;
-            position: absolute;
-            top: 60px;
-            left: 0;
-            width: 15%;
-            background-color: #002855;
-            padding: 10px 20px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-        }
-        .ti {
-        flex-direction: column; /* 세로로 배치 */
-        text-align: center; /* 텍스트 가운데 정렬 */
-        }
-    }
 
     </style>
 </head>
 <body>
-<header>
-    <button class="hamburger" onclick="toggleNav()">☰</button>
-    <nav class="nav-container">
-        <a href="/home">Home</a>
-        <a href="/play">PlayModel</a>
-        <a href="/board">Board</a>
-        <a href="/log">Log</a>
-    </nav>
-    <div class="logo">
-        <a href="/home">
-            <img src="/image/logo.jpg" alt="Fiction2Toon 로고" style="height: 50px;">
-        </a>
+
+<!-- ✅ 네비게이션 바 -->
+<div class="navbar">
+    <div class="logo">fiction</div>
+    <div class="nav-links">
+        <a href="#">Home</a>
+        <a href="#">PlayModel</a>
+        <a href="#">Board</a>
+        <a href="#">Log</a>
     </div>
-    <div class="profile-container">
-        <img src="/image/profile.jpg" alt="Profile" class="header-profile-img">
-        <a href="/logout" class="logout-btn">Logout</a>
-    </div>
+</div>
 
-</header>
-<button id="toTopBtn" class="to-top-btn" onclick="scrollToTop()">▲</button>
-<main class="container">
-    <audio id="bgm" loop>
-        <source src="/resources/bgmh.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
+<div id="container">
+    <!-- 📌 "이전 페이지" 버튼 -->
+    <button id="prev-btn" class="arrow-btn" disabled>◀</button>
 
-    <!-- From Uiverse.io by MuhammadHasann -->
-    <div class="toggle-cont">
-        <input class="toggle-input" id="toggle" name="toggle" type="checkbox" onclick="toggleBGM()" />
-        <label class="toggle-label" for="toggle">
-            <div class="cont-label-play">
-                <span class="label-play"></span>
-            </div>
-        </label>
-    </div>
-
-
-
-
-    <!-- 첫 번째 섹션 -->
-    <section class="content">
-        <div class="ti">
-            <div class="text-section">
-                <h1>저희 <strong>Fiction2Toon</strong>을 사용하려면 아래로...</h1>
-                <p>Fiction2Toon은 사용자 친화적인 인터페이스를 제공합니다. 간단하고 편리하게 이용하세요!</p>
-            </div>
-            <div class="image-section">
+    <div id="flipbook">
+        <!-- 📖 표지 -->
+        <div class="page">
+            <div class="ti">
                 <img src="/image/hoonpaint.jpg" alt="HoonPaint 이미지">
             </div>
         </div>
-    </section>
-
-
-
-    <section class="content">
-        <div class="ti">
+        <div class="page">
             <div class="text-section">
-            <h1>사용방법 동영상</h1>
+            <h1>저희 <strong>Fiction2Toon</strong>에 대해 알고 싶으면 페이지를 넘겨주세요.</h1>
+            <p>Fiction2Toon은 사용자 친화적인 인터페이스를 제공합니다. 간단하고 편리하게 이용하세요!</p>
             </div>
-            <iframe class="video-frame"
-                    src="https://www.youtube.com/embed/WAvA4iV7Te4"
-                    width="560"
-                    height="315"
-                    title="YouTube video player"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen>
-            </iframe>
         </div>
-    </section>
-
-
-
-
-    <!-- 두 번째 섹션 -->
-    <section class="content">
-        <div class="ti">
+        <div class="page">
             <div class="text-section">
-                <h2>Step 1</h2>
-                <p>txt, pdf 파일을 드래그 혹은 업로드 해주세요</p>
-            </div>
-            <div class="image-section">
-                <img src="/image/set.png" alt="model 사용법법">
+            <h1>저희 <strong>Fiction2Toon</strong>에 대해 알고 싶으면 페이지를 넘겨주세요.</h1>
+            <p>Fiction2Toon은 사용자 친화적인 인터페이스를 제공합니다. 간단하고 편리하게 이용하세요!</p>
             </div>
         </div>
-    </section>
+        <div class="page">3️⃣ 세 번째 페이지</div>
+        <div class="page">4️⃣ 네 번째 페이지</div>
+        <div class="page">5️⃣ 다섯 번째 페이지</div>
+        <div class="page">6️⃣ 여섯 번째 페이지</div>
+        <div class="page">7️⃣ 시작 페이지</div>
+        <div class="page">8️⃣ 추가 페이지 1</div>
+        <div class="page">9️⃣ 추가 페이지 2</div>
+        <div class="page">🔟 추가 페이지 3</div>
+        <div class="page">1️⃣1️⃣ 추가 페이지 4</div>
+        <div class="page">📕 마지막 페이지</div>
+    </div>
 
-    <!-- 세세 번째 섹션 -->
-    <section class="content">
-        <div class="ti">
-            <div class="text-section">
-                <h2>줄거리가 요약 됐어요!</h2>
-                <p>줄거리가 마음에 들면 다음 버튼을 눌러주세요.</p>
-                <p>혹시 마음에 안들면 초기화 버튼을 눌러주세요.</p>
-            </div>
-            <div class="image-section">
-                <img src="/image/set.png" alt="model 사용법법">
-            </div>
-        </div>
-    </section>
-
-    <!-- 네 번째 섹션 -->
-    <section class="content">
-        <div class="ti">
-            <div class="text-section">
-                <h2>이제 웹툰을 만들 거예요!</h2>
-                <p>웹툰에 어울리는 그림을 선택해주세요.</p>
-                <p>그러면 열심히 만들어서 결과가 나와요.</p>
-            </div>
-            <div class="image-section">
-                <img src="/image/set.png" alt="model 사용법법">
-            </div>
-        </div>
-    </section>
-
-
-
-
-    <section class="content">
-        <div class="ti">
-            <div class="team-section">
-                <h2>Fiction2Toon을 만든 사람들 (1/2)</h2>
-                <div class="team-container">
-                    <!-- 팀원 1 -->
-                    <div class="team-member">
-                        <img src="/image/hoonpro.jpg" alt="Hoon 사진" class="profile-img">
-                        <h3>Hoon</h3>
-                        <p>Front-End <br> Back-End <br> Data <br> AI Engineer</p>
-                        <p class="email">tkfkds998811@gmail.com</p>
-                        <button class="view-more">View More</button>
-                    </div>
-
-
-
-                    <!-- 팀원 2 -->
-                    <div class="team-member">
-                        <img src="/image/hyun.png" alt="Hyun 사진" class="profile-img">
-                        <h3>Hyun</h3>
-                        <p>Front-End <br> Back-End <br> Data <br> AI Engineer</p>
-                        <p class="email">pearl5322@gmail.com</p>
-                    </div>
-                    <!-- 팀원 3 -->
-                    <div class="team-member">
-                        <img src="/image/hoon.jpg" alt="HJae 사진" class="profile-img">
-                        <h3>HJae</h3>
-                        <p>Front-End <br> Back-End <br> Data <br> AI Engineer</p>
-                        <p class="email">a066235@aivle.kt.co.kr</p>
-                    </div>
-                </div> <!-- team-container 닫음 -->
-            </div> <!-- team-section 닫음 -->
-        </div>
-    </section>
-
-    <!-- 팀 섹션 2 -->
-    <section class="content">
-        <div class="ti">
-            <div class="team-section">
-                <h2>Fiction2Toon을 만든 사람들 (2/2)</h2>
-                <div class="team-container">
-                    <!-- 팀원 4 -->
-                    <div class="team-member">
-                        <img src="/image/hoon.jpg" alt="Hoon 사진" class="profile-img">
-                        <h3>Hoon</h3>
-                        <p>Front-End <br> Back-End <br> Data <br> AI Engineer</p>
-                        <p class="email">tkfkds998811@gmail.com</p>
-                    </div>
-                    <!-- 팀원 5 -->
-                    <div class="team-member">
-                        <img src="/image/hoon.jpg" alt="Hoon 사진" class="profile-img">
-                        <h3>Hoon</h3>
-                        <p>Front-End <br> Back-End <br> Data <br> AI Engineer</p>
-                        <p class="email">tkfkds998811@gmail.com</p>
-                    </div>
-                    <!-- 팀원 6 -->
-                    <div class="team-member">
-                        <img src="/image/hoon.jpg" alt="Hoon 사진" class="profile-img">
-                        <h3>Hoon</h3>
-                        <p>Front-End <br> Back-End <br> Data <br> AI Engineer</p>
-                        <p class="email">tkfkds998811@gmail.com</p>
-                    </div>
-                </div> <!-- team-container 닫음 -->
-            </div> <!-- team-section 닫음 -->
-        </div>
-    </section>
-
-    <section class="lastcontent">
-        <div class="ti">
-            <div class="text-section">
-                <h2>여러가지 기능들이 있어요!</h2>
-                <p>게시판에 후기도 남길 수 있고</p>
-                <p>log를 통해 회사 사람들과 공유도 할 수 있어요</p>
-                <p>불편 사항이 있으면 member들에게 연락을 주시면 돼요!</p>
-            </div>
-            <div class="image-section">
-                <img src="/image/hoonpaint.jpg" alt="model 사용법법">
-            </div>
-
-        </div>
-    </section>
-
-</main>
-
-<!--<footer>-->
-<!--    <div class="footer-links">-->
-<!--        <a href="/home">Home</a>-->
-<!--        <a href="/about">About</a>-->
-<!--        <a href="/contact">Contact</a>-->
-<!--    </div>-->
-
-<!--    <p style="color: #ffffff;">&copy; 2025 hooncompany</p>-->
-
-<!--</footer>-->
+    <!-- 📌 "다음 페이지" 버튼 -->
+    <button id="next-btn" class="arrow-btn">▶</button>
+</div>
 
 <script>
-    function scrollToTop() {
-    const container = document.querySelector('main'); // 스크롤 컨테이너
-    container.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-}
+    $(document).ready(function() {
+      var flipbook = $("#flipbook");
+      var prevBtn = $("#prev-btn");
+      var nextBtn = $("#next-btn");
+        var autoFlipActive = true;
+        var autoFlipInterval;
+        var lockedPage = 7;  // 7번째 페이지 이전으로는 못 돌아가게 설정
 
+        flipbook.turn({
+          width: 800,
+          height: 600,
+          autoCenter: true,
+          display: "double",
+          elevation: 100,
+          gradients: true,
+          acceleration: true,
+          duration: 800
+        });
 
+        // ✅ "이전 페이지" 버튼 클릭 이벤트 추가
+        prevBtn.on("click", function() {
+            flipbook.turn("previous");
+        });
 
+        // ✅ "다음 페이지" 버튼 클릭 이벤트 추가
+        nextBtn.on("click", function() {
+            flipbook.turn("next");
+        });
 
-
-    const bgm = document.getElementById('bgm');
-
-    function toggleBGM() {
-        const toggle = document.getElementById('toggle');
-        if (toggle.checked) {
-            bgm.play();
-        } else {
-            bgm.pause();
+        // ✅ 처음 6페이지 자동 넘김
+        function autoSkipPages() {
+            let pageIndex = 1;
+            let targetPage = lockedPage;  // 7페이지로 이동
+            let interval = setInterval(function() {
+                if (pageIndex < targetPage) {
+                    flipbook.turn("page", pageIndex + 1);
+                    pageIndex++;
+                } else {
+                    clearInterval(interval);
+                    prevBtn.prop("disabled", false); // 이후 이전 버튼 활성화
+                }
+            }, 200);  // ⬅️ 빠르게 넘김
         }
-    }
 
-    function logout() {
-        alert('로그아웃되었습니다.');
-        window.location.href = 'login.html';
-    }
-
-    function toggleNav() {
-        const nav = document.querySelector('.nav-container');
-        nav.classList.toggle('responsive');
-    }
+        // ✅ 0.5초 후 자동으로 첫 6페이지 넘기기
+        setTimeout(autoSkipPages, 100);
+    });
 </script>
+
 </body>
 </html>

@@ -9,7 +9,7 @@
             margin: 0;
             padding: 0;
             height: 100%; /* 전체 높이 */
-            overflow: hidden; /* 스크롤바 숨김 */
+            overflow-y: hidden; /* 스크롤바 숨김 */
 
             scroll-behavior: smooth; /* 부드러운 스크롤 */
         }
@@ -25,7 +25,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 20px;
+            padding: 5px 15px;
             background-color: #002855;
             border-bottom: 1px solid #002855;
             position: fixed;
@@ -66,7 +66,7 @@
         }
 
         .header-profile-img {
-            height: 50px; /* 로고 높이를 설정 */
+            height: 40px; /* 로고 높이를 설정 */
             object-fit: contain; /* 비율 유지 */
             border-radius: 50%; /* 원형 이미지 */
             border: 2px solid #ffffff; /* 테두리 */
@@ -100,274 +100,274 @@
         }
 
         .container {
-    height: 100%;
-    scroll-snap-type: y mandatory; /* 수직 방향 스냅 스크롤 */
-    overflow-y: scroll; /* 수직 스크롤 활성화 */
-    scroll-behavior: smooth; /* 부드러운 스크롤 */
-    /* overflow: visible; */
-}
+            height: 100%;
+            scroll-snap-type: y mandatory; /* 수직 방향 스냅 스크롤 */
+            overflow-y: scroll; /* 수직 스크롤 활성화 */
+            scroll-behavior: smooth; /* 부드러운 스크롤 */
+            /* overflow: visible; */
+        }
 
-.content {
+        .content {
 
-    scroll-snap-align: start; /* 섹션 시작 부분에서 스냅 */
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* 가운데 정렬 */
-    align-items: center;
-    margin: 0; /* 섹션 간 여백 제거 */
-    padding: 0; /* 섹션 내부 여백 제거 */
-    box-sizing: border-box;
-    /* 기존 그라디언트 배경 제거 */
-    background-image: url('/image/backg1.png'); /* 배경 이미지 적용 */
-    background-size: cover; /* 화면 전체 채우기 */
-    background-position: center; /* 중앙 정렬 */
-    background-repeat: no-repeat; /* 반복 없음 */
-    background-attachment: fixed; /* 스크롤해도 고정 */
-    min-height: 90vh; /* 최소 높이 설정 */
-    max-height: 90vh; /* 최대 높이 제한 */
-    overflow: hidden; /* 섹션 내 불필요한 스크롤 제거 */
-}
+            scroll-snap-align: start; /* 섹션 시작 부분에서 스냅 */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* 가운데 정렬 */
+            align-items: center;
+            margin: 0; /* 섹션 간 여백 제거 */
+            padding: 0; /* 섹션 내부 여백 제거 */
+            box-sizing: border-box;
+            /* 기존 그라디언트 배경 제거 */
+            background-image: url('/image/backg1.png'); /* 배경 이미지 적용 */
+            background-size: cover; /* 화면 전체 채우기 */
+            background-position: center; /* 중앙 정렬 */
+            background-repeat: no-repeat; /* 반복 없음 */
+            background-attachment: fixed; /* 스크롤해도 고정 */
+            min-height: 90vh; /* 최소 높이 설정 */
+            max-height: 90vh; /* 최대 높이 제한 */
+            overflow: hidden; /* 섹션 내 불필요한 스크롤 제거 */
+        }
 
-.content2 {
+        .content2 {
 
-    scroll-snap-align: start; /* 섹션 시작 부분에서 스냅 */
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* 가운데 정렬 */
-    align-items: center;
-    margin: 0; /* 섹션 간 여백 제거 */
-    padding: 0; /* 섹션 내부 여백 제거 */
-    box-sizing: border-box;
-    /* 기존 그라디언트 배경 제거 */
-    background-image: url('/image/backg5.png'); /* 배경 이미지 적용 */
-    background-size: cover; /* 화면 전체 채우기 */
-    background-position: center; /* 중앙 정렬 */
-    background-repeat: no-repeat; /* 반복 없음 */
-    background-attachment: fixed; /* 스크롤해도 고정 */
-    min-height: 90vh; /* 최소 높이 설정 */
-    max-height: 90vh; /* 최대 높이 제한 */
-    overflow: hidden; /* 섹션 내 불필요한 스크롤 제거 */
-}
-.content3 {
+            scroll-snap-align: start; /* 섹션 시작 부분에서 스냅 */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* 가운데 정렬 */
+            align-items: center;
+            margin: 0; /* 섹션 간 여백 제거 */
+            padding: 0; /* 섹션 내부 여백 제거 */
+            box-sizing: border-box;
+            /* 기존 그라디언트 배경 제거 */
+            background-image: url('/image/backg5.png'); /* 배경 이미지 적용 */
+            background-size: cover; /* 화면 전체 채우기 */
+            background-position: center; /* 중앙 정렬 */
+            background-repeat: no-repeat; /* 반복 없음 */
+            background-attachment: fixed; /* 스크롤해도 고정 */
+            min-height: 90vh; /* 최소 높이 설정 */
+            max-height: 90vh; /* 최대 높이 제한 */
+            overflow: hidden; /* 섹션 내 불필요한 스크롤 제거 */
+        }
+        .content3 {
 
-    scroll-snap-align: start; /* 섹션 시작 부분에서 스냅 */
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* 가운데 정렬 */
-    align-items: center;
-    margin: 0; /* 섹션 간 여백 제거 */
-    padding: 0; /* 섹션 내부 여백 제거 */
-    box-sizing: border-box;
-    /* 기존 그라디언트 배경 제거 */
-    background-image: url('/image/backg3.png'); /* 배경 이미지 적용 */
-    background-size: cover; /* 화면 전체 채우기 */
-    background-position: center; /* 중앙 정렬 */
-    background-repeat: no-repeat; /* 반복 없음 */
-    background-attachment: fixed; /* 스크롤해도 고정 */
-    min-height: 90vh; /* 최소 높이 설정 */
-    max-height: 90vh; /* 최대 높이 제한 */
-    overflow: hidden; /* 섹션 내 불필요한 스크롤 제거 */
-    }
-.content4 {
+            scroll-snap-align: start; /* 섹션 시작 부분에서 스냅 */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* 가운데 정렬 */
+            align-items: center;
+            margin: 0; /* 섹션 간 여백 제거 */
+            padding: 0; /* 섹션 내부 여백 제거 */
+            box-sizing: border-box;
+            /* 기존 그라디언트 배경 제거 */
+            background-image: url('/image/backg3.png'); /* 배경 이미지 적용 */
+            background-size: cover; /* 화면 전체 채우기 */
+            background-position: center; /* 중앙 정렬 */
+            background-repeat: no-repeat; /* 반복 없음 */
+            background-attachment: fixed; /* 스크롤해도 고정 */
+            min-height: 90vh; /* 최소 높이 설정 */
+            max-height: 90vh; /* 최대 높이 제한 */
+            overflow: hidden; /* 섹션 내 불필요한 스크롤 제거 */
+            }
+        .content4 {
 
-    scroll-snap-align: start; /* 섹션 시작 부분에서 스냅 */
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* 가운데 정렬 */
-    align-items: center;
-    margin: 0; /* 섹션 간 여백 제거 */
-    padding: 0; /* 섹션 내부 여백 제거 */
-    box-sizing: border-box;
-    /* 기존 그라디언트 배경 제거 */
-    background-image: url('/image/backg4.png'); /* 배경 이미지 적용 */
-    background-size: cover; /* 화면 전체 채우기 */
-    background-position: center; /* 중앙 정렬 */
-    background-repeat: no-repeat; /* 반복 없음 */
-    background-attachment: fixed; /* 스크롤해도 고정 */
-    min-height: 90vh; /* 최소 높이 설정 */
-    max-height: 90vh; /* 최대 높이 제한 */
-    overflow: hidden; /* 섹션 내 불필요한 스크롤 제거 */
-}
-.content5 {
+            scroll-snap-align: start; /* 섹션 시작 부분에서 스냅 */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* 가운데 정렬 */
+            align-items: center;
+            margin: 0; /* 섹션 간 여백 제거 */
+            padding: 0; /* 섹션 내부 여백 제거 */
+            box-sizing: border-box;
+            /* 기존 그라디언트 배경 제거 */
+            background-image: url('/image/backg4.png'); /* 배경 이미지 적용 */
+            background-size: cover; /* 화면 전체 채우기 */
+            background-position: center; /* 중앙 정렬 */
+            background-repeat: no-repeat; /* 반복 없음 */
+            background-attachment: fixed; /* 스크롤해도 고정 */
+            min-height: 90vh; /* 최소 높이 설정 */
+            max-height: 90vh; /* 최대 높이 제한 */
+            overflow: hidden; /* 섹션 내 불필요한 스크롤 제거 */
+        }
+        .content5 {
 
-    scroll-snap-align: start; /* 섹션 시작 부분에서 스냅 */
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* 가운데 정렬 */
-    align-items: center;
-    margin: 0; /* 섹션 간 여백 제거 */
-    padding: 0; /* 섹션 내부 여백 제거 */
-    box-sizing: border-box;
-    /* 기존 그라디언트 배경 제거 */
-    background-image: url('/image/backg2.png'); /* 배경 이미지 적용 */
-    background-size: cover; /* 화면 전체 채우기 */
-    background-position: center; /* 중앙 정렬 */
-    background-repeat: no-repeat; /* 반복 없음 */
-    background-attachment: fixed; /* 스크롤해도 고정 */
-    min-height: 90vh; /* 최소 높이 설정 */
-    max-height: 90vh; /* 최대 높이 제한 */
-    overflow: hidden; /* 섹션 내 불필요한 스크롤 제거 */
-}
-.lastcontent {
+            scroll-snap-align: start; /* 섹션 시작 부분에서 스냅 */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* 가운데 정렬 */
+            align-items: center;
+            margin: 0; /* 섹션 간 여백 제거 */
+            padding: 0; /* 섹션 내부 여백 제거 */
+            box-sizing: border-box;
+            /* 기존 그라디언트 배경 제거 */
+            background-image: url('/image/backg2.png'); /* 배경 이미지 적용 */
+            background-size: cover; /* 화면 전체 채우기 */
+            background-position: center; /* 중앙 정렬 */
+            background-repeat: no-repeat; /* 반복 없음 */
+            background-attachment: fixed; /* 스크롤해도 고정 */
+            min-height: 90vh; /* 최소 높이 설정 */
+            max-height: 90vh; /* 최대 높이 제한 */
+            overflow: hidden; /* 섹션 내 불필요한 스크롤 제거 */
+        }
+        .lastcontent {
 
-    scroll-snap-align: start; /* 섹션 시작 부분에서 스냅 */
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* 가운데 정렬 */
-    align-items: center;
+            scroll-snap-align: start; /* 섹션 시작 부분에서 스냅 */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* 가운데 정렬 */
+            align-items: center;
 
-    box-sizing: border-box;
+            box-sizing: border-box;
 
-    min-height: 90vh; /* 최소 높이 설정 */
-    max-height: 90vh; /* 최대 높이 제한 */
-    overflow: hidden; /* 섹션 내 불필요한 스크롤 제거 */
-    margin-bottom: 80px;
-    /* 기존 그라디언트 배경 제거 */
-    background-image: url('/image/hoonpaint2.jpg'); /* 배경 이미지 적용 */
-    background-size: cover; /* 화면 전체 채우기 */
-    background-position: center; /* 중앙 정렬 */
-    background-repeat: no-repeat; /* 반복 없음 */
-    background-attachment: fixed; /* 스크롤해도 고정 */
-}
+            min-height: 100vh; /* 🔥 기존보다 10vh 높게 설정 */
+            max-height: 100vh;
+            overflow: hidden;
+            background-image: url('/image/hoonpaint2.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        .site-footer {
+            width: 100%;
+            background-color: #002855;
+            padding: 10px;
+            text-align: center;
+            border-top: 1px solid #002855;
+        }
+
+        .site-footer .footer-links a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #ffffff;
+        }
 
         .ti {
-    display: flex; /* 가로 정렬 */
-    flex-direction: row; /* 요소를 가로로 배치 */
-    align-items: center; /* 세로 축 정렬 */
-    gap: 20px; /* 텍스트와 이미지 사이 간격 */
-    width: 100%; /* 섹션 내부 너비 */
-    justify-content: center; /* 부모 안에서 가운데 정렬 */
-    opacity: 0; /* 처음에는 보이지 않도록 */
-    transform: translateY(50px); /* 아래에서 올라오도록 */
-    transition: opacity 1.1s ease-out, transform 1.1s ease-out;
-
-}
-.ti.show {
-    opacity: 1;
-    transform: translateY(0);
-}
-.ti2 {
-    display: flex; /* 가로 정렬 */
-    flex-direction: row; /* 요소를 가로로 배치 */
-    align-items: center; /* 세로 축 정렬 */
-    gap: 20px; /* 텍스트와 이미지 사이 간격 */
-    width: 100%; /* 섹션 내부 너비 */
-    justify-content: center; /* 부모 안에서 가운데 정렬 */
-    }
+            display: flex; /* 가로 정렬 */
+            flex-direction: row; /* 요소를 가로로 배치 */
+            align-items: center; /* 세로 축 정렬 */
+            gap: 20px; /* 텍스트와 이미지 사이 간격 */
+            width: 100%; /* 섹션 내부 너비 */
+            justify-content: center; /* 부모 안에서 가운데 정렬 */
+            opacity: 0; /* 처음에는 보이지 않도록 */
+            transform: translateY(50px); /* 아래에서 올라오도록 */
+            transition: opacity 1.1s ease-out, transform 1.1s ease-out;
+        }
 
 
-.text-section {
-    flex: 1; /* 텍스트가 이미지와 같은 비율로 배치 */
-    text-align: center; /* 텍스트 정렬 */
-    opacity: 0; /* 처음에는 보이지 않도록 */
-    transform: translateX(-70px); /* 아래에서 올라오도록 */
-    transition: opacity 1.1s ease-out, transform 1.1s ease-out;
-}
-/* 화면에 나타날 때 */
-.text-section.show {
-    opacity: 1;
-    transform: translateX(0);
-}
+        .ti.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .ti2 {
+            display: flex; /* 가로 정렬 */
+            flex-direction: row; /* 요소를 가로로 배치 */
+            align-items: center; /* 세로 축 정렬 */
+            gap: 20px; /* 텍스트와 이미지 사이 간격 */
+            width: 100%; /* 섹션 내부 너비 */
+            justify-content: center; /* 부모 안에서 가운데 정렬 */
+            }
 
-.image-section.show {
-    opacity: 1;
-    transform: translateX(0);
-}
 
-.image-section {
-    flex: 1; /* 이미지가 텍스트와 같은 비율로 배치 */
-    opacity: 0; /* 처음에는 보이지 않도록 */
-    transform: translateX(70px); /* 아래에서 올라오도록 */
-    transition: opacity 1.1s ease-out, transform 1.1s ease-out;
-}
+        .text-section {
+            flex: 1; /* 텍스트가 이미지와 같은 비율로 배치 */
+            text-align: center; /* 텍스트 정렬 */
+            opacity: 0; /* 처음에는 보이지 않도록 */
+            transform: translateX(-70px); /* 아래에서 올라오도록 */
+            transition: opacity 1.1s ease-out, transform 1.1s ease-out;
+        }
+        /* 화면에 나타날 때 */
+        .text-section.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
 
-.image-section img {
-    max-height: 70vh; /* 이미지를 섹션 높이의 70%로 제한 */
-    width: auto; /* 가로세로 비율 유지 */
-    height: auto; /* 비율을 유지하면서 크기를 조정 */
-    display: block; /* 이미지가 부모 요소를 넘어가지 않도록 설정 */
-    margin: 0 auto; /* 이미지를 가운데 정렬 */
-    border-radius: 8px; /* 둥근 모서리 */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
-}
+        .image-section.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .image-section {
+            flex: 1; /* 이미지가 텍스트와 같은 비율로 배치 */
+            opacity: 0; /* 처음에는 보이지 않도록 */
+            transform: translateX(70px); /* 아래에서 올라오도록 */
+            transition: opacity 1.1s ease-out, transform 1.1s ease-out;
+        }
+
+        .image-section img {
+            max-height: 70vh; /* 이미지를 섹션 높이의 70%로 제한 */
+            width: auto; /* 가로세로 비율 유지 */
+            height: auto; /* 비율을 유지하면서 크기를 조정 */
+            display: block; /* 이미지가 부모 요소를 넘어가지 않도록 설정 */
+            margin: 0 auto; /* 이미지를 가운데 정렬 */
+            border-radius: 8px; /* 둥근 모서리 */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+        }
 
         .team-section {
-    text-align: center;
-    padding: 50px 20px; /* 내부 여백 설정 */
-    margin-top: 90px;
-    min-height: 100vh; /* 화면 전체 높이를 최소 높이로 설정 */
+            text-align: center;
+            padding: 50px 20px; /* 내부 여백 설정 */
+            margin-top: 90px;
+            min-height: 100vh; /* 화면 전체 높이를 최소 높이로 설정 */
 
-    justify-content: center; /* 부모 안에서 가운데 정렬 */
-}
+            justify-content: center; /* 부모 안에서 가운데 정렬 */
+        }
 
         .team-section h2 {
-            font-size: 40px;
-            color: #002855;
-            margin-bottom: 40px;
+                    font-size: 40px;
+                    color: #002855;
+                    margin-bottom: 40px;
         }
 
         .team-container {
-    display: flex; /* 가로 정렬 */
-    justify-content: center; /* 가운데 정렬 */
-    gap: 40px; /* 각 멤버 간 간격 */
-    flex-wrap: wrap; /* 화면이 작아지면 다음 줄로 배치 */
+            display: flex; /* 가로 정렬 */
+            justify-content: center; /* 가운데 정렬 */
+            gap: 40px; /* 각 멤버 간 간격 */
+            flex-wrap: wrap; /* 화면이 작아지면 다음 줄로 배치 */
 
-}
+        }
 
 
-.team-member {
-    text-align: center;
-    width: 300px; /* 각 멤버의 고정 너비 */
-    background-color: #fff;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
-}
+        .team-member {
+            text-align: center;
+            width: 300px; /* 각 멤버의 고정 너비 */
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+        }
 
-.profile-img {
-    width: 120px; /* 프로필 사진 크기 */
-    height: 120px;
-    border-radius: 50%; /* 원형 이미지 */
-    object-fit: cover; /* 이미지 비율 유지 */
-    margin-bottom: 10px; /* 아래 여백 */
-    border: 4px solid #002855; /* 테두리 */
-}
+        .profile-img {
+            width: 120px; /* 프로필 사진 크기 */
+            height: 120px;
+            border-radius: 50%; /* 원형 이미지 */
+            object-fit: cover; /* 이미지 비율 유지 */
+            margin-bottom: 10px; /* 아래 여백 */
+            border: 4px solid #002855; /* 테두리 */
+        }
 
-.team-member h3 {
-    font-size: 24px; /* 이름 글꼴 크기 */
-    color: #002855;
-    margin-bottom: 10px;
-}
+        .team-member h3 {
+            font-size: 24px; /* 이름 글꼴 크기 */
+            color: #002855;
+            margin-bottom: 10px;
+        }
 
-.team-member p {
-    font-size: 16px;
-    color: #555;
-}
+        .team-member p {
+            font-size: 16px;
+            color: #555;
+        }
 
-.email {
-    font-size: 14px;
-    color: #002855;
-    word-break: break-word; /* 긴 이메일 줄바꿈 */
-}
+        .email {
+            font-size: 14px;
+            color: #002855;
+            word-break: break-word; /* 긴 이메일 줄바꿈 */
+        }
 
         .email i {
             margin-right: 5px;
             color: #002855;
         }
 
-<!--        footer {-->
-<!--            position: ;-->
-<!--            background-color: #002855;-->
-<!--            padding: 20px;-->
-<!--            text-align: center;-->
-<!--            border-top: 1px solid #ddd;-->
-<!--        }-->
 
-<!--        .footer-links a {-->
-<!--            margin: 0 10px;-->
-<!--            text-decoration: none;-->
-<!--            color: #ffffff;-->
-<!--        }-->
         .hamburger{
             display: none;
             font-size: 24px;
@@ -376,115 +376,254 @@
             border: none;
             cursor: pointer;
         }
-        .video-container {
-    display: flex;
-    flex-direction: column; /* 세로 방향 정렬 */
-    align-items: center; /* 중앙 정렬 */
-    gap: 15px; /* 제목과 영상 사이 간격 */
-    margin-top: 50px; /* 위쪽 여백 */
-}
+                .video-container {
+            display: flex;
+            flex-direction: column; /* 세로 방향 정렬 */
+            align-items: center; /* 중앙 정렬 */
+            gap: 15px; /* 제목과 영상 사이 간격 */
+            margin-top: 50px; /* 위쪽 여백 */
+        }
 
-.video-title {
-    font-size: 24px;
-    font-weight: bold;
-    color: #002855; /* 원하는 색상 */
-    text-align: center;
-    margin: 0; /* 불필요한 기본 여백 제거 */
-}
+        .video-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #002855; /* 원하는 색상 */
+            text-align: center;
+            margin: 0; /* 불필요한 기본 여백 제거 */
+        }
 
         .video-frame {
-    width: 100%; /* 가로 크기: 부모 요소에 맞춤 */
-    max-width: 800px; /* 최대 가로 크기 */
-    aspect-ratio: 16 / 9; /* 비율 유지 (16:9) */
-    margin: 20px auto; /* 중앙 정렬 */
-    display: block; /* 블록 요소 */
-    border: none; /* 테두리 제거 */
-}
-.toggle-cont {
-  width: 50px;  /* 기존 100px → 50px */
-  height: 25px; /* 기존 50px → 25px */
-  border-radius: 9999px;
-  position: fixed;
-  top: 100px;
-  left: 25px;
-  z-index: 1000;
-}
+            width: 100%; /* 가로 크기: 부모 요소에 맞춤 */
+            max-width: 800px; /* 최대 가로 크기 */
+            aspect-ratio: 16 / 9; /* 비율 유지 (16:9) */
+            margin: 20px auto; /* 중앙 정렬 */
+            display: block; /* 블록 요소 */
+            border: none; /* 테두리 제거 */
+        }
+        .toggle-cont {
+            width: 50px;  /* 기존 100px → 50px */
+            height: 25px; /* 기존 50px → 25px */
+            border-radius: 9999px;
+            position: fixed;
+            top: 100px;
+            left: 25px;
+            z-index: 1000;
+        }
 
-.toggle-cont .toggle-label {
-  cursor: pointer;
-  position: relative;
-  display: inline-block;
-  padding: 3px; /* 기존 6px → 3px */
-  width: 100%;
-  height: 100%;
-  background: none;
-  border: 2px solid #002855; /* 기존 4px → 2px */
-  border-radius: 9999px;
-  box-sizing: content-box;
-  box-shadow: 0px 0px 8px -4px #fefefe; /* 기존 16px → 8px */
-}
+        .toggle-cont .toggle-label {
+            cursor: pointer;
+            position: relative;
+            display: inline-block;
+            padding: 3px; /* 기존 6px → 3px */
+            width: 100%;
+            height: 100%;
+            background: none;
+            border: 2px solid #002855; /* 기존 4px → 2px */
+            border-radius: 9999px;
+            box-sizing: content-box;
+            box-shadow: 0px 0px 8px -4px #fefefe; /* 기존 16px → 8px */
+        }
 
-.toggle-cont .toggle-label .cont-label-play {
-  position: relative;
-  width: 25px; /* 기존 50px → 25px */
-  aspect-ratio: 1 / 1;
-  background: #5e5e5e;
-  border-radius: 9999px;
-  transition: all 0.5s cubic-bezier(1, 0, 0, 1);
-}
+        .toggle-cont .toggle-label .cont-label-play {
+            position: relative;
+            width: 25px; /* 기존 50px → 25px */
+            aspect-ratio: 1 / 1;
+            background: #5e5e5e;
+            border-radius: 9999px;
+            transition: all 0.5s cubic-bezier(1, 0, 0, 1);
+        }
 
-.toggle-cont .toggle-input:checked + .toggle-label .cont-label-play {
-  background: #f43f5e;
-  transform: translateX(25px); /* 기존 50px → 25px */
-}
+        .toggle-cont .toggle-input:checked + .toggle-label .cont-label-play {
+            background: #f43f5e;
+            transform: translateX(25px); /* 기존 50px → 25px */
+        }
 
-.toggle-cont .toggle-label .label-play {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: inline-block;
-  width: 12px; /* 기존 24px → 12px */
-  aspect-ratio: 1 / 1;
-  background: #fefefe;
-  border-radius: 2px; /* 기존 4px → 2px */
-  clip-path: polygon(25% 0, 75% 50%, 25% 100%, 25% 51%);
-  transition: all 0.5s cubic-bezier(1, 0, 0, 1);
-}
+        .toggle-cont .toggle-label .label-play {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: inline-block;
+            width: 12px; /* 기존 24px → 12px */
+            aspect-ratio: 1 / 1;
+            background: #fefefe;
+            border-radius: 2px; /* 기존 4px → 2px */
+            clip-path: polygon(25% 0, 75% 50%, 25% 100%, 25% 51%);
+            transition: all 0.5s cubic-bezier(1, 0, 0, 1);
+        }
 
-.toggle-cont .toggle-input:checked + .toggle-label .label-play {
-  width: 10px; /* 기존 20px → 10px */
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-}
-.toggle-cont .toggle-input {
-  position: absolute;
-  width: 0;
-  height: 0;
-  opacity: 0;
-  pointer-events: none; /* 클릭 불가능하게 설정 */
-}
-
-
-
-.to-top-btn {
-  position: fixed;
-  z-index: 1000;
-  background-color: #002855;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  font-size: 18px;
-  cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  bottom: 20px; /* 화면 하단에서 20px 떨어진 위치 */
-  right: 45px; /* 화면 오른쪽에서 20px 떨어진 위치 */
-  display: block;
-}
+        .toggle-cont .toggle-input:checked + .toggle-label .label-play {
+            width: 10px; /* 기존 20px → 10px */
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        }
+        .toggle-cont .toggle-input {
+            position: absolute;
+            width: 0;
+            height: 0;
+            opacity: 0;
+            pointer-events: none; /* 클릭 불가능하게 설정 */
+        }
 
 
 
+        .to-top-btn {
+            position: fixed;
+            z-index: 1000;
+            background-color: #002855;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 18px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            bottom: 40px; /* 화면 하단에서 20px 떨어진 위치 */
+            right: 45px; /* 화면 오른쪽에서 20px 떨어진 위치 */
+            display: block;
+        }
+
+
+        /* 팝업 컨테이너 (배경) */
+        .popup-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 팝업 내용 */
+        .popup-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            width: 600px;  /* 가로 크기 */
+            max-width: 90%;
+            max-height: 800px; /* 🔥 팝업 크기 제한 */
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 닫기 버튼 */
+        .close-btn {
+            position: absolute;
+            top: 10px;  /* 🔥 popup-content 내부에서 10px 떨어진 위치 */
+            right: 10px; /* 🔥 popup-content 내부에서 10px 떨어진 위치 */
+            font-size: 24px;
+            cursor: pointer;
+            color: #002855;
+            background: none;
+            border: none;
+            font-weight: bold;
+            z-index: 10; /* 🔥 다른 요소 위에 위치하도록 설정 */
+        }
+
+        /* 이미지 감싸는 컨테이너 */
+        .image-container {
+            max-height: 400px; /* 🔥 이미지 표시 영역 제한 */
+            overflow: auto; /* 🔥 드래그 가능하도록 설정 */
+        }
+
+        /* 이미지 스타일 */
+        .popup-content img {
+            width: 100%;  /* 가로 크기 맞춤 */
+            height: auto; /* 원본 비율 유지 */
+            user-select: none; /* 🔥 텍스트 선택 방지 */
+        }
+        .popup-link {
+            display: block;  /* 🔥 inline-block → block 으로 변경 */
+            margin: 15px auto;  /* 🔥 자동 정렬 (좌우 여백 auto) */
+            padding: 8px 20px;
+            background: #002855;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+            width: 150px; /* 🔥 고정 가로 길이 */
+            text-align: center;
+        }
+
+
+        .book-section {
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* ✅ 책을 섹션의 정중앙에 배치 */
+            align-items: center;
+            height: 90vh; /* ✅ 기존 섹션과 동일한 높이 */
+            background-color: #f9f9f9;
+            position: relative;
+            padding-top: 0; /* ✅ 필요 없는 여백 제거 */
+        }
+
+
+
+        #flipbook {
+            width: 600px;
+            height: 400px;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            top: 40%;  /* ✅ 창의 중앙에 배치 */
+            transform: translateY(-40%); /* ✅ 정확히 중간으로 정렬 */
+        }
+
+
+        .book-title {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #002855;
+        }
+
+        #book-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+
+
+        .page {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: white;
+            border: 1px solid #ddd;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cover {
+            background-color: #002855;
+            color: white;
+        }
+
+        .arrow-btn {
+            font-size: 30px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .arrow-btn:hover {
+            transform: scale(1.2);
+            color: #ff5f5f;
+        }
 
 
     @media (max-width: 768px) {
@@ -511,8 +650,8 @@
             z-index: 1000;
         }
         .ti {
-        flex-direction: column; /* 세로로 배치 */
-        text-align: center; /* 텍스트 가운데 정렬 */
+            flex-direction: column; /* 세로로 배치 */
+            text-align: center; /* 텍스트 가운데 정렬 */
         }
     }
 
@@ -526,6 +665,7 @@
         <a href="/play">PlayModel</a>
         <a href="/board">Board</a>
         <a href="/log">Log</a>
+        <!--<a href="/board/game">Game</a>-->
     </nav>
     <div class="logo">
     <a href="/home">
@@ -554,9 +694,6 @@
             </div>
         </label>
     </div>
-
-
-
 
     <!-- 첫 번째 섹션 -->
     <section class="content">
@@ -641,68 +778,163 @@
 
 
 
-        <section class="content">
-            <div class="ti">
-                <div class="team-section">
-                    <h2>Fiction2Toon을 만든 사람들</h2>
-                    <div class="team-container">
-                        <!-- 팀원 1 -->
-                        <div class="team-member">
-                            <img src="/image/hoonpro.jpg" alt="Hoon 사진" class="profile-img">
-                            <h3>Hoon</h3>
-                            <p>Front-End <br> Back-End <br> Data <br> AI Engineer</p>
-                            <p class="email">tkfkds998811@gmail.com</p>
-                        </div>
-                        <!-- 팀원 2 -->
-                        <div class="team-member">
-                            <img src="/image/hyun.png" alt="Hyun 사진" class="profile-img">
-                            <h3>Hyun</h3>
-                            <p>Front-End <br> Back-End <br> Data <br> AI Engineer</p>
-                            <p class="email">pearl5322@gmail.com</p>
-                        </div>
-                        <!-- 팀원 3 -->
-                        <div class="team-member">
-                            <img src="/image/hoon.jpg" alt="HJae 사진" class="profile-img">
-                            <h3>HJae</h3>
-                            <p>Front-End <br> Back-End <br> Data <br> AI Engineer</p>
-                            <p class="email">a066235@aivle.kt.co.kr</p>
-                        </div>
-                    </div> <!-- team-container 닫음 -->
-                </div> <!-- team-section 닫음 -->
-            </div>
-        </section>
+<!--        <section class="content">-->
+<!--            <div class="ti">-->
+<!--                <div class="team-section">-->
+<!--                    <h2>Fiction2Toon을 만든 사람들</h2>-->
+<!--                    <div class="team-container">-->
+<!--                        &lt;!&ndash; 팀원 1 &ndash;&gt;-->
+<!--                        <div class="team-member">-->
+<!--                            <img src="/image/hoonpro.jpg" alt="Hoon 사진" class="profile-img">-->
+<!--                            <h3>Hoon</h3>-->
+<!--                            <p>Front-End <br> Back-End <br> Data <br> AI Engineer</p>-->
+<!--                            <p class="email">tkfkds998811@gmail.com</p>-->
+<!--                        </div>-->
+<!--                        &lt;!&ndash; 팀원 2 &ndash;&gt;-->
+<!--                        <div class="team-member">-->
+<!--                            <img src="/image/hyun.png" alt="Hyun 사진" class="profile-img">-->
+<!--                            <h3>Hyun</h3>-->
+<!--                            <p>Front-End <br> Back-End <br> Data <br> AI Engineer</p>-->
+<!--                            <p class="email">pearl5322@gmail.com</p>-->
+<!--                        </div>-->
+<!--                        &lt;!&ndash; 팀원 3 &ndash;&gt;-->
+<!--                        <div class="team-member">-->
+<!--                            <img src="/image/hoon.jpg" alt="HJae 사진" class="profile-img">-->
+<!--                            <h3>HJae</h3>-->
+<!--                            <p>Front-End <br> Back-End <br> Data <br> AI Engineer</p>-->
+<!--                            <p class="email">a066235@aivle.kt.co.kr</p>-->
+<!--                        </div>-->
+<!--                    </div> &lt;!&ndash; team-container 닫음 &ndash;&gt;-->
+<!--                </div> &lt;!&ndash; team-section 닫음 &ndash;&gt;-->
+<!--            </div>-->
+<!--        </section>-->
 
-        <!-- 팀 섹션 2 -->
-        <section class="content">
-            <div class="ti">
-                <div class="team-section">
-                    <h2>Fiction2Toon을 만든 사람들</h2>
-                    <div class="team-container">
-                        <!-- 팀원 4 -->
-                        <div class="team-member">
-                            <img src="/image/hoon.jpg" alt="Hoon 사진" class="profile-img">
-                            <h3>Hoon</h3>
-                            <p>Front-End <br> Back-End <br> Data <br> AI Engineer</p>
-                            <p class="email">tkfkds998811@gmail.com</p>
-                        </div>
-                        <!-- 팀원 5 -->
-                        <div class="team-member">
-                            <img src="/image/hoon.jpg" alt="Hoon 사진" class="profile-img">
-                            <h3>Hoon</h3>
-                            <p>Front-End <br> Back-End <br> Data <br> AI Engineer</p>
-                            <p class="email">tkfkds998811@gmail.com</p>
-                        </div>
-                        <!-- 팀원 6 -->
-                        <div class="team-member">
-                            <img src="/image/hoon.jpg" alt="Hoon 사진" class="profile-img">
-                            <h3>Hoon</h3>
-                            <p>Front-End <br> Back-End <br> Data <br> AI Engineer</p>
-                            <p class="email">tkfkds998811@gmail.com</p>
-                        </div>
-                    </div> <!-- team-container 닫음 -->
-                </div> <!-- team-section 닫음 -->
+<!--        &lt;!&ndash; 팀 섹션 2 &ndash;&gt;-->
+<!--        <section class="content">-->
+<!--            <div class="ti">-->
+<!--                <div class="team-section">-->
+<!--                    <h2>Fiction2Toon을 만든 사람들</h2>-->
+<!--                    <div class="team-container">-->
+<!--                        &lt;!&ndash; 팀원 4 &ndash;&gt;-->
+<!--                        <div class="team-member">-->
+<!--                            <img src="/image/hoon.jpg" alt="Hoon 사진" class="profile-img">-->
+<!--                            <h3>Hoon</h3>-->
+<!--                            <p>Front-End <br> Back-End <br> Data <br> AI Engineer</p>-->
+<!--                            <p class="email">tkfkds998811@gmail.com</p>-->
+<!--                        </div>-->
+<!--                        &lt;!&ndash; 팀원 5 &ndash;&gt;-->
+<!--                        <div class="team-member">-->
+<!--                            <img src="/image/hoon.jpg" alt="Hoon 사진" class="profile-img">-->
+<!--                            <h3>Hoon</h3>-->
+<!--                            <p>Front-End <br> Back-End <br> Data <br> AI Engineer</p>-->
+<!--                            <p class="email">tkfkds998811@gmail.com</p>-->
+<!--                        </div>-->
+<!--                        &lt;!&ndash; 팀원 6 &ndash;&gt;-->
+<!--                        <div class="team-member">-->
+<!--                            <img src="/image/hoon.jpg" alt="Hoon 사진" class="profile-img">-->
+<!--                            <h3>Hoon</h3>-->
+<!--                            <p>Front-End <br> Back-End <br> Data <br> AI Engineer</p>-->
+<!--                            <p class="email">tkfkds998811@gmail.com</p>-->
+<!--                        </div>-->
+<!--                    </div> &lt;!&ndash; team-container 닫음 &ndash;&gt;-->
+<!--                </div> &lt;!&ndash; team-section 닫음 &ndash;&gt;-->
+<!--            </div>-->
+<!--        </section>-->
+
+
+    <!-- ✅ 책 페이지 넘김 효과 추가 -->
+    <!-- ✅ 책 페이지 섹션 추가 (다른 content와 동일한 구조 유지) -->
+    <section class="book-section">
+        <h2 class="book-title">📖 Fiction2Toon을 만든 사람들 📖</h2>
+        <div id="book-container">
+            <button id="prev-btn" class="arrow-btn">◀</button>
+
+            <div id="flipbook">
+                <div class="page cover">
+                    <h2>Fiction2Toon 개발팀</h2>
+                    <img src="/image/logo.jpg" alt="Fiction2Toon 로고" style="height: 50px;">
+                    <p>책장을 넘겨보세요!</p>
+                </div>
+                <div class="page">
+                    <img src="/image/hoonpro.jpg" class="profile-img">
+                    <h3>이성훈</h3>
+                    <p>Front-End / Back-End / AI Engineer</p>
+                    <p class="email">tkfkds998811@gmail.com</p>
+                </div>
+                <div class="page cover">
+                    <h2>감사합니다! 🙌</h2>
+                    <p>많이 배우고 성장할 수 있었던
+                    <br>프로젝트였습니다.
+                    <br>많이 배워 갑니다!
+                    <br>앞으로 더 성장해서 만나고 싶어요
+                    <br>KT AIVLE 7기도 홧팅~~!!
+                    </p>
+                    <p>Fiction2Toon 팀</p>
+                </div>
+
+                <div class="page">
+                    <img src="/image/hyun.png" class="profile-img">
+                    <h3>진 현</h3>
+                    <p>Front-End / Back-End / AI Engineer</p>
+                    <p class="email">pearl5322@gmail.com</p>
+                </div>
+                <div class="page cover">
+                    <h2>감사합니다! 🙌</h2>
+                    <p>Fiction2Toon 팀</p>
+                </div>
+
+
+                <div class="page">
+                    <img src="/image/hoon.jpg" class="profile-img">
+                    <h3>이현제</h3>
+                    <p>Front-End / Back-End / AI Engineer</p>
+                    <p class="email">a066235@aivle.kt.co.kr</p>
+                </div>
+                <div class="page cover">
+                    <h2>감사합니다! 🙌</h2>
+                    <p>Fiction2Toon 팀</p>
+                </div>
+
+                <div class="page">
+                    <img src="/image/hoon.jpg" class="profile-img">
+                    <h3>사현제</h3>
+                    <p>Front-End / Back-End / AI Engineer</p>
+                    <p class="email">a066235@aivle.kt.co.kr</p>
+                </div>
+                <div class="page cover">
+                    <h2>감사합니다! 🙌</h2>
+                    <p>Fiction2Toon 팀</p>
+                </div>
+
+                <div class="page">
+                    <img src="/image/hoon.jpg" class="profile-img">
+                    <h3>오현제</h3>
+                    <p>Front-End / Back-End / AI Engineer</p>
+                    <p class="email">a066235@aivle.kt.co.kr</p>
+                </div>
+                <div class="page cover">
+                    <h2>감사합니다! 🙌</h2>
+                    <p>Fiction2Toon 팀</p>
+                </div>
+
+                <div class="page">
+                    <img src="/image/hoon.jpg" class="profile-img">
+                    <h3>육현제</h3>
+                    <p>Front-End / Back-End / AI Engineer</p>
+                    <p class="email">a066235@aivle.kt.co.kr</p>
+                </div>
+                <div class="page cover">
+                    <h2>감사합니다! 🙌</h2>
+                    <p>Fiction2Toon 팀</p>
+                </div>
             </div>
-        </section>
+
+
+
+            <button id="next-btn" class="arrow-btn">▶</button>
+        </div>
+    </section>
+
 
     <section class="lastcontent">
         <div class="ti">
@@ -717,22 +949,68 @@
             </div>
 
         </div>
+        <footer class="site-footer">
+            <div class="footer-links">
+                <a href="/home">Home</a>
+                <a href="/about">About</a>
+                <a href="/contact">Contact</a>
+            </div>
+
+            <p style="color: #ffffff;">&copy; 2025 hooncompany</p>
+
+        </footer>
     </section>
 
 </main>
 
-<!--<footer>-->
-<!--    <div class="footer-links">-->
-<!--        <a href="/home">Home</a>-->
-<!--        <a href="/about">About</a>-->
-<!--        <a href="/contact">Contact</a>-->
-<!--    </div>-->
-
-<!--    <p style="color: #ffffff;">&copy; 2025 hooncompany</p>-->
-
-<!--</footer>-->
+<!-- ✅ turn.js 라이브러리 추가 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/3/turn.min.js"></script>
 
 <script>
+    $(document).ready(function() {
+        var flipbook = $("#flipbook");
+
+        flipbook.turn({
+            width: 600,
+            height: 400,
+            autoCenter: true,
+            display: "double",
+            elevation: 100,
+            gradients: true,
+            acceleration: true,
+            duration: 800
+        });
+
+        $("#prev-btn").on("click", function() {
+            flipbook.turn("previous");
+        });
+
+        $("#next-btn").on("click", function() {
+            flipbook.turn("next");
+        });
+    });
+
+
+
+
+    function openExternalSite() {
+        window.open("https://aivle.kt.co.kr/home/main/indexMain", "_blank"); // 🔥 새 창에서 사이트 열기
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+    const popup = document.getElementById("popup");
+
+    // 로그인 후 팝업 자동 표시 (임시 조건: 1초 후 표시)
+    setTimeout(() => {
+        popup.style.display = "flex";
+    }, 1000);
+
+    // 팝업 닫기 기능
+    window.closePopup = function () {
+        popup.style.display = "none";
+    };
+});
 
     document.addEventListener("DOMContentLoaded", function () {
     const elementsToObserve = document.querySelectorAll(".ti, .text-section, .image-section");
