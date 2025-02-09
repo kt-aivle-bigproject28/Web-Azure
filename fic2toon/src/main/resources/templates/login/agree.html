@@ -11,6 +11,7 @@
             height: 100%; /* 화면 전체 높이를 유지 */
             display: flex;
             flex-direction: column; /* 세로 정렬 */
+            overflow-x: hidden;
         }
         body {
             margin: 0;
@@ -22,7 +23,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 10px 20px;
+            padding: 5px 20px;
             background-color: #002855;
             border-bottom: 1px solid #ddd;
         }
@@ -41,6 +42,11 @@
             justify-content: center; /* 세로 가운데 정렬 */
             align-items: center; /* 가로 가운데 정렬 */
             padding: 40px;
+            background-image: url('/image/backg1.png'); /* 배경 이미지 적용 */
+            background-size: cover; /* 화면 전체 채우기 */
+            background-position: center; /* 중앙 정렬 */
+            background-repeat: no-repeat; /* 반복 없음 */
+            background-attachment: fixed; /* 스크롤해도 고정 */
         }
 
         .terms-container {
@@ -149,7 +155,7 @@
         footer {
             position: ;
             background-color: #002855;
-            padding: 20px;
+            padding: 10px;
             text-align: center;
             border-top: 1px solid #ddd;
             width: 100%;

@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fiction2Toon - Log</title>
   <style>
-    html, body {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-    }
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
 
-    body {
+        body {
             margin: 0;
             font-family: Arial, sans-serif;
             background-color: #f9f9f9;
@@ -23,9 +23,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 20px;
+            padding: 5px 15px;
             background-color: #002855;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #002855;
             position: fixed;
             width: 100%;
             top: 0;
@@ -40,7 +40,7 @@
         .nav-container a {
             text-decoration: none;
             color: #ffffff;
-            font-size: 16px;
+            font-size: 20px;
         }
 
         .logo {
@@ -64,11 +64,10 @@
         }
 
         .header-profile-img {
-            width: 30px;
-            height: 30px;
+            height: 40px; /* 로고 높이를 설정 */
+            object-fit: contain; /* 비율 유지 */
             border-radius: 50%; /* 원형 이미지 */
-            object-fit: cover; /* 이미지 비율 유지 */
-            border: 2px solid #002855; /* 테두리 */
+            border: 2px solid #ffffff; /* 테두리 */
         }
 
         .logout-btn, .header-profile-img{
@@ -85,78 +84,78 @@
             padding: 8px 12px; /* 버튼 크기 조정 */
             cursor: pointer;
             border-radius: 4px;
-            font-size: 14px;
+            font-size: 20px;
             text-decoration: none;
         }
 
-    /* 메인 스타일 */
-    main {
-          flex: 1;
-          margin: 100px auto; /* 중앙 정렬: 위아래는 80px, 좌우는 자동 */
-          padding: 20px;
-          max-width: 1200px; /* 최대 너비 설정 */
-          background-color: #ffffff; /* 흰색 배경 추가 */
-          border-radius: 4px; /* 모서리를 약간 둥글게 */
-          box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
-          position: relative;
+        /* 메인 스타일 */
+        main {
+              flex: 1;
+              margin: 100px auto; /* 중앙 정렬: 위아래는 80px, 좌우는 자동 */
+              padding: 20px;
+              max-width: 1200px; /* 최대 너비 설정 */
+              background-color: #ffffff; /* 흰색 배경 추가 */
+              border-radius: 4px; /* 모서리를 약간 둥글게 */
+              box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+              position: relative;
+            }
+
+        .log-search-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 20px;
         }
 
-    .log-search-container {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 10px;
-        margin-bottom: 20px;
-    }
+        .search-input {
+            padding: 5px;
+            border: 1px solid #002855;
+            border-radius: 4px;
+            flex: 1;
+        }
 
-    .search-input {
-        padding: 5px;
-        border: 1px solid #002855;
-        border-radius: 4px;
-        flex: 1;
-    }
+        .search-btn {
+            background-color: #002855;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 5px 30px;
+            cursor: pointer;
+        }
 
-    .search-btn {
-        background-color: #002855;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        padding: 5px 30px;
-        cursor: pointer;
-    }
-
-    .search-btn:hover {
-    background-color: #003c7d; /* 호버 시 색상 변경 */
-    transform: translateY(-3px); /* 마우스 올리면 위로 3px 이동 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 추가로 입체감 */
-}
+        .search-btn:hover {
+        background-color: #003c7d; /* 호버 시 색상 변경 */
+        transform: translateY(-3px); /* 마우스 올리면 위로 3px 이동 */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 추가로 입체감 */
+        }
 
 
-    .log-container {
-        position: relative;
-        padding-bottom: 60px;
-    }
+        .log-container {
+            position: relative;
+            padding-bottom: 60px;
+        }
 
-    .log-table {
-        width: 100%;
-        border-collapse: collapse;
-        text-align: left;
-    }
+        .log-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
 
-    .log-table th, .log-table td {
-        border: 1px solid #ccc;
-        padding: 10px;
-    }
+        .log-table th, .log-table td {
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
 
-    .log-table th {
-        background-color: #f4f4f4;
-        color: #002855;
-        font-weight: bold;
-    }
+        .log-table th {
+            background-color: #f4f4f4;
+            color: #002855;
+            font-weight: bold;
+        }
 
-    .log-table a {
-            text-decoration: none; /* 밑줄 제거 */
-            color: #002855; /* 기본 텍스트 색상 */
+        .log-table a {
+                text-decoration: none; /* 밑줄 제거 */
+                color: #002855; /* 기본 텍스트 색상 */
         }
 
         .log-table a:hover {
@@ -166,10 +165,10 @@
 
 
 
-    footer {
+        footer {
             position: ;
             background-color: #002855;
-            padding: 20px;
+            padding: 10px;
             text-align: center;
             border-top: 1px solid #ddd;
         }
@@ -179,7 +178,7 @@
             text-decoration: none;
             color: #ffffff;
         }
-    .hamburger {
+        .hamburger {
             display: none;
             font-size: 24px;
             background: none;
@@ -210,7 +209,8 @@
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
             z-index: 1000;
         }
-    }
+        }
+
   </style>
 </head>
 <body>

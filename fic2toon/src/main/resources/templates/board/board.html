@@ -24,9 +24,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 20px;
+            padding: 5px 15px;
             background-color: #002855;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #002855;
             position: fixed;
             width: 100%;
             top: 0;
@@ -41,7 +41,7 @@
         .nav-container a {
             text-decoration: none;
             color: #ffffff;
-            font-size: 16px;
+            font-size: 20px;
         }
 
         .logo {
@@ -65,11 +65,10 @@
         }
 
         .header-profile-img {
-            width: 30px;
-            height: 30px;
+            height: 40px; /* 로고 높이를 설정 */
+            object-fit: contain; /* 비율 유지 */
             border-radius: 50%; /* 원형 이미지 */
-            object-fit: cover; /* 이미지 비율 유지 */
-            border: 2px solid #002855; /* 테두리 */
+            border: 2px solid #ffffff; /* 테두리 */
         }
 
         .logout-btn, .header-profile-img{
@@ -86,20 +85,20 @@
             padding: 8px 12px; /* 버튼 크기 조정 */
             cursor: pointer;
             border-radius: 4px;
-            font-size: 14px;
+            font-size: 20px;
             text-decoration: none;
         }
 
         /* 메인 스타일 */
         main {
-          flex: 1;
-          margin: 100px auto; /* 중앙 정렬: 위아래는 80px, 좌우는 자동 */
-          padding: 20px;
-          max-width: 1200px; /* 최대 너비 설정 */
-          background-color: #ffffff; /* 흰색 배경 추가 */
-          border-radius: 4px; /* 모서리를 약간 둥글게 */
-          box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
-          position: relative;
+            flex: 1;
+            margin: 100px auto; /* 중앙 정렬: 위아래는 80px, 좌우는 자동 */
+            padding: 20px;
+            max-width: 1200px; /* 최대 너비 설정 */
+            background-color: #ffffff; /* 흰색 배경 추가 */
+            border-radius: 4px; /* 모서리를 약간 둥글게 */
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+            position: relative;
         }
 
 
@@ -144,10 +143,10 @@
         }
 
         .search-btn:hover {
-    background-color: #003c7d; /* 호버 시 색상 변경 */
-    transform: translateY(-3px); /* 마우스 올리면 위로 3px 이동 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 추가로 입체감 */
-}
+            background-color: #003c7d; /* 호버 시 색상 변경 */
+            transform: translateY(-3px); /* 마우스 올리면 위로 3px 이동 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 추가로 입체감 */
+        }
 
         /* 게시판 스타일 */
         .board-container {
@@ -206,7 +205,7 @@
         footer {
             position: ;
             background-color: #002855;
-            padding: 20px;
+            padding: 10px;
             text-align: center;
             border-top: 1px solid #ddd;
         }

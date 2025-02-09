@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,7 +22,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 10px 20px;
+            padding: 5px 20px;
             background-color: #002855;
             border-bottom: 1px solid #ddd;
         }
@@ -38,6 +39,11 @@
             align-items: center;
             justify-content: flex-start; /* 내용이 상단부터 정렬되도록 설정 */
             padding: 20px 0; /* 상단과 하단 여백 추가 */
+            background-image: url('/image/backg1.png'); /* 배경 이미지 적용 */
+            background-size: cover; /* 화면 전체 채우기 */
+            background-position: center; /* 중앙 정렬 */
+            background-repeat: no-repeat; /* 반복 없음 */
+            background-attachment: fixed; /* 스크롤해도 고정 */
         }
         .signup-container {
             text-align: center;
@@ -46,6 +52,8 @@
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             width: 400px;
+            margin-bottom: 40px;
+            margin-top: 40px;
         }
         .signup-container h1 {
             font-size: 32px;
@@ -53,95 +61,95 @@
             margin-bottom: 20px;
         }
         .group {
-    position: relative;
-    margin-bottom: 30px;
-    width: 100%; /* 입력창과 밑줄 너비를 부모 컨테이너에 맞춤 */
-}
+            position: relative;
+            margin-bottom: 30px;
+            width: 100%; /* 입력창과 밑줄 너비를 부모 컨테이너에 맞춤 */
+        }
 
-.input {
-    font-size: 16px;
-    padding: 10px 10px 10px 5px;
-    display: block;
-    width: 100%; /* 입력창의 너비를 부모 요소에 맞춤 */
-    border: none;
-    border-bottom: 1px solid #515151;
-    background: transparent;
-    box-sizing: border-box; /* 패딩 포함 크기 계산 */
-}
+        .input {
+            font-size: 16px;
+            padding: 10px 10px 10px 5px;
+            display: block;
+            width: 100%; /* 입력창의 너비를 부모 요소에 맞춤 */
+            border: none;
+            border-bottom: 1px solid #515151;
+            background: transparent;
+            box-sizing: border-box; /* 패딩 포함 크기 계산 */
+        }
 
-.input:focus {
-    outline: none;
-}
+        .input:focus {
+            outline: none;
+        }
 
-label {
-    color: #999;
-    font-size: 18px;
-    font-weight: normal;
-    position: absolute;
-    pointer-events: none;
-    left: 5px;
-    top: 10px;
-    transition: 0.2s ease all;
-}
+        label {
+            color: #999;
+            font-size: 18px;
+            font-weight: normal;
+            position: absolute;
+            pointer-events: none;
+            left: 5px;
+            top: 10px;
+            transition: 0.2s ease all;
+        }
 
-.input:focus ~ label, .input:valid ~ label {
-    top: -20px;
-    font-size: 14px;
-    color: #5264AE;
-}
+        .input:focus ~ label, .input:valid ~ label {
+            top: -20px;
+            font-size: 14px;
+            color: #5264AE;
+        }
 
-.bar {
-    position: relative;
-    display: block;
-    width: 100%; /* 밑줄 너비를 입력창 너비와 동일하게 설정 */
-    box-sizing: border-box; /* 패딩 포함 크기 계산 */
-}
+        .bar {
+            position: relative;
+            display: block;
+            width: 100%; /* 밑줄 너비를 입력창 너비와 동일하게 설정 */
+            box-sizing: border-box; /* 패딩 포함 크기 계산 */
+        }
 
-.bar:before, .bar:after {
-    content: '';
-    height: 2px;
-    width: 0;
-    bottom: 0; /* 밑줄 위치를 입력창 아래로 조정 */
-    position: absolute;
-    background: #5264AE;
-    transition: 0.2s ease all;
-}
+        .bar:before, .bar:after {
+            content: '';
+            height: 2px;
+            width: 0;
+            bottom: 0; /* 밑줄 위치를 입력창 아래로 조정 */
+            position: absolute;
+            background: #5264AE;
+            transition: 0.2s ease all;
+        }
 
-.bar:before {
-    left: 50%; /* 밑줄이 가운데에서 시작 */
-}
+        .bar:before {
+            left: 50%; /* 밑줄이 가운데에서 시작 */
+        }
 
-.bar:after {
-    right: 50%; /* 밑줄이 가운데에서 시작 */
-}
+        .bar:after {
+            right: 50%; /* 밑줄이 가운데에서 시작 */
+        }
 
-.input:focus ~ .bar:before, .input:focus ~ .bar:after {
-    width: 50%; /* 포커스 시 양쪽으로 밑줄 확장 */
-}
+        .input:focus ~ .bar:before, .input:focus ~ .bar:after {
+            width: 50%; /* 포커스 시 양쪽으로 밑줄 확장 */
+        }
 
-.highlight {
-    position: absolute;
-    height: 60%;
-    width: 100%; /* 하이라이트 너비를 입력창과 동일하게 */
-    top: 25%;
-    left: 0;
-    pointer-events: none;
-    opacity: 0.5;
-}
+        .highlight {
+            position: absolute;
+            height: 60%;
+            width: 100%; /* 하이라이트 너비를 입력창과 동일하게 */
+            top: 25%;
+            left: 0;
+            pointer-events: none;
+            opacity: 0.5;
+        }
 
-.input:focus ~ .highlight {
-    animation: inputHighlighter 0.3s ease;
-}
+        .input:focus ~ .highlight {
+            animation: inputHighlighter 0.3s ease;
+        }
 
-@keyframes inputHighlighter {
-    from {
-        background: #5264AE;
-    }
-    to {
-        width: 0;
-        background: transparent;
-    }
-}
+        @keyframes inputHighlighter {
+            from {
+                background: #5264AE;
+            }
+            to {
+                width: 0;
+                background: transparent;
+            }
+        }
 
         .check-uid-btn {
             position: absolute; /* 입력창 위에 겹쳐지도록 설정 */
@@ -159,10 +167,10 @@ label {
         }
 
         .check-uid-btn:hover {
-    background-color: #003c7d; /* 호버 시 색상 변경 */
-    transform: translateY(-3px); /* 마우스 올리면 위로 3px 이동 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 추가로 입체감 */
-}
+            background-color: #003c7d; /* 호버 시 색상 변경 */
+            transform: translateY(-3px); /* 마우스 올리면 위로 3px 이동 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 추가로 입체감 */
+        }
 
 
 
@@ -200,7 +208,7 @@ label {
         footer {
             position: ;
             background-color: #002855;
-            padding: 20px;
+            padding: 10px;
             text-align: center;
             border-top: 1px solid #ddd;
         }
@@ -212,19 +220,19 @@ label {
         }
 
         /* 경고 메시지 스타일 */
-/* 공통 스타일로 경고 메시지 통일 */
-.warning-message {
-    font-size: 14px;
-    color: red;
-    margin-top: 5px; /* 위쪽 여백 */
-    margin-bottom: 20px;
-    text-align: center; /* 왼쪽 정렬 */
-    display: none; /* 기본적으로 숨김 */
-}
+        /* 공통 스타일로 경고 메시지 통일 */
+        .warning-message {
+            font-size: 14px;
+            color: red;
+            margin-top: 5px; /* 위쪽 여백 */
+            margin-bottom: 20px;
+            text-align: center; /* 왼쪽 정렬 */
+            display: none; /* 기본적으로 숨김 */
+        }
 
-.warning-message.success {
-    color: green; /* 성공 메시지 색상 */
-}
+        .warning-message.success {
+            color: green; /* 성공 메시지 색상 */
+        }
 
 
     </style>
@@ -283,7 +291,7 @@ label {
             <p id="password-match-message" class="warning-message"></p>
 
             <div class="group">
-                <input type="text" name="phone" class="input" required>
+                <input type="text" id="phone" name="phone" class="input" maxlength="11" required>
                 <span class="highlight"></span>
                 <span class="bar"></span>
                 <label>휴대폰 번호</label>
@@ -303,7 +311,7 @@ label {
                 <label>직책</label>
             </div>
 
-            <button type="submit" class="signup-btn-main">가입</button> <!-- 가입 버튼 -->
+            <button type="submit" class="signup-btn-main" disabled>가입</button> <!-- 가입 버튼 -->
         </form>
 
 
@@ -320,8 +328,24 @@ label {
 </footer>
 
 </body>
-</html>
+
 <script>
+
+
+
+    document.getElementById('phone').addEventListener('input', function (event) {
+        const input = event.target;
+        const maxLength = 11;
+
+        // 숫자가 아닌 값 제거
+        input.value = input.value.replace(/[^0-9]/g, '');
+
+        // 최대 길이 초과 시 잘라냄
+        if (input.value.length > maxLength) {
+            input.value = input.value.slice(0, maxLength);
+        }
+    });
+
     document.getElementById('check-uid-btn').addEventListener('click', function () {
         const uid = document.getElementById('uid').value;
 
@@ -372,44 +396,96 @@ label {
         }
     });
 
-    const passwordField = document.getElementById('password');
-const confirmPasswordField = document.getElementById('confirmPassword');
-const matchMessage = document.getElementById('password-match-message');
 
-function checkPasswordsMatch() {
-    if (confirmPasswordField.value === '') {
-        matchMessage.style.display = 'none'; // 메시지를 숨김
-    } else if (passwordField.value === confirmPasswordField.value) {
-        matchMessage.textContent = "비밀번호가 일치합니다.";
-        matchMessage.style.color = "green";
-        matchMessage.style.display = "block";
-    } else {
-        matchMessage.textContent = "비밀번호가 일치하지 않습니다.";
-        matchMessage.style.color = "red";
-        matchMessage.style.display = "block";
-    }
-}
 
-document.getElementById('password').addEventListener('input', function () {
-    const password = this.value;
-    const messageElement = document.getElementById('password-check-message');
+    document.addEventListener("DOMContentLoaded", function () {
+    const uidInput = document.getElementById("uid");
+    const passwordInput = document.getElementById("password");
+    const confirmPasswordInput = document.getElementById("confirmPassword");
+    const uidCheckButton = document.getElementById("check-uid-btn");
+    const signupButton = document.querySelector(".signup-btn-main");
 
-    // 정규식: 영어 + 숫자 조합, 10자리 이상
-    const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    const uidMessageElement = document.getElementById("uid-check-message");
+    const passwordMessageElement = document.getElementById("password-check-message");
+    const confirmPasswordMessageElement = document.getElementById("password-match-message");
 
-    if (!passwordPattern.test(password)) {
-        messageElement.style.color = "red";
-        messageElement.textContent = "비밀번호는 영어와 숫자를 포함한 8자리 이상이어야 합니다.";
-        messageElement.style.display = "block";
-    } else {
-        messageElement.style.color = "green";
-        messageElement.textContent = "사용 가능한 비밀번호입니다.";
-        messageElement.style.display = "block";
+    let isUidChecked = false;
+
+    // 아이디 중복 확인 버튼 클릭 시 상태 변경
+    uidCheckButton.addEventListener("click", function () {
+        if (!uidInput.value.trim()) {
+            uidMessageElement.textContent = "아이디를 입력해주세요.";
+            uidMessageElement.style.color = "red";
+            uidMessageElement.style.display = "block";
+            isUidChecked = false;
+        } else {
+            isUidChecked = true;
+            uidMessageElement.style.display = "none"; // 확인되면 메시지 숨김
+        }
+        checkFormValidity();
+    });
+
+    // 비밀번호 및 비밀번호 확인 입력 시 유효성 검사
+    passwordInput.addEventListener("input", checkFormValidity);
+    confirmPasswordInput.addEventListener("input", checkFormValidity);
+    uidInput.addEventListener("input", function () {
+        isUidChecked = false; // 아이디 변경 시 다시 중복 확인 필요
+        uidMessageElement.textContent = "아이디 중복 확인을 해주세요.";
+        uidMessageElement.style.color = "red";
+        uidMessageElement.style.display = "block";
+        checkFormValidity();
+    });
+
+    function checkFormValidity() {
+        const password = passwordInput.value;
+        const confirmPassword = confirmPasswordInput.value;
+        const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+        let isValid = true;
+
+        // 아이디 중복 확인 검사
+        if (!isUidChecked) {
+            uidMessageElement.textContent = "아이디 중복 확인을 해주세요.";
+            uidMessageElement.style.color = "red";
+            uidMessageElement.style.display = "block";
+            isValid = false;
+        } else {
+            uidMessageElement.style.display = "none";
+        }
+
+        // 비밀번호 유효성 검사
+        if (!passwordPattern.test(password)) {
+            passwordMessageElement.textContent = "비밀번호는 영어와 숫자를 포함한 8자리 이상이어야 합니다.";
+            passwordMessageElement.style.color = "red";
+            passwordMessageElement.style.display = "block";
+            isValid = false;
+        } else {
+            passwordMessageElement.textContent = "사용 가능한 비밀번호입니다.";
+            passwordMessageElement.style.color = "green";
+            passwordMessageElement.style.display = "block";
+        }
+
+        // 비밀번호 확인 검사
+        if (confirmPassword && password !== confirmPassword) {
+            confirmPasswordMessageElement.textContent = "비밀번호가 일치하지 않습니다.";
+            confirmPasswordMessageElement.style.color = "red";
+            confirmPasswordMessageElement.style.display = "block";
+            isValid = false;
+        } else if (confirmPassword) {
+            confirmPasswordMessageElement.textContent = "비밀번호가 일치합니다.";
+            confirmPasswordMessageElement.style.color = "green";
+            confirmPasswordMessageElement.style.display = "block";
+        }
+
+        // 가입 버튼 활성화/비활성화
+        if (isValid) {
+            signupButton.removeAttribute("disabled");
+        } else {
+            signupButton.setAttribute("disabled", "true");
+        }
     }
 });
 
 
-passwordField.addEventListener('input', checkPasswordsMatch);
-confirmPasswordField.addEventListener('input', checkPasswordsMatch);
 
 </script>
+</html>

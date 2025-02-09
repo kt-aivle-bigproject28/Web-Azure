@@ -22,9 +22,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 20px;
+            padding: 5px 15px;
             background-color: #002855;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #002855;
             position: fixed;
             width: 100%;
             top: 0;
@@ -39,7 +39,7 @@
         .nav-container a {
             text-decoration: none;
             color: #ffffff;
-            font-size: 16px;
+            font-size: 20px;
         }
 
         .logo {
@@ -63,11 +63,10 @@
         }
 
         .header-profile-img {
-            width: 30px;
-            height: 30px;
+            height: 40px; /* 로고 높이를 설정 */
+            object-fit: contain; /* 비율 유지 */
             border-radius: 50%; /* 원형 이미지 */
-            object-fit: cover; /* 이미지 비율 유지 */
-            border: 2px solid #002855; /* 테두리 */
+            border: 2px solid #ffffff; /* 테두리 */
         }
 
         .logout-btn, .header-profile-img{
@@ -84,7 +83,7 @@
             padding: 8px 12px; /* 버튼 크기 조정 */
             cursor: pointer;
             border-radius: 4px;
-            font-size: 14px;
+            font-size: 20px;
             text-decoration: none;
         }
 
@@ -92,6 +91,11 @@
             flex: 1;
             margin-top: 80px;
             padding: 20px;
+            background-image: url('/image/backg1.png'); /* 배경 이미지 적용 */
+            background-size: cover; /* 화면 전체 채우기 */
+            background-position: center; /* 중앙 정렬 */
+            background-repeat: no-repeat; /* 반복 없음 */
+            background-attachment: fixed; /* 스크롤해도 고정 */
         }
 
         /* 드래그 앤 드롭 영역 스타일 */
@@ -161,22 +165,22 @@
         }
 
         .buttons {
-          display: flex;
-          justify-content: center; /* 버튼을 가운데 정렬 */
-          gap: 500px; /* 버튼 사이 간격 설정 */
-          margin-top: 20px;
-      }
+            display: flex;
+            justify-content: center; /* 버튼을 가운데 정렬 */
+            gap: 500px; /* 버튼 사이 간격 설정 */
+            margin-top: 20px;
+        }
 
         .button {
-                background-color: #002855;
-                color: white;
-                border: none;
-                padding: 10px 20px;
-                font-size: 16px;
-                border-radius: 5px;
-                cursor: pointer;
-                text-decoration: none;
-            }
+            background-color: #002855;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
 
         .button:hover {
             background-color: #001f3d;
@@ -185,7 +189,7 @@
         footer {
             position: ;
             background-color: #002855;
-            padding: 20px;
+            padding: 10px;
             text-align: center;
             border-top: 1px solid #ddd;
         }
@@ -197,12 +201,12 @@
         }
 
         .hamburger {
-                display: none;
-                font-size: 24px;
-                background: none;
-                border: none;
-                cursor: pointer;
-            }
+            display: none;
+            font-size: 24px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
 
         @media (max-width: 768px) {
         .hamburger {
@@ -227,7 +231,7 @@
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
             z-index: 1000;
         }
-    }
+        }
 
         #result {
             width: 80%;
@@ -315,16 +319,16 @@
             transition: background-color 0.3s ease; /* 호버 시 부드러운 색상 전환 */
             }
 
-            .download-button:hover {
-                background-color: #001f3d; /* 호버 시 배경색 */
+        .download-button:hover {
+            background-color: #001f3d; /* 호버 시 배경색 */
             }
 
-            .download-button:active {
-                background-color: #001030; /* 클릭 시 배경색 */
+        .download-button:active {
+             background-color: #001030; /* 클릭 시 배경색 */
             }
 
-            .download-button svg {
-                flex-shrink: 0; /* 아이콘 크기 유지 */
+        .download-button svg {
+            flex-shrink: 0; /* 아이콘 크기 유지 */
             }
 
         .save-button {
@@ -359,10 +363,6 @@
             font-weight: bold;
             text-align: center;
         }
-
-
-
-
     </style>
 </head>
 <body>
@@ -374,20 +374,19 @@
         <a href="/board">Board</a>
         <a href="/log">Log</a>
     </nav>
-    <<div class="logo">
-    <a href="/home">
-        <img src="/image/logo.jpg" alt="Fiction2Toon 로고" style="height: 50px;">
-    </a>
-</div>
+    <div class="logo">
+        <a href="/home">
+            <img src="/image/logo.jpg" alt="Fiction2Toon 로고" style="height: 50px;">
+        </a>
+    </div>
     <div class="profile-container">
         <img src="/image/profile.jpg" alt="Profile" class="header-profile-img">
         <a href="/logout" class="logout-btn">Logout</a>
     </div>
-
 </header>
-
 <main>
-    <form th:action="@{/play/text_to_webtoon}" method="post" enctype="multipart/form-data">
+    <!-- 기존 form 태그를 그대로 두되, now 폼 제출은 JS로 인터셉트해서 파일 데이터를 읽은 후 sessionStorage에 저장 -->
+    <form id="uploadForm" th:action="@{/play}" method="post" enctype="multipart/form-data">
         <div class="drop-zone" id="dropZone">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
@@ -397,51 +396,17 @@
                 <line x1="15" y1="15" x2="12" y2="12"></line>
             </svg>
             <span class="drop-zone__prompt">텍스트 파일을 여기에 드래그하거나 클릭하여 업로드</span>
-            <input type="file" name="text" class="drop-zone__input" accept=".txt, .pdf">
-            <div id="file-name-display" style="margin-top: 10px; font-size: 14px; color: #002855;"></div> <!-- 파일명 표시 -->
+            <input type="file" name="file" class="drop-zone__input" accept=".txt, .pdf" onchange="validateFileType(this)">
+            <div id="file-name-display" style="margin-top: 10px;"></div>
         </div>
-        <p id="error-message" style="color: red; display: none;">.txt 파일만 업로드 가능합니다.</p>
+        <p id="error-message" style="color: red; display: none;">.txt, .pdf 파일만 업로드 가능합니다.</p>
         <div class="buttons">
             <button type="reset" class="button">초기화</button>
+            <!-- submit 버튼 동작은 JS로 대체 -->
             <button type="submit" class="button">다음</button>
         </div>
     </form>
-
-    <!-- 결과 표시 영역 -->
-    <div id="result" th:if="${imagePaths != null && !imagePaths.isEmpty()}">
-        <p th:if="${error}" th:text="${error}" class="error"></p>
-        <div class="result-images">
-            <div th:each="imagePath : ${imagePaths}" class="image-container">
-                <img th:src="@{/uploads/log/1/{imageName}(imageName=${imagePath})}"
-                     alt="변환된 웹툰 이미지">
-            </div>
-        </div>
-        <div class="download-container">
-            <button class="download-button">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
-                    <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
-                    <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"/>
-                </svg>
-                다운
-            </button>
-
-            <form th:action="@{/play/savelog}" method="post" enctype="multipart/form-data">
-                <div th:each="imagePath : ${imagePaths}">
-                    <input type="hidden" name="imageUrls" th:value="${imagePath}">
-                </div>
-                <button class="save-button">
-                <svg xmlns="http://www.w3.org/2000/svg" type="submit" width="20" height="20" fill="currentColor" class="bi bi-file-earmark-richtext" viewBox="0 0 16 16">
-                    <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5z"/>
-                    <path d="M4.5 12.5A.5.5 0 0 1 5 12h3a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5m0-2A.5.5 0 0 1 5 10h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5m1.639-3.708 1.33.886 1.854-1.855a.25.25 0 0 1 .289-.047l1.888.974V8.5a.5.5 0 0 1-.5.5H5a.5.5 0 0 1-.5-.5V8s1.54-1.274 1.639-1.208M6.25 6a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5"/>
-                </svg>
-                저장
-            </button>
-            </form>
-
-        </div>
-    </div>
 </main>
-
 <footer>
     <div class="footer-links">
         <a href="/home">Home</a>
@@ -451,160 +416,132 @@
     <p style="color: #ffffff;">&copy; 2025 hooncompany</p>
 </footer>
 <script>
-
-    document.querySelector('form').addEventListener('reset', function () {
-    // 파일 입력 필드 초기화
-    const fileInput = document.querySelector('.drop-zone__input');
-    fileInput.value = '';
-
-    // 에러 메시지 숨기기
-    const errorMessage = document.getElementById('error-message');
-    if (errorMessage) {
-        errorMessage.style.display = 'none';
+    // 네비게이션 토글 함수
+    function toggleNav() {
+        const nav = document.querySelector('.nav-container');
+        nav.classList.toggle('responsive');
     }
-
-    // 드롭존 초기 상태로 복원
-    const dropZone = document.getElementById('dropZone');
-    const promptText = dropZone.querySelector('.drop-zone__prompt');
-    const svgIcon = dropZone.querySelector('svg');
-    const thumbnail = dropZone.querySelector('.drop-zone__thumb');
-
-    // 파일명 표시 영역 초기화
-    const fileNameDisplay = document.getElementById('file-name-display');
-    if (fileNameDisplay) {
-        fileNameDisplay.textContent = ''; // 파일명 초기화
-    }
-
-    // 썸네일이 있으면 제거
-    if (thumbnail) {
-        thumbnail.remove();
-    }
-
-    // 아이콘과 기본 텍스트 복원
-    if (!svgIcon) {
-        const newSvgIcon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        newSvgIcon.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-        newSvgIcon.setAttribute('viewBox', '0 0 24 24');
-        newSvgIcon.setAttribute('fill', 'none');
-        newSvgIcon.setAttribute('stroke', 'currentColor');
-        newSvgIcon.setAttribute('stroke-width', '2');
-        newSvgIcon.setAttribute('stroke-linecap', 'round');
-        newSvgIcon.setAttribute('stroke-linejoin', 'round');
-        newSvgIcon.innerHTML = `
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-          <polyline points="14 2 14 8 20 8"></polyline>
-          <line x1="12" y1="18" x2="12" y2="12"></line>
-          <line x1="9" y1="15" x2="12" y2="12"></line>
-          <line x1="15" y1="15" x2="12" y2="12"></line>
-        `;
-        dropZone.insertBefore(newSvgIcon, promptText);
-    }
-
-    // 기본 텍스트 다시 추가
-    if (!promptText) {
-        const newPromptText = document.createElement('span');
-        newPromptText.className = 'drop-zone__prompt';
-        newPromptText.textContent = '텍스트 파일을 여기에 드래그하거나 클릭하여 업로드';
-        dropZone.appendChild(newPromptText);
-    }
-});
-
-
-  function validateFileType(input) {
-    const file = input.files[0];
-    const allowedExtensions = ['.txt', '.pdf'];
-    const fileName = file ? file.name.toLowerCase() : '';
-    const isValidFile = allowedExtensions.some(ext => fileName.endsWith(ext));
-
-    if (file && !isValidFile) {
-        document.getElementById('error-message').textContent = '허용된 파일 형식은 .txt, .pdf 입니다.';
-        document.getElementById('error-message').style.display = 'block';
-        input.value = ''; // 파일 입력 초기화
-    } else {
-        document.getElementById('error-message').style.display = 'none';
-    }
-}
-
-
-function toggleNav() {
-    const nav = document.querySelector('.nav-container');
-    nav.classList.toggle('responsive');
-}
-
-document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
-    const dropZoneElement = inputElement.closest(".drop-zone");
-
-    dropZoneElement.addEventListener("click", (e) => {
-        inputElement.click();
-    });
-
-    inputElement.addEventListener("change", (e) => {
-        if (inputElement.files.length) {
-            updateThumbnail(dropZoneElement, inputElement.files[0]);
+    // 파일 유효성 검사 함수
+    function validateFileType(input) {
+        const file = input.files[0];
+        if (file) {
+            const allowedExtensions = ['.txt', '.pdf'];
+            const fileName = file.name.toLowerCase();
+            if (!allowedExtensions.some(ext => fileName.endsWith(ext))) {
+                document.getElementById('error-message').textContent = '허용된 파일 형식은 .txt, .pdf 입니다.';
+                document.getElementById('error-message').style.display = 'block';
+                input.value = '';
+            } else {
+                document.getElementById('error-message').style.display = 'none';
+                document.getElementById('file-name-display').textContent = file.name;
+            }
         }
-    });
-
-    dropZoneElement.addEventListener("dragover", (e) => {
-        e.preventDefault();
-        dropZoneElement.classList.add("drop-zone--over");
-    });
-
-    ["dragleave", "dragend"].forEach((type) => {
-        dropZoneElement.addEventListener(type, (e) => {
+    }
+    // 드래그 앤 드롭 관련 이벤트 처리
+    document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
+        const dropZoneElement = inputElement.closest(".drop-zone");
+        dropZoneElement.addEventListener("click", () => inputElement.click());
+        inputElement.addEventListener("change", () => {
+            if (inputElement.files.length) {
+                updateThumbnail(dropZoneElement, inputElement.files[0]);
+            }
+        });
+        dropZoneElement.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            dropZoneElement.classList.add("drop-zone--over");
+        });
+        ["dragleave", "dragend"].forEach(type => {
+            dropZoneElement.addEventListener(type, () => {
+                dropZoneElement.classList.remove("drop-zone--over");
+            });
+        });
+        dropZoneElement.addEventListener("drop", (e) => {
+            e.preventDefault();
+            if (e.dataTransfer.files.length) {
+                inputElement.files = e.dataTransfer.files;
+                updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
+            }
             dropZoneElement.classList.remove("drop-zone--over");
         });
     });
-
-    dropZoneElement.addEventListener("drop", (e) => {
+    function updateThumbnail(dropZoneElement, file) {
+        const fileNameDisplay = document.getElementById("file-name-display");
+        fileNameDisplay.textContent = `업로드된 파일: ${file.name}`;
+        let thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb");
+        if (dropZoneElement.querySelector(".drop-zone__prompt")) {
+            dropZoneElement.querySelector(".drop-zone__prompt").remove();
+        }
+        if (!thumbnailElement) {
+            thumbnailElement = document.createElement("div");
+            thumbnailElement.classList.add("drop-zone__thumb");
+            dropZoneElement.appendChild(thumbnailElement);
+        }
+        thumbnailElement.dataset.label = file.name;
+        if (file.type.startsWith("image/")) {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                thumbnailElement.style.backgroundImage = `url('${reader.result}')`;
+            };
+        } else {
+            thumbnailElement.style.backgroundImage = null;
+        }
+    }
+    // 폼 제출을 인터셉트하여 파일을 읽고 sessionStorage에 저장한 후 processing 페이지로 이동
+    document.getElementById("uploadForm").addEventListener("submit", function(e) {
         e.preventDefault();
-
-        if (e.dataTransfer.files.length) {
-            inputElement.files = e.dataTransfer.files;
-            updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
+        const fileInput = document.querySelector(".drop-zone__input");
+        if (!fileInput.files.length) {
+            alert("파일을 선택해주세요.");
+            return;
         }
-
-        dropZoneElement.classList.remove("drop-zone--over");
-    });
-});
-
-function updateThumbnail(dropZoneElement, file) {
-    const fileNameDisplay = document.getElementById("file-name-display");
-
-    // 파일명을 표시
-    fileNameDisplay.textContent = `업로드된 파일: ${file.name}`;
-
-    let thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb");
-
-    // 드롭존 기본 텍스트 제거
-    if (dropZoneElement.querySelector(".drop-zone__prompt")) {
-        dropZoneElement.querySelector(".drop-zone__prompt").remove();
-    }
-
-    // 썸네일 요소 생성
-    if (!thumbnailElement) {
-        thumbnailElement = document.createElement("div");
-        thumbnailElement.classList.add("drop-zone__thumb");
-        dropZoneElement.appendChild(thumbnailElement);
-    }
-
-    thumbnailElement.dataset.label = file.name;
-
-    // 이미지 파일일 경우 썸네일 생성
-    if (file.type.startsWith("image/")) {
+        const file = fileInput.files[0];
         const reader = new FileReader();
-
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-            thumbnailElement.style.backgroundImage = `url('${reader.result}')`;
+        reader.onload = function() {
+            // 결과는 Base64 데이터 URL (예: "data:text/plain;base64,...")
+            // 여기서 "data:*;base64," 부분을 제거할 수 있지만, processing에서 변환 함수 사용 가능
+            sessionStorage.setItem("fileData", reader.result.split(",")[1]);
+            // 파일 데이터가 저장되었으므로 processing 페이지로 이동
+            window.location.href = "/play/processing";
         };
-    } else {
-        thumbnailElement.style.backgroundImage = null;
-    }
-}
-
-    function logout() {
-            window.location.href = "/login";
+        reader.readAsDataURL(file);
+    });
+    // reset 이벤트 핸들러: 드롭존 및 에러 메시지 초기화
+    document.getElementById("uploadForm").addEventListener("reset", function() {
+        const fileInput = document.querySelector(".drop-zone__input");
+        fileInput.value = "";
+        document.getElementById("error-message").style.display = "none";
+        const dropZone = document.getElementById("dropZone");
+        const promptText = dropZone.querySelector(".drop-zone__prompt");
+        const svgIcon = dropZone.querySelector("svg");
+        const fileNameDisplay = document.getElementById("file-name-display");
+        fileNameDisplay.textContent = "";
+        const thumbnail = dropZone.querySelector(".drop-zone__thumb");
+        if (thumbnail) {
+            thumbnail.remove();
         }
+        if (!svgIcon && !promptText) {
+            const newSvgIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            newSvgIcon.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+            newSvgIcon.setAttribute("viewBox", "0 0 24 24");
+            newSvgIcon.setAttribute("fill", "none");
+            newSvgIcon.setAttribute("stroke", "currentColor");
+            newSvgIcon.setAttribute("stroke-width", "2");
+            newSvgIcon.setAttribute("stroke-linecap", "round");
+            newSvgIcon.setAttribute("stroke-linejoin", "round");
+            newSvgIcon.innerHTML = `
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="12" y1="18" x2="12" y2="12"></line>
+                <line x1="9" y1="15" x2="12" y2="12"></line>
+                <line x1="15" y1="15" x2="12" y2="12"></line>
+            `;
+            dropZone.insertBefore(newSvgIcon, promptText);
+        }
+    });
+    function logout() {
+        window.location.href = "/login";
+    }
 </script>
 </body>
 </html>

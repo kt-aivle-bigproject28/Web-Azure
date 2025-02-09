@@ -6,48 +6,48 @@
     <title>게시글 수정</title>
     <style>
         html, body {
-           margin: 0;
-           padding: 0;
-           font-family: Arial, sans-serif;
-           background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
        }
 
        header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 20px;
+            padding: 5px 15px;
             background-color: #002855;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #002855;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
         }
 
-        .nav-container {
+       .nav-container {
             display: flex;
             gap: 20px;
         }
 
-        .nav-container a {
+       .nav-container a {
             text-decoration: none;
             color: #ffffff;
-            font-size: 16px;
-        }
+            font-size: 20px;
+       }
 
-        .logo {
+       .logo {
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
             font-size: 24px;
             font-weight: bold;
             color: #002855;
-        }
-        .logo img {
+       }
+       .logo img {
             height: 100px; /* 로고 높이를 설정 */
             object-fit: contain; /* 비율 유지 */
-        }
+       }
 
         .profile-container {
             display: flex;
@@ -57,11 +57,10 @@
         }
 
         .header-profile-img {
-            width: 30px;
-            height: 30px;
+            height: 40px; /* 로고 높이를 설정 */
+            object-fit: contain; /* 비율 유지 */
             border-radius: 50%; /* 원형 이미지 */
-            object-fit: cover; /* 이미지 비율 유지 */
-            border: 2px solid #002855; /* 테두리 */
+            border: 2px solid #ffffff; /* 테두리 */
         }
 
         .logout-btn, .header-profile-img{
@@ -78,7 +77,7 @@
             padding: 8px 12px; /* 버튼 크기 조정 */
             cursor: pointer;
             border-radius: 4px;
-            font-size: 14px;
+            font-size: 20px;
             text-decoration: none;
         }
 
@@ -187,7 +186,7 @@
        footer {
             position: ;
             background-color: #002855;
-            padding: 20px;
+            padding: 10px;
             text-align: center;
             border-top: 1px solid #ddd;
         }
@@ -229,7 +228,7 @@
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
             z-index: 1000;
         }
-    }
+        }
 
        .file-upload-section {
            margin-top: 20px;
@@ -325,65 +324,65 @@
 
 
 
-.radio-button-container {
- display: flex;
- align-items: center;
- gap: 24px;
-}
+        .radio-button-container {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
 
-.radio-button {
- display: inline-block;
- position: relative;
- cursor: pointer;
-}
+        .radio-button {
+         display: inline-block;
+         position: relative;
+         cursor: pointer;
+        }
 
-.radio-button__input {
- position: absolute;
- opacity: 0;
- width: 0;
- height: 0;
-}
+        .radio-button__input {
+         position: absolute;
+         opacity: 0;
+         width: 0;
+         height: 0;
+        }
 
-.radio-button__label {
- display: inline-block;
- padding-left: 30px;
- margin-bottom: 10px;
- position: relative;
- font-size: 15px;
- color: #002855;
- font-weight: 600;
- cursor: pointer;
- text-transform: uppercase;
- transition: all 0.3s ease;
-}
+        .radio-button__label {
+         display: inline-block;
+         padding-left: 30px;
+         margin-bottom: 10px;
+         position: relative;
+         font-size: 15px;
+         color: #002855;
+         font-weight: 600;
+         cursor: pointer;
+         text-transform: uppercase;
+         transition: all 0.3s ease;
+        }
 
-.radio-button__custom {
- position: absolute;
- top: 0;
- left: 0;
- width: 15px;
- height: 15px;
- border-radius: 50%;
- border: 2px solid #002855;
- transition: all 0.3s ease;
-}
+        .radio-button__custom {
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 15px;
+         height: 15px;
+         border-radius: 50%;
+         border: 2px solid #002855;
+         transition: all 0.3s ease;
+        }
 
-.radio-button__input:checked + .radio-button__label .radio-button__custom {
- background-color: #002855;
- border-color: transparent;
- transform: scale(0.8);
- box-shadow: 0 0 20px #4c8bf5;
-}
+        .radio-button__input:checked + .radio-button__label .radio-button__custom {
+         background-color: #002855;
+         border-color: transparent;
+         transform: scale(0.8);
+         box-shadow: 0 0 20px #4c8bf5;
+        }
 
-.radio-button__input:checked + .radio-button__label {
- color: #002855;
-}
+        .radio-button__input:checked + .radio-button__label {
+         color: #002855;
+        }
 
-.radio-button__label:hover .radio-button__custom {
- transform: scale(1.2);
- border-color: #4c8bf5;
- box-shadow: 0 0 20px #4c8bf580;
-}
+        .radio-button__label:hover .radio-button__custom {
+         transform: scale(1.2);
+         border-color: #4c8bf5;
+         box-shadow: 0 0 20px #4c8bf580;
+        }
     </style>
 </head>
 <body>

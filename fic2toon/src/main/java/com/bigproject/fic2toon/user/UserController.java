@@ -8,7 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
-
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,22 +27,23 @@ public class UserController {
     @PostMapping("/signup")
     public String signup(@Valid SignupDto signupDto, Model model) {
         try {
-            userService.createUser(signupDto, model); // 모델을 전달하지 않음
-            return "redirect:/login"; // 회원가입 후 로그인 페이지로 리다이렉트
+            userService.createUser(signupDto, model);
+            return "redirect:/login"; // 회원가입 성공 시 로그인 페이지로 이동
         } catch (DataIntegrityViolationException e) {
             model.addAttribute("errorMessage", "이미 사용 중인 ID입니다."); // 유일성 위반 시 메시지 설정
             model.addAttribute("signupDto", signupDto); // 입력한 데이터 유지
-            return "login/signup"; // 오류 발생 시 회원가입 페이지로 돌아감
+            return "login/signup"; // 회원가입 페이지로 다시 이동
         } catch (IllegalArgumentException e) {
-            model.addAttribute("errorMessage", e.getMessage()); // 다른 예외 처리
+            model.addAttribute("errorMessage", e.getMessage()); // 기타 예외 메시지 설정
             model.addAttribute("signupDto", signupDto); // 입력한 데이터 유지
-            return "login/signup"; // 오류 발생 시 회원가입 페이지로 돌아감
+            return "login/signup"; // 회원가입 페이지로 다시 이동
         } catch (Exception e) {
-            model.addAttribute("errorMessage", "서버 오류가 발생했습니다."); // 일반 오류 메시지 추가
+            model.addAttribute("errorMessage", "요구에 맞게 다시 가입해주세요."); // 일반 오류 메시지 추가
             model.addAttribute("signupDto", signupDto); // 입력한 데이터 유지
-            return "login/signup"; // 오류 발생 시 회원가입 페이지로 돌아감
+            return "login/signup"; // 회원가입 페이지로 다시 이동
         }
     }
+
 
     @PostMapping("/login")
     public String login(LoginRequestDto loginRequest, HttpSession session, Model model) {

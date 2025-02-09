@@ -12,12 +12,13 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh; /* 화면 전체 높이를 채우기 */
+
         }
         header {
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 10px 20px;
+            padding: 5px 20px;
             background-color: #002855;
             border-bottom: 1px solid #ddd;
         }
@@ -33,15 +34,18 @@
             justify-content: center; /* 세로 가운데 정렬 */
             align-items: center; /* 가로 가운데 정렬 */
             padding: 20px;
+            background-image: url('/image/backg1.png'); /* 배경 이미지 적용 */
+            background-size: cover; /* 화면 전체 채우기 */
+            background-position: center; /* 중앙 정렬 */
+            background-repeat: no-repeat; /* 반복 없음 */
+            background-attachment: fixed; /* 스크롤해도 고정 */
         }
         .login-container {
             text-align: center;
-            background-color: #fff;
+            background-color: transparent;
             padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px; /* 최대 너비 설정 */
+            width: 30%;
+            min-width: 400px;
         }
         .login-container h1 {
             font-size: 32px;
@@ -51,95 +55,95 @@
 
         /* 새로운 입력창 디자인 */
         .group {
-    position: relative;
-    margin-bottom: 30px;
-    width: 100%; /* 입력창과 밑줄 너비를 부모 컨테이너에 맞춤 */
-}
+            position: relative;
+            margin-bottom: 30px;
+            width: 100%; /* 입력창과 밑줄 너비를 부모 컨테이너에 맞춤 */
+        }
 
-.input {
-    font-size: 16px;
-    padding: 10px 10px 10px 5px;
-    display: block;
-    width: 100%; /* 입력창의 너비를 부모 요소에 맞춤 */
-    border: none;
-    border-bottom: 1px solid #515151;
-    background: transparent;
-    box-sizing: border-box; /* 패딩 포함 크기 계산 */
-}
+        .input {
+            font-size: 16px;
+            padding: 10px 10px 10px 5px;
+            display: block;
+            width: 100%; /* 입력창의 너비를 부모 요소에 맞춤 */
+            border: none;
+            border-bottom: 1px solid #515151;
+            background: transparent;
+            box-sizing: border-box; /* 패딩 포함 크기 계산 */
+        }
 
-.input:focus {
-    outline: none;
-}
+        .input:focus {
+            outline: none;
+        }
 
-label {
-    color: #999;
-    font-size: 18px;
-    font-weight: normal;
-    position: absolute;
-    pointer-events: none;
-    left: 5px;
-    top: 10px;
-    transition: 0.2s ease all;
-}
+        label {
+            color: #999;
+            font-size: 18px;
+            font-weight: normal;
+            position: absolute;
+            pointer-events: none;
+            left: 5px;
+            top: 10px;
+            transition: 0.2s ease all;
+        }
 
-.input:focus ~ label, .input:valid ~ label {
-    top: -20px;
-    font-size: 14px;
-    color: #5264AE;
-}
+        .input:focus ~ label, .input:valid ~ label {
+            top: -20px;
+            font-size: 14px;
+            color: #5264AE;
+        }
 
-.bar {
-    position: relative;
-    display: block;
-    width: 100%; /* 밑줄 너비를 입력창 너비와 동일하게 설정 */
-    box-sizing: border-box; /* 패딩 포함 크기 계산 */
-}
+        .bar {
+            position: relative;
+            display: block;
+            width: 100%; /* 밑줄 너비를 입력창 너비와 동일하게 설정 */
+            box-sizing: border-box; /* 패딩 포함 크기 계산 */
+        }
 
-.bar:before, .bar:after {
-    content: '';
-    height: 2px;
-    width: 0;
-    bottom: 0; /* 밑줄 위치를 입력창 아래로 조정 */
-    position: absolute;
-    background: #5264AE;
-    transition: 0.2s ease all;
-}
+        .bar:before, .bar:after {
+            content: '';
+            height: 2px;
+            width: 0;
+            bottom: 0; /* 밑줄 위치를 입력창 아래로 조정 */
+            position: absolute;
+            background: #5264AE;
+            transition: 0.2s ease all;
+        }
 
-.bar:before {
-    left: 50%; /* 밑줄이 가운데에서 시작 */
-}
+        .bar:before {
+            left: 50%; /* 밑줄이 가운데에서 시작 */
+        }
 
-.bar:after {
-    right: 50%; /* 밑줄이 가운데에서 시작 */
-}
+        .bar:after {
+            right: 50%; /* 밑줄이 가운데에서 시작 */
+        }
 
-.input:focus ~ .bar:before, .input:focus ~ .bar:after {
-    width: 50%; /* 포커스 시 양쪽으로 밑줄 확장 */
-}
+        .input:focus ~ .bar:before, .input:focus ~ .bar:after {
+            width: 50%; /* 포커스 시 양쪽으로 밑줄 확장 */
+        }
 
-.highlight {
-    position: absolute;
-    height: 60%;
-    width: 100%; /* 하이라이트 너비를 입력창과 동일하게 */
-    top: 25%;
-    left: 0;
-    pointer-events: none;
-    opacity: 0.5;
-}
+        .highlight {
+            position: absolute;
+            height: 60%;
+            width: 100%; /* 하이라이트 너비를 입력창과 동일하게 */
+            top: 25%;
+            left: 0;
+            pointer-events: none;
+            opacity: 0.5;
+        }
 
-.input:focus ~ .highlight {
-    animation: inputHighlighter 0.8s ease;
-}
+        .input:focus ~ .highlight {
+            animation: inputHighlighter 0.8s ease;
+        }
 
-@keyframes inputHighlighter {
-    from {
-        background: #5264AE;
-    }
-    to {
-        width: 0;
-        background: transparent;
-    }
-}
+        @keyframes inputHighlighter {
+            from {
+                background: #5264AE;
+            }
+            to {
+                width: 0;
+                background: transparent;
+            }
+        }
         .btn-main {
             display: block;
             background-color: #002855;
@@ -161,7 +165,7 @@ label {
 
         footer {
             background-color: #002855;
-            padding: 20px;
+            padding: 10px;
             text-align: center;
             border-top: 1px solid #ddd;
         }
@@ -221,4 +225,12 @@ label {
 </footer>
 
 </body>
+<script th:inline="javascript">
+    /* 로그인 실패 시 alert 창 표시 */
+    var errorMessage = /*[[${errorMessage}]]*/ null;
+    if (errorMessage) {
+        alert("로그인 실패!"); // 기본적인 실패 메시지
+    }
+</script>
+
 </html>

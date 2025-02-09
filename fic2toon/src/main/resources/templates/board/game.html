@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>웹툰 사이트</title>
+  <style>
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            overflow-x: hidden;
+        }
+
+            header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 15px;
+            background-color: #002855;
+            border-bottom: 1px solid #002855;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-container a {
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 20px;
+        }
+
+        .logo {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            font-weight: bold;
+            color: #002855;
+        }
+        .logo img {
+            height: 100px; /* 로고 높이를 설정 */
+            object-fit: contain; /* 비율 유지 */
+        }
+
+        .profile-container {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* 프로필과 버튼 사이 간격 */
+            position: relative;
+        }
+
+        .header-profile-img {
+            height: 40px; /* 로고 높이를 설정 */
+            object-fit: contain; /* 비율 유지 */
+            border-radius: 50%; /* 원형 이미지 */
+            border: 2px solid #ffffff; /* 테두리 */
+        }
+
+        .logout-btn, .header-profile-img{
+            position: relative;
+            right: 30px;
+        }
+
+
+
+        .logout-btn {
+            background-color: #002855;
+            color: #fff;
+            border: none;
+            padding: 8px 12px; /* 버튼 크기 조정 */
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 20px;
+            text-decoration: none;
+        }
+
+        .main {
+            flex: 1;
+            display: flex;
+            justify-content: center;  /* ✅ 세로 중앙 정렬 */
+            align-items: center;  /* ✅ 가로 중앙 정렬 */
+            width: 100%;
+            padding: 80px 20px;
+            box-sizing: border-box;
+        }
+
+        .section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;  /* ✅ 가로 중앙 정렬 */
+            justify-content: center;  /* ✅ 세로 중앙 정렬 */
+            width: 100%;
+            max-width: 800px;  /* ✅ 컨텐츠 최대 너비 제한 */
+            margin: auto;  /* ✅ 가운데 정렬 */
+            text-align: center;
+            gap: 5px;  /* ✅ 간격을 줄임 (기존 10px → 5px) */
+        }
+        .game {
+            margin-top: 1px; /* ✅ 기존보다 더 붙이기 */
+        }
+
+        .hamburger{
+            display: none;
+            font-size: 24px;
+            background: #002855;
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+        }
+
+            footer {
+            background-color: #002855;
+            padding: 10px;
+            text-align: center;
+            border-top: 1px solid #ddd;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+        }
+
+        .footer-links a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #ffffff;
+        }
+
+
+
+
+        .hidden {
+            display: none;
+        }
+
+        /* 두더지 게임 */
+        #mole {
+            font-size: 50px;
+            cursor: pointer;
+            display: inline-block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: auto; /* 🔥 클릭 문제 해결 */
+            visibility: visible; /* 🔥 가려지지 않도록 설정 */
+        }
+        /* From Uiverse.io by njesenberger */
+        .button {
+            -webkit-appearance: none;
+            appearance: none;
+            position: relative;
+            border-width: 0;
+            padding: 0 8px 12px;
+            min-width: 10em;
+            box-sizing: border-box;
+            background: transparent;
+            font: inherit;
+            cursor: pointer;
+        }
+
+        .button-top {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 0;
+            padding: 8px 16px;
+            transform: translateY(0);
+            text-align: center;
+            color: #fff;
+            text-shadow: 0 -1px rgba(0, 0, 0, .25);
+            transition-property: transform;
+            transition-duration: .2s;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .button:active .button-top {
+            transform: translateY(6px);
+        }
+
+        .button-top::after {
+            content: '';
+            position: absolute;
+            z-index: -1;
+            border-radius: 4px;
+            width: 100%;
+            height: 100%;
+            box-sizing: content-box;
+            background-image: radial-gradient(#cd3f64, #9d3656);
+            text-align: center;
+            color: #fff;
+            box-shadow: inset 0 0 0px 1px rgba(255, 255, 255, .2), 0 1px 2px 1px rgba(255, 255, 255, .2);
+            transition-property: border-radius, padding, width, transform;
+            transition-duration: .2s;
+        }
+
+        .button:active .button-top::after {
+            border-radius: 6px;
+            padding: 0 2px;
+        }
+
+        .button-bottom {
+            position: absolute;
+            z-index: -1;
+            bottom: 4px;
+            left: 4px;
+            border-radius: 8px / 16px 16px 8px 8px;
+            padding-top: 6px;
+            width: calc(100% - 8px);
+            height: calc(100% - 10px);
+            box-sizing: content-box;
+            background-color: #803;
+            background-image: radial-gradient(4px 8px at 4px calc(100% - 8px), rgba(255, 255, 255, .25), transparent), radial-gradient(4px 8px at calc(100% - 4px) calc(100% - 8px), rgba(255, 255, 255, .25), transparent), radial-gradient(16px at -4px 0, white, transparent), radial-gradient(16px at calc(100% + 4px) 0, white, transparent);
+            box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.5), inset 0 -1px 3px 3px rgba(0, 0, 0, .4);
+            transition-property: border-radius, padding-top;
+            transition-duration: .2s;
+        }
+
+        .button:active .button-bottom {
+            border-radius: 10px 10px 8px 8px / 8px;
+            padding-top: 0;
+        }
+
+        .button-base {
+            position: absolute;
+            z-index: -2;
+            top: 4px;
+            left: 0;
+            border-radius: 12px;
+            width: 100%;
+            height: calc(100% - 4px);
+            background-color: rgba(0, 0, 0, .15);
+            box-shadow: 0 1px 1px 0 rgba(255, 255, 255, .75), inset 0 2px 2px rgba(0, 0, 0, .25);
+        }
+        /* 🔥 select 박스 스타일 조정 */
+        #game-select {
+            font-size: 16px; /* 폰트 크기 증가 */
+            padding: 10px 20px; /* 버튼과 유사한 높이 */
+            height: 50px; /* 높이 버튼과 맞춤 */
+            border-radius: 8px; /* 부드러운 모서리 */
+            border: 2px solid #9d3656; /* 버튼과 조화로운 색상 */
+            background-color: white;
+            color: #333;
+            outline: none;
+            cursor: pointer;
+            appearance: none; /* 기본 UI 제거 */
+            text-align: center;
+        }
+
+        .rps-buttons {
+            display: flex;
+            justify-content: center; /* ✅ 가로 중앙 정렬 */
+            gap: 15px; /* ✅ 버튼 간격 설정 */
+            margin-top: 10px; /* ✅ 버튼과 제목 사이 간격 */
+        }
+
+        /* 🔥 select 박스 hover 시 스타일 */
+        #game-select:hover {
+            border-color: #cd3f64;
+        }
+
+        /* 🔥 select 박스 focus 스타일 */
+        #game-select:focus {
+            border-color: #cd3f64;
+            box-shadow: 0 0 8px rgba(205, 63, 100, 0.5);
+        }
+
+        /* ✅ 3D 버튼 스타일 (기존 .button → .button-3d 로 변경) */
+        .button-3d {
+            -webkit-appearance: none;
+            appearance: none;
+            position: relative;
+            border-width: 0;
+            padding: 0 8px 12px;
+            min-width: 10em;
+            box-sizing: border-box;
+            background: transparent;
+            font: inherit;
+            cursor: pointer;
+        }
+
+        .button-3d-top {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 0;
+            padding: 8px 16px;
+            transform: translateY(0);
+            text-align: center;
+            color: #fff;
+            text-shadow: 0 -1px rgba(0, 0, 0, .25);
+            transition: transform 0.2s;
+        }
+
+        .button-3d:active .button-3d-top {
+            transform: translateY(6px);
+        }
+
+        /* ✅ 클릭 버튼 테두리 */
+        .click-button-border {
+            border: 8px solid #ffae70;
+            outline: 4px solid;
+            border-radius: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 120px; /* 크기 조절 */
+            height: 120px;
+            margin: 20px auto;
+        }
+
+        /* ✅ 클릭 버튼 배경 */
+        .click-button-base {
+            background-color: #75221c;
+            outline: 2px solid black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 100%;
+            width: 100px;
+            height: 100px;
+        }
+
+        /* ✅ 클릭 버튼 (둥근 버튼) */
+        .click-button {
+            border-radius: 100%;
+            font-size: 32px;
+            outline: 2px solid black;
+            border: 4px solid;
+            border-left-color: #e7b8b4;
+            border-top-color: #f8c9c5;
+            border-bottom-color: #4e1814;
+            border-right-color: #79241e;
+            background-color: #e64539;
+            cursor: pointer;
+            color: #ffee83;
+            padding: 20px 30px;
+            transform: translateY(-20%);
+            width: 80px;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* ✅ 호버 효과 */
+        .click-button:hover {
+            transform: translateY(-10%);
+        }
+
+        /* ✅ 클릭 시 효과 */
+        .click-button:active {
+            transform: translateY(0);
+        }
+
+            @media (max-width: 768px) {
+                .hamburger {
+                    display: block; /* 햄버거 메뉴 표시 */
+                    color: #ffffff;
+                }
+
+                .nav-container {
+                    display: none; /* 기본적으로 숨김 */
+                }
+
+                .nav-container.responsive {
+                    display: flex; /* 햄버거 클릭 시 표시 */
+                    flex-direction: column; /* 세로 정렬 */
+                    align-items: flex-start;
+                    position: absolute;
+                    top: 60px;
+                    left: 0;
+                    width: 15%;
+                    background-color: #002855;
+                    padding: 10px 20px;
+                    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+                    z-index: 1000;
+                }
+            }
+  </style>
+</head>
+<body>
+<header>
+  <button class="hamburger" onclick="toggleNav()">☰</button>
+  <nav class="nav-container">
+    <a href="/home">Home</a>
+    <a href="/play">PlayModel</a>
+    <a href="/board">Board</a>
+    <a href="/log">Log</a>
+  </nav>
+  <div class="logo">
+    <a href="/home">
+      <img src="/image/logo.jpg" alt="Fiction2Toon 로고" style="height: 50px;">
+    </a>
+  </div>
+  <div class="profile-container">
+    <img src="/image/profile.jpg" alt="Profile" class="header-profile-img">
+    <a href="/logout" class="logout-btn">Logout</a>
+  </div>
+
+</header>
+
+    <section>
+      <h2>🎮 게임을 선택하세요!</h2>
+      <select id="game-select">
+        <option value="">게임을 선택하세요</option>
+        <option value="click-game">🔥 클릭 게임</option>
+        <option value="rps-game">✌ 가위바위보</option>
+        <option value="mole-game">🐹 두더지 잡기</option>
+      </select>
+
+      <!-- 🔥 게임 선택 버튼 (3D 버튼 스타일 적용) -->
+      <button type="button" class="button" onclick="showGame()">
+        <div class="button-top">게임 시작</div>
+        <div class="button-bottom"></div>
+        <div class="button-base"></div>
+      </button>
+    </section>
+
+
+    <section id="click-game" class="game hidden">
+      <h2>🔥 클릭 게임 (10초 안에 최대한 많이 클릭!)</h2>
+
+      <div class="click-button-border">
+        <div class="click-button-base">
+          <button id="click-btn" class="click-button"></button>
+        </div>
+      </div>
+
+
+      <p>점수: <span id="score">0</span></p>
+      <p>남은 시간: <span id="click-time-left">10</span>초</p>
+    </section>
+
+
+    <!-- 가위바위보 -->
+    <section id="rps-game" class="game hidden">
+      <h2>✌ 가위바위보!</h2>
+      <div class="rps-buttons">
+      <button type="button" class="button" onclick="playGame('가위')">
+        <div class="button-top">✌ 가위</div>
+        <div class="button-bottom"></div>
+        <div class="button-base"></div>
+      </button>
+
+      <button type="button" class="button" onclick="playGame('바위')">
+        <div class="button-top">✊ 바위</div>
+        <div class="button-bottom"></div>
+        <div class="button-base"></div>
+      </button>
+
+      <button type="button" class="button" onclick="playGame('보')">
+        <div class="button-top">🖐 보</div>
+        <div class="button-bottom"></div>
+        <div class="button-base"></div>
+      </button>
+      </div>
+      <p id="rps-result"></p>
+    </section>
+
+    <!-- 두더지 게임 -->
+    <section id="mole-game" class="game hidden">
+      <h2>🐹 두더지 잡기 (10초 동안 최대한 많이!)</h2>
+      <p>남은 시간: <span id="mole-time-left">10</span>초</p>
+      <div id="mole" onclick="hitMole()">🐹</div>
+      <p>점수: <span id="mole-score">0</span></p>
+    </section>
+
+
+  </div>
+</main>
+<footer>
+  <div class="footer-links">
+    <a th:href="@{/login}">Home</a>
+    <a href="/about">About</a>
+    <a href="/contact">Contact</a>
+  </div>
+  <p style="color: #ffffff;">&copy; 2025 hooncompany</p>
+</footer>
+
+
+<script>
+  let clickScore = 0;
+  let moleScore = 0;
+  let clickTimeLeft = 10;
+  let moleTimeLeft = 10;
+  let clickInterval, moleInterval;
+
+  // 🔥 진행 중인 게임의 타이머를 저장하는 변수
+let activeTimer = null;
+
+// 🔥 모든 게임을 정지하는 함수
+function stopAllGames() {
+    if (activeTimer) {
+        clearInterval(activeTimer);
+        activeTimer = null;
+    }
+}
+
+// 🔥 게임 시작 함수 (선택한 게임만 실행)
+function showGame() {
+    // 모든 게임 숨기기
+    document.querySelectorAll(".game").forEach(game => game.classList.add("hidden"));
+
+    // 선택한 게임 가져오기
+    const selectedGame = document.getElementById("game-select").value;
+
+    if (selectedGame) {
+        document.getElementById(selectedGame).classList.remove("hidden");
+
+        // 🔥 기존 게임 정지 후 선택한 게임 실행
+        stopAllGames();
+        if (selectedGame === "click-game") {
+            startClickGame();
+        } else if (selectedGame === "mole-game") {
+            startMoleGame();
+        } else if (selectedGame === "rps-game") {
+            startRPSGame();
+        }
+    }
+}
+
+// 🔥 1️⃣ 클릭 게임 (10초 제한)
+function startClickGame() {
+    stopAllGames(); // 기존 게임 종료
+
+    let score = 0;
+    let timeLeft = 10;
+    document.getElementById("score").textContent = score;
+    document.getElementById("click-time-left").textContent = timeLeft;
+    document.getElementById("click-btn").disabled = false;
+
+    document.getElementById("click-btn").onclick = () => {
+        score++;
+        document.getElementById("score").textContent = score;
+    };
+
+    activeTimer = setInterval(() => {
+        timeLeft--;
+        document.getElementById("click-time-left").textContent = timeLeft;
+        if (timeLeft <= 0) {
+            clearInterval(activeTimer);
+            document.getElementById("click-btn").disabled = true;
+            alert(`🔥 클릭 게임 종료! 점수: ${score}`);
+        }
+    }, 1000);
+}
+
+// 🔥 2️⃣ 두더지 잡기 (10초 제한)
+function startMoleGame() {
+    stopAllGames(); // 기존 게임 종료
+
+    let moleScore = 0;
+    let moleTimeLeft = 10;
+    document.getElementById("mole-score").textContent = moleScore;
+    document.getElementById("mole-time-left").textContent = moleTimeLeft;
+
+    // 🔥 두더지가 다시 나타나도록 설정
+    document.getElementById("mole").style.display = "block";
+
+    document.getElementById("mole").onclick = () => {
+        moleScore++;
+        document.getElementById("mole-score").textContent = moleScore;
+        moveMole();
+    };
+
+    activeTimer = setInterval(() => {
+        moleTimeLeft--;
+        document.getElementById("mole-time-left").textContent = moleTimeLeft;
+        if (moleTimeLeft <= 0) {
+            clearInterval(activeTimer);
+            document.getElementById("mole").style.display = "none"; // 두더지 숨기기
+            alert(`🐹 두더지 게임 종료! 점수: ${moleScore}`);
+        }
+    }, 1000);
+}
+
+// 🔥 두더지 이동 함수
+function moveMole() {
+    const mole = document.getElementById("mole");
+    const maxTop = window.innerHeight - 150;  // 🔥 헤더 & 푸터 고려
+    const maxLeft = window.innerWidth - 100;  // 🔥 좌우 경계 고려
+
+    mole.style.top = Math.max(60, Math.random() * maxTop) + "px";
+    mole.style.left = Math.max(20, Math.random() * maxLeft) + "px";
+}
+
+
+// 🔥 3️⃣ 가위바위보 (시간 제한 없음)
+function startRPSGame() {
+    stopAllGames(); // 기존 게임 종료
+    document.getElementById("rps-result").textContent = "가위바위보를 선택하세요!";
+}
+
+// 🔥 가위바위보 플레이 함수 (이모티콘 & 스타일 개선)
+function playGame(userChoice) {
+    const choices = ["가위", "바위", "보"];
+    const choiceEmojis = { "가위": "✌", "바위": "✊", "보": "🖐" }; // 이모티콘 추가
+    const aiChoice = choices[Math.floor(Math.random() * choices.length)];
+    let result = "";
+    let resultColor = "";
+
+    if (userChoice === aiChoice) {
+        result = `🤝 무승부!`;
+        resultColor = "#007BFF"; // 파란색
+    } else if (
+        (userChoice === "가위" && aiChoice === "보") ||
+        (userChoice === "바위" && aiChoice === "가위") ||
+        (userChoice === "보" && aiChoice === "바위")
+    ) {
+        result = `🎉 승리!`;
+        resultColor = "#28A745"; // 초록색
+    } else {
+        result = `😢 패배...`;
+        resultColor = "#DC3545"; // 빨간색
+    }
+
+    // 결과 표시
+    const resultElement = document.getElementById("rps-result");
+    resultElement.innerHTML = `<p style="font-size: 22px; margin: 10px 0;">
+                                👤: ${choiceEmojis[userChoice]} (${userChoice})<br>
+                               🤖: ${choiceEmojis[aiChoice]} (${aiChoice})
+                                </p>
+                               <p style="color: ${resultColor}; font-size: 24px; font-weight: bold; margin-top: 10px;">
+                                 ${result}
+                               </p>`;
+}
+
+
+</script>
+
+</body>
+</html>

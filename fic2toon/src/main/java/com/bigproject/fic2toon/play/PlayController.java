@@ -1,7 +1,5 @@
 package com.bigproject.fic2toon.play;
 
-import com.bigproject.fic2toon.api.FastApiClient;
-import com.bigproject.fic2toon.user.UserService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpSession;
@@ -10,103 +8,92 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/play")
 public class PlayController {
-    private final FastApiClient fastApiClient;
     private final PlayService playService;
-    private final UserService userService;
 
+    // 1. 파일 업로드 페이지 (playmodel.html)
     @GetMapping
     public String getPlayModel(HttpSession session, Model model) {
-        String loginUserId = (String) session.getAttribute("loginUser"); // 로그인한 사용자 ID를 가져옴
-
-        if (loginUserId == null) {
-            return "redirect:/login"; // 로그인하지 않은 경우 로그인 페이지로 리다이렉트
-        }
-
-        model.addAttribute("user", loginUserId); // 사용자 타입 추가
-        return "model/playmodel"; // 게시판 뷰 반환
-    }
-
-//    @PostMapping("/text_to_webtoon")
-//    public String textToWebtoon(@RequestParam("text") MultipartFile text, Model model) throws IOException {
-//        try {
-//            // FastApiClient를 통해 API 호출
-//            String response = fastApiClient.textToWebtoon(text);
-//
-//            // ObjectMapper를 사용하여 JSON 문자열을 Map으로 변환
-//            ObjectMapper objectMapper = new ObjectMapper();
-//
-//            // 응답이 오류인지 확인
-//            if (response.contains("error")) {
-//                Map<String, String> errorResponse = objectMapper.readValue(response, new TypeReference<Map<String, String>>(){});
-//                model.addAttribute("error", errorResponse.get("error")); // 에러 메시지 모델에 추가
-//            } else {
-//                Map<String, List<String>> responseMap = objectMapper.readValue(response, new TypeReference<Map<String, List<String>>>(){});
-//                List<String> imagePaths = responseMap.get("image_paths");
-//                model.addAttribute("imagePaths", imagePaths); // 이미지 경로를 모델에 추가
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            model.addAttribute("error", "파일 처리 실패: " + e.getMessage());
-//        }
-//        return "model/playmodel"; // 뷰 반환
-//    }
-
-    @PostMapping("/text_to_webtoon")
-    public String textToWebtoon(@RequestParam("text") MultipartFile text, Model model) throws IOException {
-        try {
-            // FastApiClient를 통해 API 호출
-            String response = fastApiClient.textToWebtoon(text);
-
-            // ObjectMapper를 사용하여 JSON 문자열을 Map으로 변환
-            ObjectMapper objectMapper = new ObjectMapper();
-
-            if (response.contains("error")) {
-                Map<String, String> errorResponse = objectMapper.readValue(response, new TypeReference<Map<String, String>>() {});
-                model.addAttribute("error", errorResponse.get("error"));
-                return "model/playmodel"; // 에러 발생 시 원래 페이지로
-            } else {
-                Map<String, List<String>> responseMap = objectMapper.readValue(response, new TypeReference<Map<String, List<String>>>() {});
-                List<String> imagePaths = responseMap.get("image_paths");
-                model.addAttribute("imagePaths", imagePaths); // 이미지 경로 추가
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            model.addAttribute("error", "파일 처리 실패: " + e.getMessage());
-            return "model/playmodel"; // 에러 발생 시 원래 페이지로
-        }
-
-        return "model/savelog"; // 성공 시 savelog.html로 이동
-    }
-
-    @PostMapping("/saveLog")
-    public String saveLog(@ModelAttribute @Valid LogDto logDto,
-                          HttpSession session,
-                          Model model) {
         String loginUserId = (String) session.getAttribute("loginUser");
-
         if (loginUserId == null) {
             return "redirect:/login";
         }
+        model.addAttribute("user", loginUserId);
+        return "model/playmodel";
+    }
 
-        model.addAttribute("user", loginUserId); // 사용자 타입 추가
+    // 2. 처리 진행 페이지 (processing.html)
+    @GetMapping("/processing")
+    public String showProcessing(HttpSession session, Model model) {
+        // 파일 업로드 이후(클라이언트 측에서 sessionStorage에 저장된 fileData를 사용)
+        // 별도의 파라미터나 세션 데이터 없이 페이지를 렌더링합니다.
+        String loginUserId = (String) session.getAttribute("loginUser");
+        if (loginUserId == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("user", loginUserId);
+        return "model/processing";
+    }
+
+    @GetMapping("/savelog")
+    public String showSaveLog(HttpSession session, Model model) {
+        // 파일 업로드 이후(클라이언트 측에서 sessionStorage에 저장된 fileData를 사용)
+        // 별도의 파라미터나 세션 데이터 없이 페이지를 렌더링합니다.
+        String loginUserId = (String) session.getAttribute("loginUser");
+        if (loginUserId == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("user", loginUserId);
+        return "model/savelog";
+    }
+
+    // 3. 결과 저장 처리 (savelog.html에서 최종 저장 요청 시)
+    @PostMapping("/savelog")
+    public String saveLog(@ModelAttribute @Valid LogDto logDto,
+                          @RequestParam String imagePaths, // JSON 배열 문자열 형태로 전달됨
+                          HttpSession session,
+                          Model model,
+                          RedirectAttributes redirectAttributes) {
+        String loginUserId = (String) session.getAttribute("loginUser");
+        if (loginUserId == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("user", loginUserId);
+
+        try {
+            // imagePaths를 JSON 배열(List<String>)으로 파싱
+            ObjectMapper mapper = new ObjectMapper();
+            List<String> urls = mapper.readValue(imagePaths, new TypeReference<List<String>>() {});
+            if (urls != null && !urls.isEmpty()) {
+                // 첫 번째 URL에서 기본 경로 추출
+                String firstUrl = urls.get(0);
+                int index = firstUrl.indexOf("/scene_");
+                if (index != -1) {
+                    String basePath = firstUrl.substring(0, index);
+                    // 필요하다면 뒤에 슬래시 추가 ("final_outputs/")
+                    logDto.setPath(basePath);
+                } else {
+                    // /scene_이 발견되지 않으면 첫 번째 URL 전체 사용
+                    logDto.setPath(firstUrl);
+                }
+            } else {
+                logDto.setPath("");
+            }
+        } catch (Exception e) {
+            // 파싱중 예외 처리
+            redirectAttributes.addFlashAttribute("error", "이미지 경로 처리 중 오류 발생");
+            return "redirect:/play";
+        }
+
         logDto.setUserUid(loginUserId);
-
-        String uploadDir = "C:/uploads/log/1/";
-        logDto.setPath(uploadDir);
-
-        playService.savelog(logDto);
-
-        return "redirect:/log"; // 저장 완료 후 게시판으로 이동
+        playService.saveLog(logDto);
+        return "redirect:/log";
     }
 }

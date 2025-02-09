@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>웹툰 생성 진행 상황</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #002855;
+            border-bottom: 1px solid #002855;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        .nav-container {
+            display: flex;
+            gap: 20px;
+        }
+        .nav-container a {
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 20px;
+        }
+        .logo {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            font-weight: bold;
+            color: #002855;
+        }
+        .logo img {
+            height: 100px;
+            object-fit: contain;
+        }
+        .profile-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+        }
+        .header-profile-img {
+            height: 50px;
+            object-fit: contain;
+            border-radius: 50%;
+            border: 2px solid #ffffff;
+        }
+        .logout-btn, .header-profile-img {
+            position: relative;
+            right: 30px;
+        }
+        .logout-btn {
+            background-color: #002855;
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 20px;
+            text-decoration: none;
+        }
+        main {
+            flex: 1;
+            margin-top: 80px;
+            padding: 20px;
+            background-image: url('/image/backg1.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        .progress-container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+        }
+        .progress-bar {
+            height: 30px;
+            background-color: #002855;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        .content-container {
+            display: flex;
+            flex-direction: row; /* 가로 정렬 */
+            justify-content: center; /* 중앙 정렬 */
+            align-items: flex-start; /* 위쪽 정렬 */
+            gap: 20px; /* JSON과 이미지 사이 간격 */
+        }
+
+        #json-preview {
+            width: 40%; /* 화면의 절반 차지 */
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            padding: 10px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        #image-preview {
+            width: 40%; /* 부모 컨테이너 크기 설정 */
+            display: flex;
+            flex-direction: column; /* 이미지를 세로로 정렬 */
+            align-items: center; /* 중앙 정렬 */
+            gap: 10px;
+        }
+
+        #image-preview img {
+            max-width: 100%; /* 부모 요소(`#image-preview`)의 너비에 맞춤 */
+            max-height: 600px; /* 최대 높이 제한 (너무 길어지는 것 방지) */
+            width: auto; /* 가로 크기 자동 조정 */
+            height: auto; /* 세로 크기 자동 조정 */
+            object-fit: contain; /* 이미지 비율 유지하면서 크기 맞춤 */
+            display: block;
+            margin: 0 auto; /* 가운데 정렬 */
+        }
+
+        .hamburger{
+            display: none;
+            font-size: 24px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        footer {
+            background-color: #002855;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #ddd;
+        }
+        .footer-links a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #ffffff;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block; /* 햄버거 메뉴 표시 */
+                color: #ffffff;
+            }
+
+            .nav-container {
+                display: none; /* 기본적으로 숨김 */
+            }
+
+            .nav-container.responsive {
+                display: flex; /* 햄버거 클릭 시 표시 */
+                flex-direction: column; /* 세로 정렬 */
+                align-items: flex-start;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 15%;
+                background-color: #002855;
+                padding: 10px 20px;
+                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+                z-index: 1000;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <button class="hamburger" onclick="toggleNav()">☰</button>
+    <nav class="nav-container">
+        <a href="/home">Home</a>
+        <a href="/play">PlayModel</a>
+        <a href="/board">Board</a>
+        <a href="/log">Log</a>
+    </nav>
+    <div class="logo">
+        <a href="/home">
+            <img src="/image/logo.jpg" alt="Fiction2Toon 로고" style="height: 50px;">
+        </a>
+    </div>
+    <div class="profile-container">
+        <img src="/image/profile.jpg" alt="Profile" class="header-profile-img">
+        <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+
+</header>
+
+<main>
+    <h1 style="color: #002855; text-align: center;">웹툰 생성 진행 중...</h1>
+    <div class="progress-container">
+        <div class="progress-bar" style="width: 0%"></div>
+    </div>
+    <div id="status-message" style="color: #002855; text-align: center;">초기화 중...</div>
+    <div class="content-container">
+        <div id="json-preview"></div>
+        <div id="image-preview"></div>
+    </div>
+</main>
+
+<footer>
+    <div class="footer-links">
+        <a href="/home">Home</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+    </div>
+    <p style="color: #ffffff;">&copy; 2025 hooncompany</p>
+</footer>
+
+
+<script>
+    // FastAPI WebSocket 서버의 wss:// URL 사용
+    const socket = new WebSocket('wss://fastapi-28-d9cacgcxh0dnhgg0.koreasouth-01.azurewebsites.net/ws/text_to_webtoon');
+    let totalChunks = 0;
+    let jsonProgress = 0;
+    let imageProgress = 0;
+
+    /**
+     * Base64 문자열을 Uint8Array로 변환하는 함수.
+     * @param {string} base64 - 파일 데이터가 담긴 base64 문자열
+     * @returns {Uint8Array}
+     */
+    function base64ToUint8Array(base64) {
+        const binaryString = window.atob(base64);
+        const len = binaryString.length;
+        const bytes = new Uint8Array(len);
+        for (let i = 0; i < len; i++) {
+            bytes[i] = binaryString.charCodeAt(i);
+        }
+        return bytes;
+    }
+
+    socket.onopen = function() {
+        console.log('WebSocket 연결 성공');
+        // playmodel.html에서 sessionStorage에 저장한 파일 데이터(Base64 문자열)를 불러옴.
+        const fileDataBase64 = sessionStorage.getItem('fileData');
+        if (!fileDataBase64) {
+            console.error('업로드할 파일 데이터가 없습니다.');
+            document.getElementById('status-message').textContent = '업로드할 파일이 없습니다.';
+            return;
+        }
+        // Base64 문자열을 Uint8Array로 변환 후 전송
+        const fileBuffer = base64ToUint8Array(fileDataBase64);
+        socket.send(fileBuffer);
+        console.log('파일 전송 완료 (byte length):', fileBuffer.length);
+    };
+
+    socket.onmessage = function(event) {
+        const data = JSON.parse(event.data);
+        console.log('Received:', data);
+
+        if (data.total_chunks) {
+            totalChunks = data.total_chunks;
+            document.getElementById('status-message').textContent =
+                `총 ${totalChunks}개의 장면을 생성 중입니다...`;
+        }
+
+        if (data.json_url) {
+            updateProgress('json', data.processed_chunks, totalChunks);
+            displayJson(data.json_url);
+        }
+        if (data.image_url) {
+            updateProgress('image', data.processed_chunks, totalChunks);
+            displayImage(data.image_url);
+        }
+        if (data.status === "completed") {
+            if (data.scene_urls) {
+                sessionStorage.setItem('sceneUrls', JSON.stringify(data.scene_urls));
+            }
+            finishProcessing();
+        }
+        if (data.error) {
+            showError(data.error);
+        }
+    };
+
+    socket.onerror = function(event) {
+        console.error('WebSocket 오류:', event);
+        showError('WebSocket 연결 오류가 발생했습니다.');
+    };
+
+    socket.onclose = function(event) {
+        console.log('WebSocket 연결 종료:', event);
+    };
+
+    // 진행률 업데이트: JSON 처리와 이미지 처리 각각 50% 비율로 계산
+    function updateProgress(type, current, total) {
+        if (type === 'json') {
+            jsonProgress = (current / total) * 50;
+        } else if (type === 'image') {
+            imageProgress = (current / total) * 50;
+        }
+        const totalProgress = jsonProgress + imageProgress;
+        document.querySelector('.progress-bar').style.width = `${totalProgress}%`;
+        document.getElementById('status-message').textContent =
+            `진행률: ${Math.round(totalProgress)}% (${type === 'json' ? 'JSON' : '이미지'} 처리 중: ${current}/${total})`;
+    }
+
+    // 새로운 JSON 데이터를 받으면 기존 JSON 영역을 덮어씌움.
+    function displayJson(url) {
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const jsonContainer = document.getElementById('json-preview');
+                // 기존 내용 삭제
+                jsonContainer.innerHTML = "";
+                // 새 JSON 내용을 추가
+                const content = document.createElement('div');
+                content.className = 'json-content';
+                content.textContent = JSON.stringify(data, null, 2);
+                jsonContainer.appendChild(content);
+            })
+            .catch(error => console.error('JSON 로딩 오류:', error));
+    }
+
+    // 새로운 이미지 URL을 받으면 기존 이미지 영역을 덮어씌움.
+    function displayImage(url) {
+        const container = document.getElementById('image-preview');
+        // 기존 이미지 삭제
+        container.innerHTML = "";
+        const img = document.createElement('img');
+        img.src = url;
+        container.appendChild(img);
+    }
+
+    function finishProcessing() {
+        document.getElementById('status-message').textContent =
+            '모든 생성이 완료되었습니다! 잠시 후 저장 페이지로 이동합니다...';
+        setTimeout(() => {
+            window.location.href = '/play/savelog';
+        }, 3000);
+    }
+
+    function showError(message) {
+        document.getElementById('status-message').textContent = '오류 발생: ' + message;
+    }
+
+    function toggleNav() {
+        const nav = document.querySelector('.nav-container');
+        nav.classList.toggle('responsive');
+    }
+
+    function logout() {
+        window.location.href = "/login";
+    }
+
+</script>
+</body>
+</html>
