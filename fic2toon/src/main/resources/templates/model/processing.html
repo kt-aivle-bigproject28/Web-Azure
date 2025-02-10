@@ -222,7 +222,7 @@
 
 <script>
     // FastAPI WebSocket 서버의 wss:// URL 사용
-    const socket = new WebSocket('wss://fastapi-28-d9cacgcxh0dnhgg0.koreasouth-01.azurewebsites.net/ws/text_to_webtoon');
+    const socket = new WebSocket('wss://36d5-182-230-143-218.ngrok-free.app/ws/text_to_webtoon');
     let totalChunks = 0;
     let jsonProgress = 0;
     let imageProgress = 0;
@@ -298,9 +298,9 @@
     // 진행률 업데이트: JSON 처리와 이미지 처리 각각 50% 비율로 계산
     function updateProgress(type, current, total) {
         if (type === 'json') {
-            jsonProgress = (current / total) * 50;
+            jsonProgress = (current / total) * 100;
         } else if (type === 'image') {
-            imageProgress = (current / total) * 50;
+            imageProgress = (current / total) * 0;
         }
         const totalProgress = jsonProgress + imageProgress;
         document.querySelector('.progress-bar').style.width = `${totalProgress}%`;
