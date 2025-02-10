@@ -100,7 +100,7 @@ public class LogController {
      *      반환값은 "27dfff0a95604194bd810574fdf89a99/final_outputs/"가 됩니다.
      */
     private String extractBlobPath(String fullPath) {
-        String containerUrl = "https://aivlestorage.blob.core.windows.net/" + containerName + "/";
+        String containerUrl = "https://aivlesa28.blob.core.windows.net/" + containerName + "/";
         if (fullPath.startsWith(containerUrl)) {
             return fullPath.substring(containerUrl.length());
         }
